@@ -1,0 +1,14 @@
+mango
+icecream
+--start 1--
+1234
+6789
+**end 1**
+how are you
+have a nice day
+--start 2--
+a
+b
+c
+**end 2**
+par,far,mar,tar

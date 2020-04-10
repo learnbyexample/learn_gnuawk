@@ -709,7 +709,7 @@ $ # same as: awk '{gsub(/part|parrot|parent/, "X")} 1'
 $ echo 'par part parrot parent' | awk '{gsub(/par(en|ro)?t/, "X")} 1'
 par X X X
 
-$ # '<' to be replaced with '\<' only if not preceded by '\'
+$ # '<' to be replaced with '\<' optionally preceded by '\'
 $ echo 'blah \< foo bar < blah baz <' | awk '{gsub(/\\?</, "\\<")} 1'
 blah \< foo bar \< blah baz \<
 ```

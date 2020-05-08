@@ -6,7 +6,7 @@ Example based guide to mastering GNU awk.
     <img src="./images/gawk.png" width="320px" height="400px" />
 </p>
 
-Exercises not yet included, but will be added soon...
+The book also includes exercises to test your understanding, which is presented together as a single file in this repo - [Exercises.md](./exercises/Exercises.md)
 
 See [Version_changes.md](./Version_changes.md) to keep track of changes made to the book.
 
@@ -69,6 +69,7 @@ Twitter: https://twitter.com/learn_byexample
 * Cover image: [LibreOffice Draw](https://www.libreoffice.org/discover/draw/)
 * [softwareengineering.stackexchange](https://softwareengineering.stackexchange.com/questions/39/whats-your-favourite-quote-about-programming) and [skolakoda](https://skolakoda.org/programming-quotes) for programming quotes
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
+* [arifmahmudrana](https://github.com/arifmahmudrana) for spotting an ambiguous explanation
 
 Special thanks to all my friends and online acquaintances for their help, support and encouragement, especially during these difficult times.
 

@@ -18,7 +18,7 @@ If you are new to the world of command line, check out [ryanstutorials](https://
 
 ## Conventions
 
-* The examples presented here have been tested on `GNU bash` shell with **GNU awk 5.0.1** and includes features not available in earlier versions
+* The examples presented here have been tested on `GNU bash` shell with **GNU awk 5.1.0** and includes features not available in earlier versions
 * Code snippets shown are copy pasted from `bash` shell and modified for presentation purposes. Some commands are preceded by comments to provide context and explanations. Blank lines have been added to improve readability, only `real` time is shown for speed comparisons, output is skipped for commands like `wget` and so on
 * Unless otherwise noted, all examples and explanations are meant for **ASCII** characters
 * `awk` would mean `GNU awk`, `grep` would mean `GNU grep` and so on unless otherwise specified
@@ -33,6 +33,7 @@ If you are new to the world of command line, check out [ryanstutorials](https://
 * Cover image: [LibreOffice Draw](https://www.libreoffice.org/discover/draw/)
 * [softwareengineering.stackexchange](https://softwareengineering.stackexchange.com/questions/39/whats-your-favourite-quote-about-programming) and [skolakoda](https://skolakoda.org/programming-quotes) for programming quotes
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
+* [arifmahmudrana](https://github.com/arifmahmudrana) for spotting an ambiguous explanation
 
 Special thanks to all my friends and online acquaintances for their help, support and encouragement, especially during these difficult times.
 
@@ -65,7 +66,7 @@ Resources mentioned in Acknowledgements section are available under original lic
 
 ## Book version
 
-0.7  
+1.0  
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/Version_changes.md) to track changes across book versions.
 
 # Installation and Documentation
@@ -78,9 +79,9 @@ If you are on a Unix like system, you are most likely to already have some versi
 
 ```bash
 $ # use a dir, say ~/Downloads/awk_install before following the steps below
-$ wget https://ftp.gnu.org/gnu/gawk/gawk-5.0.1.tar.xz
-$ tar -Jxf gawk-5.0.1.tar.xz
-$ cd gawk-5.0.1/
+$ wget https://ftp.gnu.org/gnu/gawk/gawk-5.1.0.tar.xz
+$ tar -Jxf gawk-5.1.0.tar.xz
+$ cd gawk-5.1.0/
 $ ./configure 
 $ make
 $ sudo make install
@@ -89,7 +90,7 @@ $ type -a awk
 awk is /usr/local/bin/awk
 awk is /usr/bin/awk
 $ awk --version | head -n1
-GNU Awk 5.0.1, API: 2.0
+GNU Awk 5.1.0, API: 3.0
 ```
 
 >![info](images/info.svg) See also [gawk manual: Installation](https://www.gnu.org/software/gawk/manual/html_node/Installation.html) for advanced options and instructions to install `awk` on other platforms.
@@ -125,7 +126,6 @@ DESCRIPTION
 For a quick overview of all the available options, use `awk --help` from the command line.
 
 ```bash
-$ # only partial output shown here and whitespace is adjusted for alignment
 $ awk --help
 Usage: awk [POSIX or GNU style options] -f progfile [--] file ...
 Usage: awk [POSIX or GNU style options] [--] 'program' file ...
@@ -190,7 +190,7 @@ what
 
 Similar to `grep` and `sed`, by default `awk` automatically loops over input content line by line. You can then use `awk`'s programming instructions to process those lines. As `awk` is primarily used from the command line, many shortcuts are available to reduce the amount of typing needed.
 
-In the above examples, a regular expression (defined by the pattern between a pair of forward slashes) has been used to filter the input. Regular expressions (regexp) will be covered in detail in next chapter, only simple string value is used here without any special characters. The full syntax is `string ~ /regexp/` to check if the given string matches the regexp and `string !~ /regexp/` to check if doesn't match. When the string isn't specified, the test is performed against a special variable `$0`, which has the contents of the input line. The correct term would be input **record**, but that's a discussion for a later chapter.
+In the above examples, a regular expression (defined by the pattern between a pair of forward slashes) has been used to filter the input. Regular expressions (regexp) will be covered in detail in the next chapter, only simple string value is used here without any special characters. The full syntax is `string ~ /regexp/` to check if the given string matches the regexp and `string !~ /regexp/` to check if doesn't match. When the string isn't specified, the test is performed against a special variable `$0`, which has the contents of the input line. The correct term would be input **record**, but that's a discussion for a later chapter.
 
 Also, in the above examples, only the filtering condition was given and nothing about what should be done. By default, when the condition evaluates to `true`, the contents of `$0` is printed. Thus:
 
@@ -270,11 +270,11 @@ cake
 banana
 
 $ # print lines only if last field is a negative number
-$ # recall that default action is to print contents of $0
+$ # recall that default action is to print the contents of $0
 $ awk '$NF<0' table.txt
 blue cake mug shirt -7
 
-$ # change 'b' to 'B' only for first field
+$ # change 'b' to 'B' only for the first field
 $ awk '{gsub(/b/, "B", $1)} 1' table.txt
 Brown bread mat hair 42
 Blue cake mug shirt -7
@@ -382,7 +382,85 @@ Key found
 
 In my early days of getting used to the Linux command line, I was intimidated by `sed` and `awk` examples and didn't even try to learn them. Hopefully, this gentler introduction works for you and the various syntactical magic has been explained adequately. Try to experiment with the given examples, for example change field number to something other than the number used. Be curious, like what happens if field number is negative or a floating-point number. Read the manual. Practice a lot.
 
-Next chapter is dedicated solely for regular expressions. The features introduced in this chapter would be used in the examples, so make sure you are comfortable with `awk` syntax before proceeding.
+Next chapter is dedicated solely for regular expressions. The features introduced in this chapter would be used in the examples, so make sure you are comfortable with `awk` syntax before proceeding. And, do solve the exercises coming up in the next section.
+
+## Exercises
+
+>![info](images/info.svg) Exercise related files are available from [exercises folder of learn_gnuawk repo](https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises).
+
+**a)** For the input file `addr.txt`, display all lines containing `is`.
+
+```bash
+$ cat addr.txt
+Hello World
+How are you
+This game is good
+Today is sunny
+12345
+You are funny
+
+$ awk ##### add your solution here
+This game is good
+Today is sunny
+```
+
+**b)** For the input file `addr.txt`, display first field of lines *not* containing `y`. Consider space as the field separator for this file.
+
+```bash
+$ awk ##### add your solution here
+Hello
+This
+12345
+```
+
+**c)** For the input file `addr.txt`, display all lines containing no more than 2 fields.
+
+```bash
+$ awk ##### add your solution here
+Hello World
+12345
+```
+
+**d)** For the input file `addr.txt`, display all lines containing `is` in the second field.
+
+```bash
+$ awk ##### add your solution here
+Today is sunny
+```
+
+**e)** For each line of the input file `addr.txt`, replace first occurrence of `o` with `0`.
+
+```bash
+$ awk ##### add your solution here
+Hell0 World
+H0w are you
+This game is g0od
+T0day is sunny
+12345
+Y0u are funny
+```
+
+**f)** For the input file `table.txt`, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.
+
+```bash
+$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+
+$ awk ##### add your solution here
+-923.16
+```
+
+**g)** Append `.` to all the input lines for the given `stdin` data.
+
+```bash
+$ printf 'last\nappend\nstop\ntail\n' | awk ##### add your solution here
+last.
+append.
+stop.
+tail.
+```
 
 # Regular Expressions
 
@@ -460,7 +538,7 @@ The second type of restriction is word anchors. A word character is any alphabet
 
 Use `\<` to indicate start of word anchor and `\>` to indicate end of word anchor. As an alternate, you can use `\y` to indicate both the start of word and end of word anchors.
 
->![info](images/info.svg) Typically `\b` is used to represent word anchor (for example, in `grep`, `sed`, `perl`, etc), but in `awk` the escape sequence `\b` always refers to the backspace character.
+>![info](images/info.svg) Typically `\b` is used to represent word anchor (for example, in `grep`, `sed`, `perl`, etc), but in `awk` the escape sequence `\b` refers to the backspace character.
 
 ```bash
 $ cat word_anchors.txt
@@ -556,7 +634,7 @@ $ echo 'cats dog bee parrot foxed' | awk '{gsub(/cat|dog|fox/, "--")} 1'
 
 There's some tricky situations when using alternation. If it is used for filtering a line, there is no ambiguity. However, for use cases like substitution, it depends on a few factors. Say, you want to replace `are` or `spared` — which one should get precedence? The bigger word `spared` or the substring `are` inside it or based on something else?
 
-The alternative which matches earliest in the input gets precedence. Unlike other regular expression implementations, order of alternation doesn't affect the results.
+The alternative which matches earliest in the input gets precedence.
 
 ```bash
 $ # note that 'sub' is used here, so only first match gets replaced
@@ -566,7 +644,7 @@ $ echo 'cats dog bee parrot foxed' | awk '{sub(/parrot|at|bee/, "--")} 1'
 c--s dog bee parrot foxed
 ```
 
-In case of matches starting from same location, for example `spar` and `spared`, the longest matching portion gets precedence. See also [Longest match wins](#longest-match-wins) section for more examples.
+In case of matches starting from same location, for example `spar` and `spared`, the longest matching portion gets precedence. Unlike other regular expression implementations, left-to-right priority for alternation comes into play only if length of the matches are the same. See [Longest match wins](#longest-match-wins) and [Backreferences](#backreferences) sections for more examples.
 
 ```bash
 $ # example for alternations starting from same location
@@ -574,6 +652,10 @@ $ echo 'spared party parent' | awk '{sub(/spa|spared/, "**")} 1'
 ** party parent
 $ echo 'spared party parent' | awk '{sub(/spared|spa/, "**")} 1'
 ** party parent
+
+$ # other implementations like 'perl' have left-to-right priority
+$ echo 'spared party parent' | perl -pe 's/spa|spared/**/'
+**red party parent
 ```
 
 ## Grouping
@@ -581,25 +663,25 @@ $ echo 'spared party parent' | awk '{sub(/spared|spa/, "**")} 1'
 Often, there are some common things among the regular expression alternatives. It could be common characters or qualifiers like the anchors. In such cases, you can group them using a pair of parentheses metacharacters. Similar to `a(b+c)d = abd+acd` in maths, you get `a(b|c)d = abd|acd` in regular expressions.
 
 ```bash
-# without grouping
+$ # without grouping
 $ printf 'red\nreform\nread\narrest\n' | awk '/reform|rest/'
 reform
 arrest
-# with grouping
+$ # with grouping
 $ printf 'red\nreform\nread\narrest\n' | awk '/re(form|st)/'
 reform
 arrest
 
-# without grouping
+$ # without grouping
 $ printf 'sub par\nspare\npart time\n' | awk '/\<par\>|\<part\>/'
 sub par
 part time
-# taking out common anchors
+$ # taking out common anchors
 $ printf 'sub par\nspare\npart time\n' | awk '/\<(par|part)\>/'
 sub par
 part time
-# taking out common characters as well
-# you'll later learn a better technique instead of using empty alternate
+$ # taking out common characters as well
+$ # you'll later learn a better technique instead of using empty alternate
 $ printf 'sub par\nspare\npart time\n' | awk '/\<par(|t)\>/'
 sub par
 part time
@@ -709,12 +791,12 @@ $ # same as: awk '{gsub(/part|parrot|parent/, "X")} 1'
 $ echo 'par part parrot parent' | awk '{gsub(/par(en|ro)?t/, "X")} 1'
 par X X X
 
-$ # '<' to be replaced with '\<' only if not preceded by '\'
+$ # both '<' and '\<' are replaced with '\<'
 $ echo 'blah \< foo bar < blah baz <' | awk '{gsub(/\\?</, "\\<")} 1'
 blah \< foo bar \< blah baz \<
 ```
 
-The `*` metacharacter quantifies a character or group to match `0` or more times. There is no upper bound, more details will be discussed later in this section.
+The `*` metacharacter quantifies a character or group to match `0` or more times. There is no upper bound, more details will be discussed later in the next section.
 
 ```bash
 $ # 'f' followed by zero or more of 'e' followed by 'd'
@@ -808,7 +890,7 @@ $ echo 'foo123312baz' | perl -pe 's/o(1|2|3)+(12baz)?/X/'
 foXbaz
 ```
 
-While determining the longest match, overall regular expression matching is also considered. That's how `Error.*valid` example worked. If `.*` had consumed everything after `Error`, there wouldn't be any more characters to try to match after `valid`. So, among the varying quantity of characters to match for `.*`, the longest portion that satisfies the overall regular expression is chosen. Something like `a.*b` will match from first `a` in the input string to the last `b` in the string. In other implementations, like `perl`, this is achieved through a process called **backtracking**. Both approaches have their own advantages and disadvantages and have cases where the regexp can result in exponential time consumption.
+While determining the longest match, overall regular expression matching is also considered. That's how `Error.*valid` example worked. If `.*` had consumed everything after `Error`, there wouldn't be any more characters to try to match `valid`. So, among the varying quantity of characters to match for `.*`, the longest portion that satisfies the overall regular expression is chosen. Something like `a.*b` will match from first `a` in the input string to the last `b` in the string. In other implementations, like `perl`, this is achieved through a process called **backtracking**. Both approaches have their own advantages and disadvantages and have cases where the regexp can result in exponential time consumption.
 
 ```bash
 $ # from start of line to last 'm' in the line
@@ -1024,6 +1106,27 @@ $ echo "universe: '42'" | awk '{gsub(/\x27/, "")} 1'
 universe: 42
 ```
 
+>![info](images/info.svg) If a metacharacter is specified by ASCII value, it will still act as the metacharacter. Undefined escape sequences will result in a warning and treated as the character it escapes.
+
+```bash
+$ # \x5e is ^ character, acts as line anchor here
+$ printf 'cute\ncot\ncat\ncoat\n' | awk '/\x5eco/'
+cot
+coat
+
+$ # & metacharacter in replacement will be discussed in a later section
+$ # it represents entire matched portion
+$ echo 'hello world' | awk '{sub(/.*/, "[&]")} 1'
+[hello world]
+$ # \x26 is & character
+$ echo 'hello world' | awk '{sub(/.*/, "[\x26]")} 1'
+[hello world]
+
+$ echo 'read' | awk '{sub(/a/, "\.")} 1'
+awk: cmd. line:1: warning: escape sequence `\.' treated as plain `.'
+re.d
+```
+
 >![info](images/info.svg) See [gawk manual: Escape Sequences](https://www.gnu.org/software/gawk/manual/gawk.html#Escape-Sequences) for full list and other details.
 
 ## Replace specific occurrence
@@ -1075,9 +1178,11 @@ Hi. hello world. Have a nice day
 
 $ # here {N} refers to last but Nth occurrence
 $ s='456:foo:123:bar:789:baz'
-$ echo "$s" | awk '{print gensub(/(.*):((.*:){2})/, "\\1[]\\2", "g")}'
+$ echo "$s" | awk '{print gensub(/(.*):((.*:){2})/, "\\1[]\\2", 1)}'
 456:foo:123[]bar:789:baz
 ```
+
+>![warning](images/warning.svg) See [unix.stackexchange: Why doesn't this sed command replace the 3rd-to-last "and"?](https://unix.stackexchange.com/questions/579889/why-doesnt-this-sed-command-replace-the-3rd-to-last-and) for a bug related to use of word boundaries in the `((){N})` generic case.
 
 >![warning](images/warning.svg) Unlike other regular expression implementations, like `grep` or `sed` or `perl`, backreferences cannot be used in search section in `awk`. See also [unix.stackexchange: backreference in awk](https://unix.stackexchange.com/questions/361427/backreference-in-awk-regex).
 
@@ -1088,6 +1193,20 @@ $ # note the numbers used in replacement section
 $ s='one,2,3.14,42'
 $ echo "$s" | awk '{$0=gensub(/^(([^,]+,){2})([^,]+)/, "[\\1](\\3)", 1)} 1'
 [one,2,](3.14),42
+```
+
+Here's an example where alternation order matters when matching portions have same length. Aim is to delete all whole words unless it starts with `g` or `p` and contains `y`.
+
+```bash
+$ s='tryst,fun,glyph,pity,why,group'
+
+$ # all words get deleted because \w+ gets priority here
+$ echo "$s" | awk '{print gensub(/\<\w+\>|(\<[gp]\w*y\w*\>)/, "\\1", "g")}'
+,,,,,
+
+$ # capture group gets priority here, thus words matching the group are retained
+$ echo "$s" | awk '{print gensub(/(\<[gp]\w*y\w*\>)|\<\w+\>/, "\\1", "g")}'
+,,glyph,pity,,
 ```
 
 As `\` and `&` are special characters inside double quotes in replacement section, use `\\` and `\\&` respectively for literal representation.
@@ -1114,7 +1233,7 @@ Cat
 cOnCaT
 scatter
 
-$ # for small enough set, can also use character class
+$ # for small enough string, can also use character class
 $ printf 'Cat\ncOnCaT\nscatter\ncot\n' | awk '{gsub(/[cC][aA][tT]/, "dog")} 1'
 dog
 cOndog
@@ -1176,6 +1295,157 @@ f*(a^b) - 3*c
 
 Regular expressions is a feature that you'll encounter in multiple command line programs and programming languages. It is a versatile tool for text processing. Although the features in `awk` are less compared to those found in programming languages, they are sufficient for most of the tasks you'll need for command line usage. It takes a lot of time to get used to syntax and features of regular expressions, so I'll encourage you to practice a lot and maintain notes. It'd also help to consider it as a mini-programming language in itself for its flexibility and complexity.
 
+## Exercises
+
+**a)** For the given input, print all lines that start with `den` or end with `ly`.
+
+```bash
+$ lines='lovely\n1 dentist\n2 lonely\neden\nfly away\ndent\n'
+$ printf '%b' "$lines" | awk ##### add your solution here
+lovely
+2 lonely
+dent
+```
+
+**b)** Replace all occurrences of `42` with `[42]` unless it is at the edge of a word. Note that **word** in these exercises have same meaning as defined in regular expressions.
+
+```bash
+$ echo 'hi42bye nice421423 bad42 cool_42a 42c' | awk ##### add your solution here
+hi[42]bye nice[42]1[42]3 bad42 cool_[42]a 42c
+```
+
+**c)** Add `[]` around words starting with `s` and containing `e` and `t` in any order.
+
+```bash
+$ words='sequoia subtle exhibit asset sets tests site'
+$ echo "$words" | awk ##### add your solution here
+sequoia [subtle] exhibit asset [sets] tests [site]
+```
+
+**d)** Replace the space character that occurs after a word ending with `a` or `r` with a newline character.
+
+```bash
+$ echo 'area not a _a2_ roar took 22' | awk ##### add your solution here
+area
+not a
+_a2_ roar
+took 22
+```
+
+**e)** Replace all occurrences of `[4]|*` with `2` for the given input.
+
+```bash
+$ echo '2.3/[4]|*6 foo 5.3-[4]|*9' | awk ##### add your solution here
+2.3/26 foo 5.3-29
+```
+
+**f)** `awk '/\<[a-z](on|no)[a-z]\>/'` is same as `awk '/\<[a-z][on]{2}[a-z]\>/'`. True or False? Sample input shown below might help to understand the differences, if any.
+
+```bash
+$ printf 'known\nmood\nknow\npony\ninns\n'
+known
+mood
+know
+pony
+inns
+```
+
+**g)** Print all lines that start with `hand` and ends with `s` or `y` or `le` or no further character. For example, `handed` shouldn't be printed even though it starts with `hand`.
+
+```bash
+$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\n'
+$ printf '%b' "$lines" | awk ##### add your solution here
+hand
+handy
+hands
+handle
+```
+
+**h)** Replace `42//5` or `42/5` with `8` for the given input.
+
+```bash
+$ echo 'a+42//5-c pressure*3+42/5-14256' | awk ##### add your solution here
+a+8-c pressure*3+8-14256
+```
+
+**i)** For the given quantifiers, what would be the equivalent form using `{m,n}` representation?
+
+* `?` is same as
+* `*` is same as
+* `+` is same as
+
+**j)** True or False? `(a*|b*)` is same as `(a|b)*` 
+
+**k)** For the given input, construct two different regexps to get the outputs as shown below.
+
+```bash
+$ # delete from '(' till next ')'
+$ echo 'a/b(division) + c%d() - (a#(b)2(' | awk ##### add your solution here
+a/b + c%d - 2(
+
+$ # delete from '(' till next ')' but not if there is '(' in between
+$ echo 'a/b(division) + c%d() - (a#(b)2(' | awk ##### add your solution here
+a/b + c%d - (a#2(
+```
+
+**l)** For the input file `anchors.txt`, convert **markdown** anchors to corresponding **hyperlinks**.
+
+```bash
+$ cat anchors.txt
+# <a name="regular-expressions"></a>Regular Expressions
+## <a name="subexpression-calls"></a>Subexpression calls
+
+$ awk ##### add your solution here
+[Regular Expressions](#regular-expressions)
+[Subexpression calls](#subexpression-calls)
+```
+
+**m)** Display all lines that satisfies **both** of these conditions:
+
+* `professor` matched irrespective of case
+* `quip` or `this` matched case sensitively
+
+Input is a file downloaded from internet as shown below.
+
+```bash
+$ wget https://www.gutenberg.org/files/345/345.txt -O dracula.txt
+
+$ awk ##### add your solution here
+equipment of a professor of the healing craft. When we were shown in,
+should be. I could see that the Professor had carried out in this room,
+"Not up to this moment, Professor," she said impulsively, "but up to
+and sprang at us. But by this time the Professor had gained his feet,
+this time the Professor had to ask her questions, and to ask them pretty
+```
+
+**n)** Given sample strings have fields separated by `,` and field values cannot be empty. Replace the third field with `42`.
+
+```bash
+$ echo 'lion,ant,road,neon' | awk ##### add your solution here
+lion,ant,42,neon
+
+$ echo '_;3%,.,=-=,:' | awk ##### add your solution here
+_;3%,.,42,:
+```
+
+**o)** For the given strings, replace last but third `so` with `X`. Only print the lines which are changed by the substitution.
+
+```bash
+$ printf 'so and so also sow and soup' | awk ##### add your solution here
+so and X also sow and soup
+
+$ printf 'sososososososo\nso and so\n' | awk ##### add your solution here
+sososoXsososo
+```
+
+**p)** Surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them. Can you do it with single substitution?
+
+```bash
+$ words='tiger imp goat eagle ant important'
+$ echo "$words" | awk ##### add your solution here
+(tiger) () (goat) (eagle) () (important)
+```
+
 # Field separators
 
 Now that you are familiar with basic `awk` syntax and regular expressions, this chapter will dive deep into field processing. You'll learn how to set input and output field separators, how to use regexps for defining fields and how to work with fixed length fields. 
@@ -1224,7 +1494,7 @@ $ awk '{print $NF-1}' table.txt
 2.14
 ```
 
-By default, `awk` does more than split the input on spaces. It splits based on one or more sequence of space or tab or newline characters. In addition, any of these three characters at start or end of input gets trimmed and won't be part of field contents. Input containing newline character will be covered in [Record separators](#record-separators) chapter.
+By default, `awk` does more than split the input on spaces. It splits based on one or more sequence of **space** or **tab** or **newline** characters. In addition, any of these three characters at the start or end of input gets trimmed and won't be part of field contents. Input containing newline character will be covered in [Record separators](#record-separators) chapter.
 
 ```bash
 $ echo '   a   b   c   ' | awk '{print NF}'
@@ -1239,8 +1509,8 @@ c.
 $ # here's another example with tab characters thrown in
 $ printf '     one \t two\t\t\tthree  ' | awk '{print NF}'
 3
-$ printf '     one \t two\t\t\tthree  ' | awk '{print $2}'
-two
+$ printf '     one \t two\t\t\tthree  ' | awk '{print $2 "."}'
+two.
 ```
 
 >![warning](images/warning.svg) When passing an expression for field number, floating-point result is acceptable too. The fractional portion is ignored. However, as precision is limited, it could result in rounding instead of truncation.
@@ -1265,7 +1535,7 @@ window
 
 ## Input field separator
 
-The most common way to change the default field separator is to use the `-F` command line option. The value passed to the option will be treated as a regexp. For now, here's some examples without any special regexp characters.
+The most common way to change the default field separator is to use the `-F` command line option. The value passed to the option will be treated as a string literal and then converted to a regexp. For now, here's some examples without any special regexp characters.
 
 ```bash
 $ # use ':' as input field separator
@@ -1340,6 +1610,19 @@ $ echo '   a   b   c   ' | awk -F' ' '{print NF}'
 $ # there are 12 space characters, thus 13 fields
 $ echo '   a   b   c   ' | awk -F'[ ]' '{print NF}'
 13
+```
+
+>![warning](images/warning.svg) If `IGNORECASE` is set, it will affect field separation as well. Except when field separator is a single character, which can be worked around by using a character class.
+
+```bash
+$ echo 'RECONSTRUCTED' | awk -F'[aeiou]+' -v IGNORECASE=1 '{print $1}'
+R
+
+$ # when FS is a single character
+$ echo 'RECONSTRUCTED' | awk -F'e' -v IGNORECASE=1 '{print $1}'
+RECONSTRUCTED
+$ echo 'RECONSTRUCTED' | awk -F'[e]' -v IGNORECASE=1 '{print $1}'
+R
 ```
 
 ## Output field separator
@@ -1451,9 +1734,21 @@ $ echo "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
 
 >![warning](images/warning.svg) The above will not work for all kinds of `csv` files, for example if fields contain escaped double quotes, newline characters, etc. See [stackoverflow: What's the most robust way to efficiently parse CSV using awk?](https://stackoverflow.com/questions/45420535/whats-the-most-robust-way-to-efficiently-parse-csv-using-awk) for such cases. You could also use other programming languages such as Perl, Python, Ruby, etc which come with standard `csv` parsing libraries or have easy access to third party solutions. There are also specialized command line tools such as [xsv](https://github.com/BurntSushi/xsv).
 
+>![info](images/info.svg) If `IGNORECASE` is set, it will affect field matching. Unlike `FS`, there is no different behavior for single character pattern.
+
+```bash
+$ # count number of 'e' in the input string
+$ echo 'Read Eat Sleep' | awk -v FPAT='e' '{print NF}'
+3
+$ echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='e' '{print NF}'
+4
+$ echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='[e]' '{print NF}'
+4
+```
+
 ## FIELDWIDTHS
 
-`FIELDWIDTHS` is another feature where you get to define field contents. As indicated by the name, you have specify number of characters for each field. This method is useful to process fixed width file inputs, and especially when they can contain empty fields.
+`FIELDWIDTHS` is another feature where you get to define field contents. As indicated by the name, you have to specify number of characters for each field. This method is useful to process fixed width file inputs, and especially when they can contain empty fields.
 
 ```bash
 $ cat items.txt
@@ -1503,6 +1798,108 @@ Working with fields is the most popular feature of `awk`. This chapter discussed
 
 Next chapter will discuss various ways to use record separators and related special variables.
 
+## Exercises
+
+**a)** Extract only the contents between `()` or `)(` from each input line. Assume that `()` characters will be present only once every line.
+
+```bash
+$ cat brackets.txt
+foo blah blah(ice) 123 xyz$ 
+(almond-pista) choco
+yo )yoyo( yo
+
+$ awk ##### add your solution here
+ice
+almond-pista
+yoyo
+```
+
+**b)** For the input file `scores.csv`, extract `Name` and `Physics` fields in the format shown below.
+
+```bash
+$ cat scores.csv
+Name,Maths,Physics,Chemistry
+Blue,67,46,99
+Lin,78,83,80
+Er,56,79,92
+Cy,97,98,95
+Ort,68,72,66
+Ith,100,100,100
+
+$ awk ##### add your solution here
+Name:Physics
+Blue:46
+Lin:83
+Er:79
+Cy:98
+Ort:72
+Ith:100
+```
+
+**c)** For the input file `scores.csv`, display names of those who've scored above `70` in Maths.
+
+```bash
+$ awk ##### add your solution here
+Lin
+Cy
+Ith
+```
+
+**d)** Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with `gsub` and one without substitution functions?
+
+```bash
+$ echo 'hi there' | awk ##### add your solution here
+7
+
+$ echo 'u-no;co%."(do_12:as' | awk ##### add your solution here
+12
+```
+
+**e)** Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions or string concatenation.
+
+```bash
+$ echo '1 "grape" and "mango" and "guava"' | awk ##### add your solution here
+"grape","guava"
+
+$ echo '("a 1""b""c-2""d")' | awk ##### add your solution here
+"a 1","c-2"
+```
+
+**f)** Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions. Can you do it without explicitly using `print` function as well?
+
+```bash
+$ echo 'hi,bye,there,was,here,to' | awk ##### add your solution here
+hi,bye,to
+
+$ echo '1,2,3,4,5' | awk ##### add your solution here
+1,2,5
+```
+
+**g)** Transform the given input file `fw.txt` to get the output as shown below. If a field is empty (i.e. contains only space characters), replace it with `NA`.
+
+```bash
+$ cat fw.txt
+1.3  rs   90  0.134563
+3.8           6
+5.2  ye       8.2387
+4.2  kt   32  45.1
+
+$ awk ##### add your solution here
+1.3,rs,0.134563
+3.8,NA,6
+5.2,ye,8.2387
+4.2,kt,45.1
+```
+
+**h)** Display only the third and fifth characters from each line input line as shown below.
+
+```bash
+$ printf 'restore\ncat one\ncricket' | awk ##### add your solution here
+so
+to
+ik
+```
+
 # Record separators
 
 So far, you've seen examples where `awk` automatically splits input line by line based on the `\n` newline character. Just like you can control how those lines are further split into fields using `FS` and other features, `awk` provides a way to control what constitutes a line in the first place. In `awk` parlance, the term **record** is used to describe the contents that gets placed in the `$0` variable. And similar to `OFS`, you can control the string that gets added at the end for `print` function. This chapter will also discuss how you can use special variables that have information related to record (line) numbers.
@@ -1531,7 +1928,7 @@ a,b
 x,y,z
 ```
 
-The `RS` value is treated as a regexp, just like it did for `FS`. For now, consider an example with multiple characters for `RS` but without needing regexp metacharacters.
+Similar to `FS`, the `RS` value is treated as a string literal and then converted to a regexp. For now, consider an example with multiple characters for `RS` but without needing regexp metacharacters.
 
 ```bash
 $ cat report.log
@@ -1546,6 +1943,19 @@ $ awk -v RS='Error:' '/something/' report.log
  second record starts
 something went wrong
 some more details 
+```
+
+>![warning](images/warning.svg) If `IGNORECASE` is set, it will affect record separation as well. Except when record separator is a single character, which can be worked around by using a character class.
+
+```bash
+$ awk -v IGNORECASE=1 -v RS='error:' 'NR==1' report.log
+blah blah 
+
+$ # when RS is a single character
+$ awk -v IGNORECASE=1 -v RS='e' 'NR==1' report.log
+blah blah Error: s
+$ awk -v IGNORECASE=1 -v RS='[e]' 'NR==1' report.log
+blah blah 
 ```
 
 >![warning](images/warning.svg) The default line ending for text files varies between different platforms. For example, a text file downloaded from internet or a file originating from Windows OS would typically have lines ending with carriage return and line feed characters. So, you'll have to use `RS='\r\n'` for such files. See also [stackoverflow: Why does my tool output overwrite itself and how do I fix it?](https://stackoverflow.com/questions/45772525/why-does-my-tool-output-overwrite-itself-and-how-do-i-fix-it) for a detailed discussion and mitigation methods.
@@ -1597,7 +2007,7 @@ $ printf '1\n2' | awk '1; END{print 3}'
 
 ## Regexp RS and RT
 
-As mentioned before, the value passed to `RS` is treated as a regular expression. Here's some examples.
+As mentioned before, the value passed to `RS` is treated as a string literal and then converted to a regexp. Here's some examples.
 
 ```bash
 $ # set input record separator as one or more digit characters
@@ -1736,7 +2146,7 @@ hello
 ---
 ```
 
->When RS is set to the empty string and FS is set to a single character, the newline character always acts as a field separator. This is in addition to whatever field separations result from FS. When FS is the null string (`""`) or a regexp, this special feature of RS does not apply. It does apply to the default field separator of a single space: `FS = " "`.
+>When RS is set to the empty string and FS is set to a single character, the newline character always acts as a field separator. This is in addition to whatever field separations result from FS. When FS is the null string (`""`) or a regexp, this special feature of RS does not apply. It does apply to the default field separator of a single space: `FS = " "`
 
 ```bash
 $ s='a:b\nc:d\n\n1\n2\n3'
@@ -1832,23 +2242,175 @@ This chapter showed you how to change the way input content is split into record
 
 So far, you've used `awk` to manipulate file content without modifying the source file. The next chapter will discuss how to write back the changes to the original input files.
 
+## Exercises
+
+**a)** The input file `jumbled.txt` consists of words separated by various delimiters. Display all words that contain `an` or `at` or `in` or `it`, one per line.
+
+```bash
+$ cat jumbled.txt
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+joint[]seer{intuition}titanic
+
+$ awk ##### add your solution here
+overcoats
+furrowing
+wavering
+joint
+intuition
+titanic
+```
+
+**b)** Emulate `paste -sd,` with `awk`.
+
+```bash
+$ # this command joins all input lines with ',' character
+$ paste -sd, addr.txt
+Hello World,How are you,This game is good,Today is sunny,12345,You are funny
+$ # make sure there's no ',' at end of the line
+$ # and that there's a newline character at the end of the line
+$ awk ##### add your solution here
+Hello World,How are you,This game is good,Today is sunny,12345,You are funny
+
+$ # if there's only one line in input, again make sure there's no trailing ','
+$ printf 'foo' | paste -sd,
+foo
+$ printf 'foo' | awk ##### add your solution here
+foo
+```
+
+**c)** For the input file `scores.csv`, add another column named `GP` which is calculated out of `100` by giving `50%` weightage to `Maths` and `25%` each for `Physics` and `Chemistry`.
+
+```bash
+$ awk ##### add your solution here
+Name,Maths,Physics,Chemistry,GP
+Blue,67,46,99,69.75
+Lin,78,83,80,79.75
+Er,56,79,92,70.75
+Cy,97,98,95,96.75
+Ort,68,72,66,68.5
+Ith,100,100,100,100
+```
+
+**d)** For the input file `sample.txt`, extract all paragraphs containing `do` and exactly two lines.
+
+```bash
+$ cat sample.txt
+Hello World
+
+Good day
+How are you
+
+Just do-it
+Believe it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+Much ado about nothing
+He he he
+
+$ # note that there's no extra empty line at the end of the output
+$ awk ##### add your solution here
+Just do-it
+Believe it
+
+Much ado about nothing
+He he he
+```
+
+**e)** For the input file `sample.txt`, change all paragraphs into single line by joining lines using `.` and a space character as the separator. And add a final `.` to each paragraph.
+
+```bash
+$ # note that there's no extra empty line at the end of the output
+$ awk ##### add your solution here
+Hello World.
+
+Good day. How are you.
+
+Just do-it. Believe it.
+
+Today is sunny. Not a bit funny. No doubt you like it too.
+
+Much ado about nothing. He he he.
+```
+
+**f)** The various input/output separators can be changed dynamically and comes into effect during the next input/output operation. For the input file `mixed_fs.txt`, retain only first two fields from each input line. The field separators should be space for first two lines and `,` for the rest of the lines.
+
+```bash
+$ cat mixed_fs.txt
+rose lily jasmine tulip
+pink blue white yellow
+car,mat,ball,basket
+green,brown,black,purple
+
+$ awk ##### add your solution here
+rose lily
+pink blue
+car,mat
+green,brown
+```
+
+**g)** For the input file `table.txt`, get the outputs shown below. All of them feature line number as part of the solution.
+
+```bash
+$ # print other than second line
+$ awk ##### add your solution here
+brown bread mat hair 42
+yellow banana window shoes 3.14
+
+$ # print line number of lines containing 'air' or 'win'
+$ awk ##### add your solution here
+1
+3
+
+$ # calculate the sum of numbers in last column, except second line
+$ awk ##### add your solution here
+45.14
+```
+
+**h)** Print second and fourth line for every block of five lines.
+
+```bash
+$ seq 15 | awk ##### add your solution here
+2
+4
+7
+9
+12
+14
+```
+
+**i)** For the input file `odd.txt`, surround all whole words with `{}` that start and end with the same word character. This is a contrived exercise to make you use `RT`. In real world, you can use `sed -E 's/\b(\w|(\w)\w*\2)\b/{&}/g' odd.txt` to solve this.
+
+```bash
+$ cat odd.txt
+-oreo-not:a _a2_ roar<=>took%22
+RoaR to wow-
+
+$ awk ##### add your solution here
+-{oreo}-not:{a} {_a2_} {roar}<=>took%{22}
+{RoaR} to {wow}-
+```
+
 # In-place file editing
 
 In the examples presented so far, the output from `awk` was displayed on the terminal. This chapter will discuss how to write back the changes to the input file(s) itself using the `-i` command line option. This option can be configured to make changes to the input file(s) with or without creating a backup of original contents.
 
 ## Without backup
 
-The `-i` option allows you to load libraries (see documentation for details). `inplace` library comes by default with the `awk` installation. Use `-i inplace` to indicate that `awk` should modify the original input itself. Use this option with caution, preferably after testing that the code is working as intended.
+The `-i` option allows you to load libraries (see [gawk manual: -i option](https://www.gnu.org/software/gawk/manual/gawk.html#index-_002di-option) for details). `inplace` library comes by default with the `awk` installation. Use `-i inplace` to indicate that `awk` should modify the original input itself. Use this option with caution, preferably after testing that the code is working as intended.
 
 ```bash
-$ cat greeting.txt
+$ cat greet.txt
 Hi there
 Have a nice day
 Good bye
 
 $ # prefix line numbers
-$ awk -i inplace '{print NR ". " $0}' greeting.txt
-$ cat greeting.txt
+$ awk -i inplace '{print NR ". " $0}' greet.txt
+$ cat greet.txt
 1. Hi there
 2. Have a nice day
 3. Good bye
@@ -1899,6 +2461,53 @@ Raj  56  64
 This chapter discussed about the `-i inplace` option which is useful when you need to edit a file in-place. This is particularly useful in automation scripts. But, do ensure that you have tested the `awk` command before applying to actual files if you need to use this option without creating backups.
 
 The next chapter will revisit the use of shell variables in `awk` commands.
+
+## Exercises
+
+**a)** For the input file `copyright.txt`, replace `copyright: 2018` with `copyright: 2020` and write back the changes to `copyright.txt` itself. The original contents should get saved to `copyright.txt.orig`
+
+```bash
+$ cat copyright.txt
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2018
+$ awk ##### add your solution here
+
+$ cat copyright.txt
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2020
+$ cat copyright.txt.orig
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2018
+```
+
+**b)** For the input files `nums1.txt` and `nums2.txt`, retain only second and third lines and write back the changes to their respective files. No need to create backups.
+
+```bash
+$ cat nums1.txt
+3.14
+4201
+777
+0323012
+$ cat nums2.txt
+-45.4
+-2
+54316.12
+0x231
+
+$ awk ##### add your solution here
+$ cat nums1.txt
+4201
+777
+$ cat nums2.txt
+-2
+54316.12
+```
 
 # Using shell variables
 
@@ -1976,9 +2585,32 @@ This short chapter revisited the `-v` command line option and introduced the `EN
 
 The next chapter will cover control structures.
 
+## Exercises
+
+**a)** Use contents of `s` variable to display all matching lines from the input file `sample.txt`. Assume that the `s` variable doesn't have any regexp metacharacters and construct a solution such that only whole words are matched.
+
+```bash
+$ s='do'
+$ ##### add your solution here
+Just do-it
+```
+
+**b)** Replace all occurrences of `o` for the input file `addr.txt` with literal contents of `s` variable. Assume that the `s` variable has regexp metacharacters.
+
+```bash
+$ s='\&/'
+$ ##### add your solution here
+Hell\&/ W\&/rld
+H\&/w are y\&/u
+This game is g\&/\&/d
+T\&/day is sunny
+12345
+Y\&/u are funny
+```
+
 # Control Structures
 
-You've already seen various examples with conditional expressions playing a role in solving the problem. This chapter will revisit `if-else` control structure along with the ternary operator. Then you will see some examples with explicit loops (recall that `awk` is already looping over input records). Followed by keywords that control loop flow. Most of the syntax is very similar to the `C` language.
+You've already seen various examples requiring conditional expressions. This chapter will revisit `if-else` control structure along with the ternary operator. Then you will see some examples with explicit loops (recall that `awk` is already looping over input records). Followed by keywords that control loop flow. Most of the syntax is very similar to the `C` language.
 
 ## if-else
 
@@ -2016,11 +2648,13 @@ blue cake mug shirt -7
 ======
 ```
 
+>![info](images/info.svg) See also [stackoverflow: finding min and max value of a column](https://stackoverflow.com/a/29784278).
+
 >![info](images/info.svg) See also [gawk manual: switch](https://www.gnu.org/software/gawk/manual/gawk.html#Switch-Statement).
 
 ## loops
 
-`for` loops are handy when you are working with arrays. Since input fields can be referred dynamically by passing an expression with `$N` syntax, `for` loops are useful for processing them as well.
+`for` loops are handy when you are working with arrays. Also for processing input fields, since `$N` syntax allows passing an expression instead of fixed value.
 
 ```bash
 $ awk 'BEGIN{for(i=2; i<7; i+=2) print i}'
@@ -2035,7 +2669,7 @@ $ awk -v OFS=, '{for(i=1; i<=NF; i++) if($i ~ /^[bm]/) $i="["$i"]"} 1' table.txt
 yellow,[banana],window,shoes,3.14
 ```
 
-Here's an example of looping over arrays where the keys do not follow any numerical arithmetic progression.
+Here's an example of looping over a dynamically constructed array.
 
 ```bash
 $ cat marks.txt
@@ -2064,7 +2698,9 @@ blue
 yellow,banana
 ```
 
-`awk` also supports `while` and `do-while` loop mechanisms.
+>![info](images/info.svg) See also [stackoverflow: find missing numbers from sequential list](https://stackoverflow.com/questions/38491676/how-can-i-find-the-missing-integers-in-a-unique-and-sequential-list-one-per-lin).
+
+`awk` supports `while` and `do-while` loop mechanisms as well.
 
 ```bash
 $ awk 'BEGIN{i=6; while(i>0){print i; i-=2}}'
@@ -2074,6 +2710,10 @@ $ awk 'BEGIN{i=6; while(i>0){print i; i-=2}}'
 
 $ # recursive substitution
 $ echo 'titillate' | awk '{while(gsub(/til/, "")) print}'
+tilate
+ate
+$ echo 'titillate' | awk '{do{print} while(gsub(/til/, ""))}'
+titillate
 tilate
 ate
 ```
@@ -2103,13 +2743,13 @@ $ seq 3542 4623452 | awk 'NR==2452{print; exit}'
 $ echo $?
 0
 
-$ awk '/^br/{print "Invalid input"; exit 1}' table.txt 
+$ awk '/^br/{print "Invalid input"; exit 1}' table.txt
 Invalid input
 $ echo $?
 1
 
 $ # any remaining files to be processed are also skipped
-$ awk 'FNR==2{print; exit}' table.txt greeting.txt 
+$ awk 'FNR==2{print; exit}' table.txt greeting.txt
 blue cake mug shirt -7
 ```
 
@@ -2131,6 +2771,85 @@ bye
 This chapter covered some of the control flow structures provided by `awk`. These features makes `awk` flexible and easier to use compared to `sed` for those familiar with programming languages.
 
 Next chapter will discuss some of the built-in functions.
+
+## Exercises
+
+**a)** The input file `nums.txt` contains single column of numbers. Change positive numbers to negative and vice versa. Can you do it with using only `sub` function and without explicit use of `if-else` or ternary operator?
+
+```bash
+$ cat nums.txt
+42
+-2
+10101
+-3.14
+-75
+
+$ awk ##### add your solution here
+-42
+2
+-10101
+3.14
+75
+```
+
+**b)** For the input file `table.txt`, change the field separator from space to `,` character. Also, any field not containing digit characters should be surrounded by double quotes.
+
+```bash
+$ awk ##### add your solution here
+"brown","bread","mat","hair",42
+"blue","cake","mug","shirt",-7
+"yellow","banana","window","shoes",3.14
+```
+
+**c)** For each input line of the file `secrets.txt`, remove all characters except the last character of each field. Assume space as the input field separator.
+
+```bash
+$ cat secrets.txt
+stag area row tick
+deaf chi rate tall glad
+Bi tac toe - 42
+
+$ awk ##### add your solution here
+gawk
+field
+ice-2
+```
+
+**d)** Emulate `q` and `Q` commands of `sed` as shown below.
+
+```bash
+$ # sed '/are/q' sample.txt will print until (and including) line contains 'are'
+$ awk ##### add your solution here
+Hello World
+
+Good day
+How are you
+
+$ # sed '/are/Q' sample.txt will print until (but excluding) line contains 'are'
+$ awk ##### add your solution here
+Hello World
+
+Good day
+```
+
+**e)** For the input file `addr.txt`:
+
+* if line contains `e`
+    * delete all occurrences of `e`
+    * surround all consecutive repeated characters with `{}`
+    * assume that input will not have more than two consecutive repeats
+* if line doesn't contain `e` but contains `u`
+    * surround all lowercase vowels in that line with `[]`
+
+```bash
+$ awk ##### add your solution here
+H{ll}o World
+How ar you
+This gam is g{oo}d
+T[o]d[a]y [i]s s[u]nny
+12345
+You ar fu{nn}y
+```
 
 # Built-in functions
 
@@ -2158,12 +2877,14 @@ brown bread mat hair 42
 blue cake mug shirt -7
 ```
 
-If you need number of bytes, instead of number of characters, then use the `-b` command line option as well.
+If you need number of bytes, instead of number of characters, then use the `-b` command line option as well. Locale can also play a role.
 
 ```bash
 $ echo 'αλεπού' | awk '{print length()}'
 6
 $ echo 'αλεπού' | awk -b '{print length()}'
+12
+$ echo 'αλεπού' | LC_ALL=C awk '{print length()}'
 12
 ```
 
@@ -2178,14 +2899,14 @@ x 12
 z 1
 b 42
 
-$ # index sorted ascending order as strings
+$ # index sorted in ascending order as strings
 $ awk 'BEGIN{PROCINFO["sorted_in"] = "@ind_str_asc";
        a["z"]=1; a["x"]=12; a["b"]=42; for(i in a) print i, a[i]}'
 b 42
 x 12
 z 1
 
-$ # value sorted ascending order as numbers
+$ # value sorted in ascending order as numbers
 $ awk 'BEGIN{PROCINFO["sorted_in"] = "@val_num_asc";
        a["z"]=1; a["x"]=12; a["b"]=42; for(i in a) print i, a[i]}'
 z 1
@@ -2193,9 +2914,19 @@ x 12
 b 42
 ```
 
+Here's an example of sorting input lines in ascending order based on second column, treating the data as string.
+
+```bash
+$ awk 'BEGIN{PROCINFO["sorted_in"] = "@ind_str_asc"}
+       {a[$2]=$0} END{for(k in a) print a[k]}' table.txt
+yellow banana window shoes 3.14
+brown bread mat hair 42
+blue cake mug shirt -7
+```
+
 ## split
 
-The `split` function provides the same features as the record splitting done using `FS`. This is helpful when you need the results as an array for some reason, for example to use array sorting features. Or, when you need to split some string in addition to record splitting. `split` accepts four arguments, with last two being optional.
+The `split` function provides the same features as the record splitting done using `FS`. This is helpful when you need the results as an array for some reason, for example to use array sorting features. Or, when you need to further split a field content. `split` accepts four arguments, with last two being optional.
 
 * First argument is the string to be split
 * Second argument is the array variable to save results
@@ -2216,7 +2947,7 @@ Joe was born in 1996
 $ # single row to multiple rows based on splitting last field
 $ s='air,water,12:42:3'
 $ echo "$s" | awk -F, '{n=split($NF, a, ":");
-                       for(i=1; i<=n; i++) print $1,$2,a[i]}'
+                       for(i=1; i<=n; i++) print $1, $2, a[i]}'
 air water 12
 air water 42
 air water 3
@@ -2230,7 +2961,7 @@ $ echo "$s" | awk '{split($0, s, /[0-9]+/); print s[2], s[4]}'
 string numbers
 ```
 
-The fourth argument provides a feature not present with record splitting. It allows you to save the portions matched by the separator in an array.
+The fourth argument provides a feature not present with `FS` splitting. It allows you to save the portions matched by the separator in an array.
 
 ```bash
 $ # note that it is i<n not i<=n
@@ -2397,7 +3128,6 @@ Recall that `-v` option gets parsed by `awk`'s string processing rules. So, if y
 $ echo 'a\b\c\d' | awk -v s='a\b' 'index($0, s)'
 $ echo 'a\b\c\d' | awk -v s='a\\b' 'index($0, s)'
 a\b\c\d
-
 $ echo 'a\b\c\d' | s='a\b' awk 'index($0, ENVIRON["s"])'
 a\b\c\d
 ```
@@ -2419,9 +3149,9 @@ $ awk 'BEGIN{system("seq 10 | paste -sd, > out.txt")}'
 $ cat out.txt
 1,2,3,4,5,6,7,8,9,10
 
-$ cat f2.txt
+$ cat t2.txt
 I bought two balls and 3 bats
-$ echo 'f1,f2,f3' | awk -F, '{system("cat " $2 ".txt")}'
+$ echo 'f1,t2,f3' | awk -F, '{system("cat " $2 ".txt")}'
 I bought two balls and 3 bats
 ```
 
@@ -2443,14 +3173,15 @@ Exit status: 2
 The `printf` function is useful over `print` function when you need to format the data before printing. Another difference is that `OFS` and `ORS` do not affect the `printf` function. The features are similar to those found in `C` programming language and the shell built-in command.
 
 ```bash
-$ # default behavior with print function
-$ # number of digits after decimal point varies based on length
-$ awk 'BEGIN{sum = 3.1428 + 10; print sum}'
-13.1428
+$ # OFMT controls the formatting for numbers displayed with print function
+$ awk 'BEGIN{print OFMT}'
+%.6g
 $ awk 'BEGIN{sum = 3.1428 + 100; print sum}'
 103.143
+$ awk 'BEGIN{OFMT="%.5f"; sum = 3.1428 + 100; print sum}'
+103.14280
 
-$ # use printf function for finer control
+$ # using printf function
 $ # note the use of \n as ORS isn't appended unlike print
 $ awk 'BEGIN{sum = 3.1428 + 10; printf "%f\n", sum}'
 13.142800
@@ -2618,6 +3349,142 @@ This chapter covered some of the built-in functions provided by `awk`. Do check 
 
 Next chapter will cover features related to processing multiple files passed as input to `awk`.
 
+## Exercises
+
+>![info](images/info.svg) Exercises will also include functions and features not discussed in this chapter. Refer to [gawk manual: Functions](https://www.gnu.org/software/gawk/manual/gawk.html#Functions) for details.
+
+**a)** For the input file `scores.csv`, sort the rows based on **Physics** values in descending order. Header should be retained as the first line in output.
+
+```bash
+$ awk ##### add your solution here
+Name,Maths,Physics,Chemistry
+Ith,100,100,100
+Cy,97,98,95
+Lin,78,83,80
+Er,56,79,92
+Ort,68,72,66
+Blue,67,46,99
+```
+
+**b)** For the input file `nums3.txt`, calculate the square root of numbers and display in two different formats. First with four digits after fractional point and next in scientific notation, again with four digits after fractional point. Assume input has only single column positive numbers.
+
+```bash
+$ awk ##### add your solution here
+1.7720
+64.8151
+27.8747
+568.3414
+
+$ awk ##### add your solution here
+1.7720e+00
+6.4815e+01
+2.7875e+01
+5.6834e+02
+```
+
+**c)** Transform the given input strings to the corresponding output shown. Assume space as the field separators. From the second field, remove the second `:` and the number that follows. Modify the last field by multiplying it by the number that was deleted from the second field. The numbers can be positive/negative integers or floating-point numbers (including scientific notation).
+
+```bash
+$ echo 'go x:12:-425 og 6.2' | awk ##### add your solution here
+go x:12 og -2635
+
+$ echo 'rx zwt:3.64:12.89e2 ljg 5' | awk ##### add your solution here
+rx zwt:3.64 ljg 6445
+```
+
+**d)** Transform the given input strings to the corresponding output shown. Assume space as the field separators. Replace the second field with sum of the two numbers embedded in it. The numbers can be positive/negative integers or floating-point numbers (but not scientific notation).
+
+```bash
+$ echo 'f2:z3 kt//-42\\3.14//tw 5y6' | awk ##### add your solution here
+f2:z3 -38.86 5y6
+
+$ echo 't5:x7 qr;wq<=>+10{-8764.124}yb u9' | awk ##### add your solution here
+t5:x7 -8754.12 u9
+```
+
+**e)** For the given input strings, extract portion of the line starting from the matching location specified by shell variable `s` till the end of the line. If there is no match, do not print that line. The contents of `s` should be matched literally.
+
+```bash
+$ s='(a^b)'
+$ echo '3*f + (a^b) - 45' | ##### add your solution here
+(a^b) - 45
+
+$ s='\&/'
+$ # should be no output for this input
+$ echo 'f\&z\&2.14' | ##### add your solution here
+$ # but this one has a match
+$ echo 'f\&z\&/2.14' | ##### add your solution here
+\&/2.14
+```
+
+**f)** Extract all positive integers preceded by `-` and followed by `:` or `;` and display all such matches separated by a newline character.
+
+```bash
+$ s='42 foo-5; baz3; x-83, y-20:-34; f12'
+$ echo "$s" | awk ##### add your solution here
+5
+20
+34
+```
+
+**g)** For the input file `scores.csv`, calculate the average of three marks for each `Name`. Those with average greater than or equal to `80` should be saved in `pass.csv` and the rest in `fail.csv`. The format is `Name` and average score (up to two decimal points) separated by a tab character.
+
+```bash
+$ awk ##### add your solution here
+
+$ cat fail.csv
+Blue    70.67
+Er      75.67
+Ort     68.67
+$ cat pass.csv
+Lin     80.33
+Cy      96.67
+Ith     100.00
+```
+
+**h)** For the input file `files.txt`, replace lines starting with a space with the output of that line executed as a shell command.
+
+```bash
+$ cat files.txt
+ sed -n '2p' addr.txt
+-----------
+ wc -w sample.txt
+===========
+ awk '{print $1}' table.txt
+-----------
+
+$ awk ##### add your solution here
+How are you
+-----------
+31 sample.txt
+===========
+brown
+blue
+yellow
+-----------
+```
+
+**i)** For the input file `fw.txt`, format the last column of numbers in scientific notation with two digits after the decimal point.
+
+```bash
+$ awk ##### add your solution here
+1.3  rs   90  1.35e-01
+3.8           6.00e+00
+5.2  ye       8.24e+00
+4.2  kt   32  4.51e+01
+```
+
+**j)** For the input file `addr.txt`, display all lines containing `e` or `u` but not both.
+
+>![info](images/info.svg) Hint — [gawk manual: Bit-Manipulation Functions](https://www.gnu.org/software/gawk/manual/gawk.html#Bitwise-Functions).
+
+```bash
+$ awk ##### add your solution here
+Hello World
+This game is good
+Today is sunny
+```
+
 # Multiple file input
 
 You have already seen control structures like `BEGIN`, `END` and `next`. This chapter will discuss control structures that are useful to make decisions around each file when there are multiple files passed as input.
@@ -2647,12 +3514,12 @@ yellow banana window shoes 3.14
 
 ## nextfile
 
-`nextfile` will skip remaining records from current file being processed and move on to next file.
+`nextfile` will skip remaining records from current file being processed and move on to the next file.
 
 ```bash
-$ # print filename if it contains '3' anywhere in the file
-$ # same as: grep -l '3' f[1-3].txt greeting.txt
-$ awk '/3/{print FILENAME; nextfile}' f[1-3].txt greeting.txt
+$ # print filename if it contains 'I' anywhere in the file
+$ # same as: grep -l 'I' f[1-3].txt greeting.txt
+$ awk '/I/{print FILENAME; nextfile}' f[1-3].txt greeting.txt
 f1.txt
 f2.txt
 
@@ -2662,6 +3529,8 @@ $ awk 'BEGINFILE{m1=m2=0} /o/{m1=1} /at/{m2=1}
 f2.txt
 f3.txt
 ```
+
+>![warning](images/warning.svg) `nextfile` cannot be used in `BEGIN` or `END` or `ENDFILE` blocks. See [gawk manual: nextfile](https://www.gnu.org/software/gawk/manual/gawk.html#Nextfile-Statement) for more details, how it affects `ENDFILE` and other special cases.
 
 ## ARGC and ARGV
 
@@ -2716,6 +3585,35 @@ Matilda,Castle Hangnail
 This chapter introduced few more special blocks and variables are that handy for processing multiple file inputs. These will show up in examples in coming chapters as well.
 
 Next chapter will discuss use cases where you need to take decisions based on multiple input records.
+
+## Exercises
+
+**a)** Print the last field of first two lines for the input files `table.txt`, `scores.csv` and `fw.txt`. The field separators for these files are space, comma and fixed width respectively. To make the output more informative, print filenames and a separator as shown in the output below. Assume input files will have at least two lines.
+
+```bash
+$ awk ##### add your solution here
+>table.txt<
+42
+-7
+----------
+>scores.csv<
+Chemistry
+99
+----------
+>fw.txt<
+0.134563
+6
+----------
+```
+
+**b)** For the given list of input files, display all filenames that contain `at` or `fun` in the third field. Assume space as the field separator.
+
+```bash
+$ awk ##### add your solution here sample.txt secrets.txt addr.txt table.txt
+secrets.txt
+addr.txt
+table.txt
+```
 
 # Processing multiple records
 
@@ -3121,6 +4019,117 @@ This chapter covered various examples of working with multiple records. State ma
 
 Next chapter will discuss use cases where you need to process a file input based on contents of another file.
 
+## Exercises
+
+**a)** For the input file `sample.txt`, print a matching line containing `do` only if the previous line is empty and the line before that contains `you`.
+
+```bash
+$ awk ##### add your solution here
+Just do-it
+Much ado about nothing
+```
+
+**b)** Print only the second matching line respectively for the search terms `do` and `not` for the input file `sample.txt`. Match these terms case insensitively.
+
+```bash
+$ awk ##### add your solution here
+No doubt you like it too
+Much ado about nothing
+```
+
+**c)** For the input file `sample.txt`, print the matching lines containing `are` or `bit` as well as `n` lines around the matching lines. The value for `n` is passed to the `awk` command via the `-v` option.
+
+```bash
+$ awk -v n=1 ##### add your solution here
+Good day
+How are you
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+$ # note that first and last line are empty for this case
+$ awk -v n=2 ##### add your solution here
+
+Good day
+How are you
+
+Just do-it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+```
+
+**d)** For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. The first `awk` command shown below doesn't work because it is matching till end of file if second marker isn't found. Assume that the input file cannot have two `top` markers without a `bottom` marker appearing in between and vice-versa.
+
+```bash
+$ cat broken.txt
+top
+3.14
+bottom
+---
+top
+1234567890
+bottom
+top
+Hi there
+Have a nice day
+Good bye
+
+$ # wrong output
+$ awk '/bottom/{f=0} f; /top/{f=1}' broken.txt
+3.14
+1234567890
+Hi there
+Have a nice day
+Good bye
+
+$ # expected output
+$ ##### add your solution here
+3.14
+1234567890
+```
+
+**e)** For the input file `concat.txt`, extract contents from a line starting with ``### `` until but not including the next such line. The block to be extracted is indicated by variable `n` passed via the `-v` option.
+
+```bash
+$ cat concat.txt
+### addr.txt
+How are you
+This game is good
+Today is sunny
+### broken.txt
+top
+1234567890
+bottom
+### sample.txt
+Just do-it
+Believe it
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+
+$ awk -v n=2 ##### add your solution here
+### broken.txt
+top
+1234567890
+bottom
+$ awk -v n=4 ##### add your solution here
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+```
+
+**f)** For the input file `ruby.md`, replace all occurrences of `ruby` (irrespective of case) with `Ruby`. But, do not replace any matches between ` ```ruby ` and ` ``` ` lines (`ruby` in these markers shouldn't be replaced either).
+
+```bash
+$ awk ##### add your solution here ruby.md > out.md
+$ diff -sq out.md expected.md 
+Files out.md and expected.md are identical
+```
+
 # Two file processing
 
 This chapter focuses on solving problems which depend upon contents of two files. These are usually based on comparing records and fields. Sometimes, record number plays a role too. You'll also learn about the `getline` built-in function.
@@ -3236,7 +4245,7 @@ EEE 65
 CSE 80
 
 $ # match Dept and minimum marks specified in dept_mark.txt
-$ awk 'NR==FNR{d[$1]=$2; next}                                                       
+$ awk 'NR==FNR{d[$1]=$2; next}
        $1 in d && $3 >= d[$1]' dept_mark.txt marks.txt
 ECE     Joel    72
 EEE     Moi     68
@@ -3318,6 +4327,58 @@ This chapter discussed a few cases where you need to compare contents of two fil
 
 Next chapter will discuss how to handle duplicate contents.
 
+## Exercises
+
+**a)** Use contents of `match_words.txt` file to display matching lines from `jumbled.txt` and `sample.txt`. The matching criteria is that the second word of lines from these files should match the third word of lines from `match_words.txt`.
+
+```bash
+$ cat match_words.txt
+%whole(Hello)--{doubt}==ado==
+just,\joint*,concession<=nice
+
+$ # 'concession' is one of the third words from 'match_words.txt'
+$ # and second word from 'jumbled.txt'
+$ awk ##### add your solution here
+wavering:concession/woof\retailer
+No doubt you like it too
+```
+
+**b)** Interleave contents of `secrets.txt` with the contents of a file passed via `-v` option as shown below.
+
+```bash
+$ awk -v f='table.txt' ##### add your solution here
+stag area row tick
+brown bread mat hair 42
+---
+deaf chi rate tall glad
+blue cake mug shirt -7
+---
+Bi tac toe - 42
+yellow banana window shoes 3.14
+---
+```
+
+**c)** The file `search_terms.txt` contains one search string per line (these have no regexp metacharacters). Construct an `awk` command that reads this file and displays search terms (matched case insensitively) that were found in all of the other file arguments. Note that these terms should be matched with any part of the line, not just whole words.
+
+```bash
+$ cat search_terms.txt
+hello
+row
+you
+is
+at
+
+$ awk ##### add your solution here
+##file list## search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt
+at
+row
+$ awk ##### add your solution here
+##file list## search_terms.txt addr.txt sample.txt
+is
+you
+hello
+```
+
 # Dealing with duplicates
 
 Often, you need to eliminate duplicates from an input file. This could be based on entire line content or based on certain fields. These are typically solved with `sort` and `uniq` commands. Advantage with `awk` include regexp based field and record separators, input doesn't have to be sorted, and in general more flexibility because it is a programming language.
@@ -3378,7 +4439,7 @@ blue,ruby,water,333
 dark red,sky,rose,555
 ```
 
-For multiple fields comparison, separate the fields with `,` so that `SUBSEP` is used to combine the field value to generate the key. As mentioned before, `SUBSEP` has a default value of `\034` non-printing character, which is typically not used in text files.
+For multiple fields comparison, separate the fields with `,` so that `SUBSEP` is used to combine the field values to generate the key. As mentioned before, `SUBSEP` has a default value of `\034` non-printing character, which is typically not used in text files.
 
 ```bash
 $ # based on first and third field
@@ -3448,6 +4509,74 @@ yellow,toy,flower,333
 This chapter showed how to work with duplicate contents, both record and field based. If you don't need regexp based separators and if your input is too big to handle, then specialized command line tools `sort` and `uniq` will be better suited compared to `awk`.
 
 Next chapter will show how to write `awk` scripts instead of the usual one-liners.
+
+## Exercises
+
+**a)** Retain only first copy of a line for the input file `lines.txt`. Case should be ignored while comparing lines. For example `hi there` and `HI TheRE` will be considered as duplicates.
+
+```bash
+$ cat lines.txt
+Go There
+come on
+go there
+---
+2 apples and 5 mangoes
+come on!
+---
+2 Apples
+COME ON
+
+$ awk ##### add your solution here
+Go There
+come on
+---
+2 apples and 5 mangoes
+come on!
+2 Apples
+```
+
+**b)** Retain only first copy of a line for the input file `lines.txt`. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, `hehe haha` and `haha hehe` will be considered as duplicates.
+
+```bash
+$ cat twos.txt
+hehe haha
+door floor
+haha hehe
+6;8 3-4
+true blue
+hehe bebe
+floor door
+3-4 6;8
+tru eblue
+haha hehe
+
+$ awk ##### add your solution here
+hehe haha
+door floor
+6;8 3-4
+true blue
+hehe bebe
+tru eblue
+```
+
+**c)** For the input file `twos.txt`, create a file `uniq.txt` with all the unique lines and `dupl.txt` with all the duplicate lines. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, `hehe haha` and `haha hehe` will be considered as duplicates.
+
+```bash
+$ awk ##### add your solution here
+
+$ cat uniq.txt 
+true blue
+hehe bebe
+tru eblue
+$ cat dupl.txt 
+hehe haha
+door floor
+haha hehe
+6;8 3-4
+floor door
+3-4 6;8
+haha hehe
+```
 
 # awk scripts
 
@@ -3543,6 +4672,56 @@ CSE     Amy     67      sports_rep
 So, now you know how to write program files for `awk` instead of just the one-liners. And about the useful `-o` option, helps to convert complicated one-liners to pretty printed program files.
 
 Next chapter will discuss a few gotchas and tricks.
+
+## Exercises
+
+**a)** Before explaining the problem statement, here's an example of markdown headers and their converted link version. Note the use of `-1` for the second occurrence of `Summary` header. Also note that this sample doesn't simulate all the rules.
+
+```bash
+# Field separators
+## Summary
+# Gotchas and Tips
+## Summary
+
+* [Field separators](#field-separators)
+    * [Summary](#summary)
+* [Gotchas and Tips](#gotchas-and-tips)
+    * [Summary](#summary-1)
+```
+
+For the input file `gawk.md`, construct table of content links as per the details described below.
+
+* Identify all header lines
+    * there are two types of header lines, one starting with ``# `` and the other starting with ``## ``
+    * lines starting with `#` inside code blocks defined by ` ```bash ` and ` ``` ` markers should be ignored
+* The headers lines should then be converted as per the following rules:
+    * content is defined as portion of the header ignoring the initial `#` or `##` characters and a space character
+    * initial `##` should be replaced with four spaces and a `*`
+    * else, initial `#` should be replaced with `*`
+    * create a copy of the content, change it to all lowercase, replace all space characters with `-` character and then place it within `(#` and `)`
+        * if there are multiple headers with same content, append `-1`, `-2`, etc respectively for the second header, third header, etc
+    * surround the original content with `[]` and then append the string obtained from previous step
+* Note that the output should have only the converted headers, all other input lines should not be present
+
+As the input file `gawk.md` is too long, only the commands to verify your solution is shown.
+
+```bash
+$ awk -f toc.awk gawk.md > out.md
+$ diff -sq out.md toc_expected.md
+Files out.md and toc_expected.md are identical
+```
+
+**b)** For the input file `odd.txt`, surround first two whole words of each line with `{}` that start and end with the same word character. Assume that input file will not require case insensitive comparison. This is a contrived exercise that needs around 10 instructions and makes you recall various features presented in this book.
+
+```bash
+$ cat odd.txt
+-oreo-not:a _a2_ roar<=>took%22
+RoaR to wow-
+
+$ awk -f same.awk odd.txt
+-{oreo}-not:{a} _a2_ roar<=>took%22
+{RoaR} to {wow}-
+```
 
 # Gotchas and Tips
 
@@ -3647,6 +4826,36 @@ $ # step 4 - correctly initialize variables
 $ awk '{sum += $NF} ENDFILE{print FILENAME ":" sum; sum=0}' table.txt marks.txt
 table.txt:38.14
 marks.txt:492
+```
+
+## Code in replacement section
+
+The replacement section in substitution functions can accept any expression, converted to string whenever necessary. What happens if the regexp doesn't match the input string but the expression can change the value of a variable, such as increment/decrement operators? Well, the expression is still executed, which may or may not be what you need.
+
+```bash
+$ # no match for second line, but 'c' was still modified
+$ awk '{sub(/^(br|ye)/, ++c ") &")} 1' table.txt
+1) brown bread mat hair 42
+blue cake mug shirt -7
+3) yellow banana window shoes 3.14
+
+$ # check for matching line first before applying substitution
+$ # that may help to simplify the regexp for substitution
+$ # or, you could save the regexp in a variable to avoid duplication
+$ awk '/^(br|ye)/{sub(/^/, ++c ") ")} 1' table.txt
+1) brown bread mat hair 42
+blue cake mug shirt -7
+2) yellow banana window shoes 3.14
+```
+
+Also, the expression is executed only once per function call, not for every match.
+
+```bash
+$ # first line has two matches but 'c' is modified only once
+$ awk '{gsub(/\<b/, ++c ") &")} 1' table.txt
+1) brown 1) bread mat hair 42
+2) blue cake mug shirt -7
+yellow 3) banana window shoes 3.14
 ```
 
 ## Forcing numeric context

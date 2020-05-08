@@ -1,3 +1,5 @@
+## -f option
+
 cat buf.awk
 
 awk -f buf.awk broken.txt
@@ -8,7 +10,10 @@ cat quotes.awk
 
 echo 'cue us on this example' | awk -f quotes.awk
 
+## -o option
+
 awk -o -v OFS='\t' 'NR==FNR{r[$1]=$2; next}
+       {$(NF+1) = FNR==1 ? "Role" : r[$2]} 1' role.txt marks.txt
 
 cat awkprof.out
 

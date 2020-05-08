@@ -1,8 +1,12 @@
+## Prefixing $ for variables
+
 awk -v word="cake" '$2==$word' table.txt
 
 awk -v word="cake" '$2==word' table.txt
 
 awk -v field=2 '{print $field}' table.txt
+
+## Dos style line endings
 
 printf 'mat dog\n123 789\n' | awk '{print $2, $1}'
 
@@ -14,6 +18,8 @@ printf 'mat dog\r\n123 789\r\n' | awk -v RS='\r\n' '{print $2, $1}'
 
 printf 'mat dog\r\n123 789\r\n' | awk -v RS='\r\n' '{sub(/$/, ".")} 1'
 
+## Word boundary differences
+
 echo 'I have 12, he has 2!' | awk '{gsub(/\y..\y/, "[&]")} 1'
 
 echo 'I have 12, he has 2!' | awk '{gsub(/\<..\>/, "[&]")} 1'
@@ -24,6 +30,8 @@ echo 'hi log_42 12b' | awk '{gsub(/\</, ":")} 1'
 
 echo 'hi log_42 12b' | awk '{gsub(/\>/, ":")} 1'
 
+## Relying on default initial value
+
 awk '{sum += $NF} END{print sum}' table.txt
 
 awk '{sum += $NF} ENDFILE{print FILENAME ":" sum}' table.txt
@@ -31,6 +39,16 @@ awk '{sum += $NF} ENDFILE{print FILENAME ":" sum}' table.txt
 awk '{sum += $NF} ENDFILE{print FILENAME ":" sum}' table.txt marks.txt
 
 awk '{sum += $NF} ENDFILE{print FILENAME ":" sum; sum=0}' table.txt marks.txt
+
+## Code in replacement section
+
+awk '{sub(/^(br|ye)/, ++c ") &")} 1' table.txt
+
+awk '/^(br|ye)/{sub(/^/, ++c ") ")} 1' table.txt
+
+awk '{gsub(/\<b/, ++c ") &")} 1' table.txt
+
+## Forcing numeric context
 
 awk '{sum += $NF} END{print sum}' table.txt
 
@@ -40,9 +58,13 @@ awk '{sum += $1} END{print sum}' /dev/null
 
 awk '{sum += $1} END{print +sum}' /dev/null
 
+## Forcing string context
+
 echo '5 5.0' | awk '{print ($1==$2 ? "same" : "different"), "number"}'
 
 echo '5 5.0' | awk '{print ($1""==$2 ? "same" : "different"), "string"}'
+
+## Negative NF
 
 cat varying.txt
 
@@ -53,6 +75,8 @@ awk 'NF>2{NF -= 2} 1' varying.txt
 awk '{print $(NF-2)}' varying.txt
 
 awk 'NF>2{print $(NF-2)}' varying.txt
+
+## Faster execution
 
 time awk '/^([a-d][r-z]){3}$/' /usr/share/dict/words > f1
 

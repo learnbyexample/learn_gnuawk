@@ -1,0 +1,14 @@
+### addr.txt
+How are you
+This game is good
+Today is sunny
+### broken.txt
+top
+1234567890
+bottom
+### sample.txt
+Just do-it
+Believe it
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket

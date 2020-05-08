@@ -1,8 +1,12 @@
+## Processing consecutive records
+
 awk 'p ~ /as/ && /not/{print p ORS $0} {p=$0}' programming_quotes.txt
 
 awk 'p ~ /as/ && /not/{print p} {p=$0}' programming_quotes.txt
 
 awk 'p ~ /as/ && /not/; {p=$0}' programming_quotes.txt
+
+## Context matching
 
 cat context.txt
 
@@ -27,6 +31,8 @@ awk 'NR>2 && /toy|flower/{print p2} {p2=p1; p1=$0}' context.txt
 
 awk -v n=4 'NR>n && /age/{print a[NR-n]} {a[NR]=$0}' context.txt
 
+## Records bounded by distinct markers
+
 cat uniform.txt
 
 awk '/start/{f=1} f; /end/{f=0}' uniform.txt
@@ -44,6 +50,8 @@ awk '/end/{f=0} !f; /start/{f=1}' uniform.txt
 awk '!f; /start/{f=1} /end/{f=0}' uniform.txt
 
 awk '/start/{f=1} /end/{f=0} !f' uniform.txt
+
+## Specific blocks
 
 awk '/start/{f=1} f; /end/{exit}' uniform.txt
 
@@ -64,6 +72,8 @@ seq 30 | awk '/4/{f=1; buf=$0; m=0; next}
               f{buf=buf ORS $0}
               /6/{f=0; if(buf && m) print buf; buf=""}
               /^1/{m=1}'
+
+## Broken blocks
 
 cat broken.txt
 

@@ -1,3 +1,5 @@
+## Default field separation
+
 cat table.txt
 
 awk '$1 ~ /^b/{print $4}' table.txt
@@ -18,7 +20,7 @@ echo '   a   b   c   ' | awk '{print $NF "."}'
 
 printf '     one \t two\t\t\tthree  ' | awk '{print NF}'
 
-printf '     one \t two\t\t\tthree  ' | awk '{print $2}'
+printf '     one \t two\t\t\tthree  ' | awk '{print $2 "."}'
 
 awk 'BEGIN{printf "%.16f\n", 2.999999999999999}'
 
@@ -27,6 +29,8 @@ awk 'BEGIN{printf "%.16f\n", 2.9999999999999999}'
 awk '{print $2.999999999999999}' table.txt
 
 awk '{print $2.9999999999999999}' table.txt
+
+## Input field separator
 
 echo 'goal:amazing:whistle:kwality' | awk -F: '{print $1}'
 
@@ -60,6 +64,14 @@ echo '   a   b   c   ' | awk -F' ' '{print NF}'
 
 echo '   a   b   c   ' | awk -F'[ ]' '{print NF}'
 
+echo 'RECONSTRUCTED' | awk -F'[aeiou]+' -v IGNORECASE=1 '{print $1}'
+
+echo 'RECONSTRUCTED' | awk -F'e' -v IGNORECASE=1 '{print $1}'
+
+echo 'RECONSTRUCTED' | awk -F'[e]' -v IGNORECASE=1 '{print $1}'
+
+## Output field separator
+
 awk '{print $1, $3}' table.txt
 
 echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{print $2, $NF}'
@@ -78,6 +90,8 @@ echo 'Sample123string42with777numbers' | awk -F'[0-9]+' -v OFS=, '1'
 
 echo 'Sample123string42with777numbers' | awk -F'[0-9]+' -v OFS=, '{$1=$1} 1'
 
+## Manipulating NF
+
 echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=, '{NF=2} 1'
 
 echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$(NF+1)="sea"} 1'
@@ -85,6 +99,8 @@ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$(NF+1)="sea"} 1'
 echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$8="go"} 1'
 
 echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{NF=-1} 1'
+
+## FPAT
 
 s='Sample123string42with777numbers'
 
@@ -97,6 +113,14 @@ s='eagle,"fox,42",bee,frog'
 echo "$s" | awk -F, '{print $2}'
 
 echo "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
+
+echo 'Read Eat Sleep' | awk -v FPAT='e' '{print NF}'
+
+echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='e' '{print NF}'
+
+echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='[e]' '{print NF}'
+
+## FIELDWIDTHS
 
 cat items.txt
 

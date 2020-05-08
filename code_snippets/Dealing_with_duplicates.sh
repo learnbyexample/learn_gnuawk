@@ -1,14 +1,20 @@
+## Whole line duplicates
+
 cat purchases.txt
 
 awk '{print +a[$0] "\t" $0; a[$0]++}' purchases.txt
 
 awk '!a[$0]++' purchases.txt
 
+## Column wise duplicates
+
 cat duplicates.txt
 
 awk -F, '!seen[$NF]++' duplicates.txt
 
 awk -F, '!seen[$1,$3]++' duplicates.txt
+
+## Duplicate count
 
 awk -F, '++seen[$2]==2' duplicates.txt
 

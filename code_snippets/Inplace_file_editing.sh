@@ -1,8 +1,10 @@
-cat greeting.txt
+## Without backup
 
-awk -i inplace '{print NR ". " $0}' greeting.txt
+cat greet.txt
 
-cat greeting.txt
+awk -i inplace '{print NR ". " $0}' greet.txt
+
+cat greet.txt
 
 cat f1.txt
 
@@ -13,6 +15,8 @@ awk -i inplace '{gsub(/\<3\>/, "three")} 1' f1.txt f2.txt
 cat f1.txt
 
 cat f2.txt
+
+## With backup
 
 cat f3.txt
 

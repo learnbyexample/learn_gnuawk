@@ -1,3 +1,5 @@
+## length
+
 awk 'BEGIN{print length("road"); print length(123456)}'
 
 printf 'fox\ntiger\n' | awk '{print length()}'
@@ -8,6 +10,10 @@ echo 'αλεπού' | awk '{print length()}'
 
 echo 'αλεπού' | awk -b '{print length()}'
 
+echo 'αλεπού' | LC_ALL=C awk '{print length()}'
+
+## Array sorting
+
 awk 'BEGIN{a["z"]=1; a["x"]=12; a["b"]=42; for(i in a) print i, a[i]}'
 
 awk 'BEGIN{PROCINFO["sorted_in"] = "@ind_str_asc";
@@ -15,6 +21,11 @@ awk 'BEGIN{PROCINFO["sorted_in"] = "@ind_str_asc";
 
 awk 'BEGIN{PROCINFO["sorted_in"] = "@val_num_asc";
      a["z"]=1; a["x"]=12; a["b"]=42; for(i in a) print i, a[i]}'
+
+awk 'BEGIN{PROCINFO["sorted_in"] = "@ind_str_asc"}
+     {a[$2]=$0} END{for(k in a) print a[k]}' table.txt
+
+## split
 
 printf '     one \t two\t\t\tthree  ' | awk '{split($0, a); print a[2]}'
 
@@ -25,7 +36,7 @@ echo "$s" | awk -F, '{split($2, d, "-"); print $1 " was born in " d[1]}'
 s='air,water,12:42:3'
 
 echo "$s" | awk -F, '{n=split($NF, a, ":");
-                     for(i=1; i<=n; i++) print $1,$2,a[i]}'
+                     for(i=1; i<=n; i++) print $1, $2, a[i]}'
 
 s='Sample123string42with777numbers'
 
@@ -41,9 +52,13 @@ cat marks.txt
 awk 'BEGIN{OFS="\t"; split("DCBAS", g, //)}
      {$(NF+1) = NR==1 ? "Grade" : g[int($NF/10)-4]} 1' marks.txt
 
+## patsplit
+
 s='eagle,"fox,42",bee,frog'
 
 echo "$s" | awk '{patsplit($0, a, /"[^"]*"|[^,]*/); print a[2]}'
+
+## substr
 
 echo 'abcdefghij' | awk '{print substr($0, 1, 5)}'
 
@@ -56,6 +71,8 @@ echo 'abcdefghij' | awk -v OFS=: '{print substr($0, 2, 3), substr($0, 6, 3)}'
 echo 'abcdefghij' | awk -v FS= '{print $3}'
 
 echo 'abcdefghij' | awk -v FS= '{print $3, $5}'
+
+## match
 
 s='051 035 154 12 26 98234'
 
@@ -71,6 +88,8 @@ s='42 foo-5, baz3; x-83, y-20: f12'
 
 echo "$s" | awk '{ while( match($0, /([0-9]+),/, m) ){print m[1];
                  $0=substr($0, RSTART+RLENGTH)} }'
+
+## index
 
 cat eqns.txt
 
@@ -92,6 +111,8 @@ echo 'a\b\c\d' | awk -v s='a\\b' 'index($0, s)'
 
 echo 'a\b\c\d' | s='a\b' awk 'index($0, ENVIRON["s"])'
 
+## system
+
 awk 'BEGIN{system("echo Hello World")}'
 
 wc table.txt
@@ -102,9 +123,9 @@ awk 'BEGIN{system("seq 10 | paste -sd, > out.txt")}'
 
 cat out.txt
 
-cat f2.txt
+cat t2.txt
 
-echo 'f1,f2,f3' | awk -F, '{system("cat " $2 ".txt")}'
+echo 'f1,t2,f3' | awk -F, '{system("cat " $2 ".txt")}'
 
 ls xyz.txt
 
@@ -112,9 +133,13 @@ echo $?
 
 awk 'BEGIN{s=system("ls xyz.txt"); print "Exit status: " s}'
 
-awk 'BEGIN{sum = 3.1428 + 10; print sum}'
+## printf and sprintf
+
+awk 'BEGIN{print OFMT}'
 
 awk 'BEGIN{sum = 3.1428 + 100; print sum}'
+
+awk 'BEGIN{OFMT="%.5f"; sum = 3.1428 + 100; print sum}'
 
 awk 'BEGIN{sum = 3.1428 + 10; printf "%f\n", sum}'
 
@@ -153,6 +178,8 @@ awk 'BEGIN{s="solve: 5 % x = 1"; printf "%s\n", s}'
 awk 'BEGIN{printf "n%%d gives the remainder\n"}'
 
 awk 'BEGIN{pi = 3.14159; s = sprintf("%010.3f", pi); print s}'
+
+## Redirecting print output
 
 seq 6 | awk 'NR%2{print > "odd.txt"; next} {print > "even.txt"}'
 

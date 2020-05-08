@@ -1,6 +1,10 @@
+## Syntax and variable assignment
+
 printf 'spared no one\ngrasped\nspar\n' | awk '/ed/'
 
 printf 'spared no one\ngrasped\nspar\n' | awk '{r = @/ed/} $0 ~ r'
+
+## Line Anchors
 
 printf 'spared no one\ngrasped\nspar\n' | awk '/^sp/'
 
@@ -11,6 +15,8 @@ printf 'spared no one\ngrasped\nspar\n' | awk '{sub(/^spar$/, "123")} 1'
 printf 'spared no one\ngrasped\nspar\n' | awk '{gsub(/^/, "* ")} 1'
 
 printf 'spared no one\ngrasped\nspar\n' | awk '!/ /{gsub(/$/, ".")} 1'
+
+## Word Anchors
 
 cat word_anchors.txt
 
@@ -30,9 +36,13 @@ echo 'copper' | awk '{gsub(/\y/, ":")} 1'
 
 echo 'copper' | awk '{gsub(/\B/, ":")} 1'
 
+## Combining conditions
+
 awk '/^b/ && !/at/' table.txt
 
 awk '$1 ~ /low/ || $NF<0' table.txt
+
+## Alternation
 
 awk '/\<par\>|s$/' word_anchors.txt
 
@@ -46,6 +56,10 @@ echo 'spared party parent' | awk '{sub(/spa|spared/, "**")} 1'
 
 echo 'spared party parent' | awk '{sub(/spared|spa/, "**")} 1'
 
+echo 'spared party parent' | perl -pe 's/spa|spared/**/'
+
+## Grouping
+
 printf 'red\nreform\nread\narrest\n' | awk '/reform|rest/'
 
 printf 'red\nreform\nread\narrest\n' | awk '/re(form|st)/'
@@ -56,11 +70,15 @@ printf 'sub par\nspare\npart time\n' | awk '/\<(par|part)\>/'
 
 printf 'sub par\nspare\npart time\n' | awk '/\<par(|t)\>/'
 
+## Matching the metacharacters
+
 echo 'a^2 + b^2 - C*3' | awk '/b\^2/'
 
 echo '(a*b) + c' | awk '{gsub(/\(|)/, "")} 1'
 
 echo '\learn\by\example' | awk '{gsub(/\\/, "/")} 1'
+
+## Using string literal as regexp
 
 p='/home/learnbyexample/reports'
 
@@ -82,11 +100,15 @@ echo '\learn\by\example' | awk '{gsub("\\\\", "/")} 1'
 
 echo '\learn\by\example' | awk '{gsub(/\\/, "/")} 1'
 
+## The dot meta character
+
 echo 'tac tin cot abc:tyz excited' | awk '{gsub(/c.t/, "-")} 1'
 
 printf '4\t35x\n' | awk '{gsub(/.3./, "")} 1'
 
 awk 'BEGIN{s="abc\nxyz"; sub(/c.x/, " ", s); print s}'
+
+## Quantifiers
 
 echo 'fed fold fe:d feeder' | awk '{gsub(/\<fe.?d\>/, "X")} 1'
 
@@ -122,6 +144,8 @@ echo 'two cats and a dog' | awk '{gsub(/cat.*dog|dog.*cat/, "pets")} 1'
 
 echo 'two dogs and a cat' | awk '{gsub(/cat.*dog|dog.*cat/, "pets")} 1'
 
+## Longest match wins
+
 echo 'foot' | awk '{sub(/f.?o/, "X")} 1'
 
 echo 'car bat cod map scat dot abacus' | awk '{sub(/.*/, "X")} 1'
@@ -137,6 +161,8 @@ echo 'car bat cod map scat dot abacus' | awk '{sub(/b.*t/, "-")} 1'
 echo 'car bat cod map scat dot abacus' | awk '{sub(/b.*at/, "-")} 1'
 
 echo 'car bat cod map scat dot abacus' | awk '{sub(/a.*m*/, "-")} 1'
+
+## Character classes
 
 printf 'cute\ncat\ncot\ncoat\ncost\nscuttle\n' | awk '/c[ou]t/'
 
@@ -196,17 +222,31 @@ echo 'int a[5]' | awk '/[x[.y]/'
 
 echo 'int a[5]' | awk '/[x[y.]/'
 
+## Escape sequences
+
 printf 'foo\tbar\tbaz\n' | awk '{gsub(/\t/, " ")} 1'
 
 printf 'a\t\r\fb\vc\n' | awk '{gsub(/[\t\v\f\r]+/, ":")} 1'
 
 echo "universe: '42'" | awk '{gsub(/\x27/, "")} 1'
 
+printf 'cute\ncot\ncat\ncoat\n' | awk '/\x5eco/'
+
+echo 'hello world' | awk '{sub(/.*/, "[&]")} 1'
+
+echo 'hello world' | awk '{sub(/.*/, "[\x26]")} 1'
+
+echo 'read' | awk '{sub(/a/, "\.")} 1'
+
+## Replace specific occurrence
+
 echo 'foo:123:bar:baz' | awk '{print gensub(/:/, "-", 2)}'
 
 echo 'foo:123:bar:baz' | awk '{print gensub(/[^:]+/, "X", 3)}'
 
 echo '1 good 2 apples' | awk '{$4 = gensub(/[aeiou]/, "X", "g", $4)} 1'
+
+## Backreferences
 
 s='\[\] and \\w and \[a-zA-Z0-9\_\]'
 
@@ -218,11 +258,17 @@ echo 'hello world' | awk '{sub(/.*/, "Hi. &. Have a nice day")} 1'
 
 s='456:foo:123:bar:789:baz'
 
-echo "$s" | awk '{print gensub(/(.*):((.*:){2})/, "\\1[]\\2", "g")}'
+echo "$s" | awk '{print gensub(/(.*):((.*:){2})/, "\\1[]\\2", 1)}'
 
 s='one,2,3.14,42'
 
 echo "$s" | awk '{$0=gensub(/^(([^,]+,){2})([^,]+)/, "[\\1](\\3)", 1)} 1'
+
+s='tryst,fun,glyph,pity,why,group'
+
+echo "$s" | awk '{print gensub(/\<\w+\>|(\<[gp]\w*y\w*\>)/, "\\1", "g")}'
+
+echo "$s" | awk '{print gensub(/(\<[gp]\w*y\w*\>)|\<\w+\>/, "\\1", "g")}'
 
 echo 'foo and bar' | awk '{sub(/and/, "[&]")} 1'
 
@@ -230,11 +276,15 @@ echo 'foo and bar' | awk '{sub(/and/, "[\\&]")} 1'
 
 echo 'foo and bar' | awk '{sub(/and/, "\\")} 1'
 
+## Case insensitive matching
+
 printf 'Cat\ncOnCaT\nscatter\ncot\n' | awk -v IGNORECASE=1 '/cat/'
 
 printf 'Cat\ncOnCaT\nscatter\ncot\n' | awk '{gsub(/[cC][aA][tT]/, "dog")} 1'
 
 printf 'Cat\ncOnCaT\nscatter\ncot\n' | awk 'tolower($0) ~ /cat/'
+
+## Dynamic regexp
 
 r='cat.*dog|dog.*cat'
 
@@ -249,6 +299,8 @@ echo '23 154 12 26 34' | awk -v ip="$r" '{gsub(ip, "X")} 1'
 awk -v s='(a.b)^{c}|d' 'BEGIN{gsub(/[{[(^$*?+.|\\]/, "\\\\&", s); print s}'
 
 echo 'f*(a^b) - 3*(a^b)' |
+   awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, "\\\\&", s); gsub(s, "c")} 1'
 
 echo 'f*(a^b) - 3*(a^b)' |
+   awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, "\\\\&", s); gsub(s "$", "c")} 1'
 

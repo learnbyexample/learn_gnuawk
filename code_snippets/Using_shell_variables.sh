@@ -1,6 +1,10 @@
+## -v option
+
 s='cake'
 
 awk -v word="$s" '$2==word' table.txt
+
+## ENVIRON
 
 awk 'BEGIN{print ENVIRON["HOME"]}'
 

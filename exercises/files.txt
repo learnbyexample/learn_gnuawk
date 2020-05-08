@@ -1,0 +1,6 @@
+ sed -n '2p' addr.txt
+-----------
+ wc -w sample.txt
+===========
+ awk '{print $1}' table.txt
+-----------

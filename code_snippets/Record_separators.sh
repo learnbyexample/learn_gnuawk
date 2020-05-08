@@ -1,3 +1,5 @@
+## Input record separator
+
 printf 'this,is\na,sample' | awk -v RS=, '{print NR ")", $0}'
 
 s='   a\t\tb:1000\n\n\n\n123 7777:x  y \n \n z  '
@@ -8,6 +10,14 @@ cat report.log
 
 awk -v RS='Error:' '/something/' report.log
 
+awk -v IGNORECASE=1 -v RS='error:' 'NR==1' report.log
+
+awk -v IGNORECASE=1 -v RS='e' 'NR==1' report.log
+
+awk -v IGNORECASE=1 -v RS='[e]' 'NR==1' report.log
+
+## Output record separator
+
 printf 'foo\0bar\0' | awk -v RS='\0' -v ORS='.\n' '1'
 
 cat msg.txt
@@ -17,6 +27,8 @@ awk -v RS='-\n' -v ORS= '1' msg.txt
 seq 6 | awk '{ORS = NR%3 ? "-" : "\n"} 1'
 
 printf '1\n2' | awk '1; END{print 3}'
+
+## Regexp RS and RT
 
 printf 'Sample123string42with777numbers' | awk -v RS='[0-9]+' '/i/ && /t/'
 
@@ -29,6 +41,8 @@ printf '123string42with777' | awk -v FS='[0-9]+' '{print NF}'
 printf '123string42with777' | awk -v RS='[0-9]+' 'END{print NR}'
 
 echo 'Sample123string42with777numbers' | awk -v RS='[0-9]+' '{print NR, RT}'
+
+## Paragraph mode
 
 cat programming_quotes.txt
 
@@ -56,6 +70,8 @@ printf '%b' "$s" | awk -F':+' -v RS= -v ORS='\n---\n' '{$1=$1} 1'
 
 printf '%b' "$s" | awk -F: -v RS='\n\n+' -v ORS='\n---\n' '{$1=$1} 1'
 
+## NR vs FNR
+
 seq 5 | awk 'NR<=2'
 
 awk 'END{print}' table.txt
@@ -63,6 +79,7 @@ awk 'END{print}' table.txt
 awk 'NR==2{$1="green"} 1' table.txt
 
 awk -v OFS='\t' 'BEGIN{print "NR", "FNR", "Content"}
+                 {print NR, FNR, $0}' report.log table.txt
 
 awk 'FNR==1' report.log table.txt
 

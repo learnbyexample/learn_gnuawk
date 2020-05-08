@@ -1,8 +1,10 @@
-wget https://ftp.gnu.org/gnu/gawk/gawk-5.0.1.tar.xz
+## Installation
 
-tar -Jxf gawk-5.0.1.tar.xz
+wget https://ftp.gnu.org/gnu/gawk/gawk-5.1.0.tar.xz
 
-cd gawk-5.0.1/
+tar -Jxf gawk-5.1.0.tar.xz
+
+cd gawk-5.1.0/
 
 ./configure 
 
@@ -14,7 +16,11 @@ type -a awk
 
 awk --version | head -n1
 
+## Documentation
+
 man awk
+
+## Options overview
 
 awk --help
 

@@ -1,3 +1,5 @@
+## if-else
+
 awk '/^b/{print; if($NF>0) print "------"}' table.txt
 
 awk '/^b/{print; if($NF>0) print "------"; else print "======"}' table.txt
@@ -5,6 +7,8 @@ awk '/^b/{print; if($NF>0) print "------"; else print "======"}' table.txt
 seq 6 | awk '{ORS = NR%3 ? "-" : RS} 1'
 
 awk '/^b/{print; print($NF>0 ? "------" : "======")}' table.txt
+
+## loops
 
 awk 'BEGIN{for(i=2; i<7; i+=2) print i}'
 
@@ -20,17 +24,23 @@ awk 'BEGIN{i=6; while(i>0){print i; i-=2}}'
 
 echo 'titillate' | awk '{while(gsub(/til/, "")) print}'
 
+echo 'titillate' | awk '{do{print} while(gsub(/til/, ""))}'
+
+## next
+
 awk '/\<par/{print "%% " $0; next} {print /s/ ? "X" : "Y"}' word_anchors.txt
+
+## exit
 
 seq 3542 4623452 | awk 'NR==2452{print; exit}'
 
 echo $?
 
-awk '/^br/{print "Invalid input"; exit 1}' table.txt 
+awk '/^br/{print "Invalid input"; exit 1}' table.txt
 
 echo $?
 
-awk 'FNR==2{print; exit}' table.txt greeting.txt 
+awk 'FNR==2{print; exit}' table.txt greeting.txt
 
 awk 'BEGIN{print "hi"; exit; print "hello"}
      /^b/;

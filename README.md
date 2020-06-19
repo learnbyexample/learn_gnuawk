@@ -19,6 +19,7 @@ You can purchase the book using these links:
 * https://gumroad.com/l/gnu_awk
 * https://leanpub.com/gnu_awk
 * You can also get the book as part of **Magical one-liners** bundle from https://gumroad.com/l/oneliners or https://leanpub.com/b/oneliners
+* You can also get the book as part of **Awesome Regex** bundle from https://leanpub.com/b/regex or https://gumroad.com/l/regex
 * See https://learnbyexample.github.io/books/ for list of other books
 
 For a preview of the book, see [sample chapters](https://github.com/learnbyexample/learn_gnuawk/blob/master/sample_chapters/awk_sample_chapters.pdf)

@@ -66,7 +66,7 @@ Resources mentioned in Acknowledgements section are available under original lic
 
 ## Book version
 
-1.0  
+1.1  
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/Version_changes.md) to track changes across book versions.
 
 # Installation and Documentation
@@ -691,11 +691,11 @@ part time
 
 You have seen a few metacharacters and escape sequences that help to compose a regular expression. To match the metacharacters literally, i.e. to remove their special meaning, prefix those characters with a `\` character. To indicate a literal `\` character, use `\\`.
 
-Unlike `grep` and `sed`, the line anchors have to be always escaped to match them literally. They do not lose their special meaning when not used in their customary positions.
+Unlike `grep` and `sed`, the line anchors have to be always escaped to match them literally as there is no BRE mode in `awk`. They do not lose their special meaning when not used in their customary positions.
 
 ```bash
 $ # awk '/b^2/' will not work even though ^ isn't being used as anchor
-$ # however, b^2 will work for both grep and sed
+$ # b^2 will work for both grep and sed if you use BRE syntax
 $ echo 'a^2 + b^2 - C*3' | awk '/b\^2/'
 a^2 + b^2 - C*3
 
@@ -3064,13 +3064,12 @@ $ echo "$s" | awk 'match($0, /0*[1-9][0-9]{2,}/, m){print m[0]}'
 154
 ```
 
-Both the above examples can also be easily solved using `FPAT` or `patsplit`. `match` has an advantage when it comes to getting portions matched only within capture groups. The first element of array will still have the entire match. Second element will contain portion matched by first group, third element will contain portion matched by second group and so on.
+Both the above examples can also be easily solved using `FPAT` or `patsplit`. `match` has an advantage when it comes to getting portions matched only within capture groups. The first element of array will still have the entire match. Second element will contain portion matched by first group, third element will contain portion matched by second group and so on. See also [stackoverflow: arithmetic replacement in a text file](https://stackoverflow.com/questions/62241101/arithmetic-replacement-in-a-text-file).
 
 ```bash
 $ # entire matched portion
 $ echo 'foo=42, baz=314' | awk 'match($0, /baz=([0-9]+)/, m){print m[0]}'
 baz=314
-
 $ # matched portion of first capture group
 $ echo 'foo=42, baz=314' | awk 'match($0, /baz=([0-9]+)/, m){print m[1]}'
 314

@@ -1,5 +1,13 @@
 <br>
 
+### 1.1
+
+* Clarified BRE vs ERE difference for line anchor escaping
+* Added workaround for **epub** version for iBooks
+* For more detailed view of changes, see the [commit changes for the markdown source file](https://github.com/learnbyexample/learn_gnuawk/commit/7c6ffe055cf562bbd064a81f5f869e64b1692816#diff-6d6c4458a3b540abe5f09cb6af55992f)
+
+<br>
+
 ### 1.0
 
 * Added exercises

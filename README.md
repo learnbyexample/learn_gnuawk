@@ -8,6 +8,8 @@ Example based guide to mastering GNU awk.
 
 The book also includes exercises to test your understanding, which is presented together as a single file in this repo - [Exercises.md](./exercises/Exercises.md)
 
+For solutions to the exercises, see [Exercise_solutions.md](./exercises/Exercise_solutions.md).
+
 See [Version_changes.md](./Version_changes.md) to keep track of changes made to the book.
 
 <br>
@@ -25,6 +27,8 @@ You can purchase the book using these links:
 For a preview of the book, see [sample chapters](https://github.com/learnbyexample/learn_gnuawk/blob/master/sample_chapters/awk_sample_chapters.pdf)
 
 The book can also be [viewed as a single markdown file in this repo](./gnu_awk.md). See my blogpost on [generating pdf from markdown using pandoc](https://learnbyexample.github.io/tutorial/ebook-generation/customizing-pandoc/) if you are interested in the ebook creation process.
+
+For online `html` version of the book, visit https://learnbyexample.github.io/learn_gnuawk/
 
 <br>
 
@@ -71,6 +75,7 @@ Twitter: https://twitter.com/learn_byexample
 * [softwareengineering.stackexchange](https://softwareengineering.stackexchange.com/questions/39/whats-your-favourite-quote-about-programming) and [skolakoda](https://skolakoda.org/programming-quotes) for programming quotes
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
 * [arifmahmudrana](https://github.com/arifmahmudrana) for spotting an ambiguous explanation
+* [mdBook](https://github.com/rust-lang/mdBook) — for `html` version of the book
 
 Special thanks to all my friends and online acquaintances for their help, support and encouragement, especially during these difficult times.
 

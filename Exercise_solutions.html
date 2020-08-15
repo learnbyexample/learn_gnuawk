@@ -1,0 +1,1144 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Exercise Solutions - GNU AWK</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide to mastering GNU AWK">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="installation-and-documentation.html"><strong aria-hidden="true">2.</strong> Installation and Documentation</a></li><li class="chapter-item expanded "><a href="awk-introduction.html"><strong aria-hidden="true">3.</strong> awk introduction</a></li><li class="chapter-item expanded "><a href="regular-expressions.html"><strong aria-hidden="true">4.</strong> Regular Expressions</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">5.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">6.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">7.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="using-shell-variables.html"><strong aria-hidden="true">8.</strong> Using shell variables</a></li><li class="chapter-item expanded "><a href="control-structures.html"><strong aria-hidden="true">9.</strong> Control Structures</a></li><li class="chapter-item expanded "><a href="built-in-functions.html"><strong aria-hidden="true">10.</strong> Built-in functions</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">11.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">12.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">13.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">14.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="awk-scripts.html"><strong aria-hidden="true">15.</strong> awk scripts</a></li><li class="chapter-item expanded "><a href="gotchas-and-tips.html"><strong aria-hidden="true">16.</strong> Gotchas and Tips</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">17.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html" class="active"><strong aria-hidden="true">18.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GNU AWK</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_gnuawk" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#awk-introduction" id="awk-introduction">awk introduction</a></h1>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Exercise related files are available from <a href="https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises">exercises folder of learn_gnuawk repo</a>.</p>
+</blockquote>
+<p><strong>a)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>is</code>.</p>
+<pre><code class="language-bash">$ cat addr.txt
+Hello World
+How are you
+This game is good
+Today is sunny
+12345
+You are funny
+
+$ awk '/is/' addr.txt
+This game is good
+Today is sunny
+</code></pre>
+<p><strong>b)</strong> For the input file <code>addr.txt</code>, display first field of lines <em>not</em> containing <code>y</code>. Consider space as the field separator for this file.</p>
+<pre><code class="language-bash">$ awk '!/y/{print $1}' addr.txt
+Hello
+This
+12345
+</code></pre>
+<p><strong>c)</strong> For the input file <code>addr.txt</code>, display all lines containing no more than 2 fields.</p>
+<pre><code class="language-bash">$ awk 'NF&lt;3' addr.txt
+Hello World
+12345
+</code></pre>
+<p><strong>d)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>is</code> in the second field.</p>
+<pre><code class="language-bash">$ awk '$2 ~ /is/' addr.txt
+Today is sunny
+</code></pre>
+<p><strong>e)</strong> For each line of the input file <code>addr.txt</code>, replace first occurrence of <code>o</code> with <code>0</code>.</p>
+<pre><code class="language-bash">$ awk '{sub(/o/, &quot;0&quot;)} 1' addr.txt
+Hell0 World
+H0w are you
+This game is g0od
+T0day is sunny
+12345
+Y0u are funny
+</code></pre>
+<p><strong>f)</strong> For the input file <code>table.txt</code>, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.</p>
+<pre><code class="language-bash">$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+
+$ awk 'BEGIN{p = 1} {p *= $NF} END{print p}' table.txt
+-923.16
+</code></pre>
+<p><strong>g)</strong> Append <code>.</code> to all the input lines for the given <code>stdin</code> data.</p>
+<pre><code class="language-bash">$ printf 'last\nappend\nstop\ntail\n' | awk '{$0 = $0 &quot;.&quot;} 1'
+last.
+append.
+stop.
+tail.
+</code></pre>
+<br>
+<h1><a class="header" href="#regular-expressions" id="regular-expressions">Regular Expressions</a></h1>
+<p><strong>a)</strong> For the given input, print all lines that start with <code>den</code> or end with <code>ly</code>.</p>
+<pre><code class="language-bash">$ lines='lovely\n1 dentist\n2 lonely\neden\nfly away\ndent\n'
+$ printf '%b' &quot;$lines&quot; | awk '/^den|ly$/'
+lovely
+2 lonely
+dent
+</code></pre>
+<p><strong>b)</strong> Replace all occurrences of <code>42</code> with <code>[42]</code> unless it is at the edge of a word. Note that <strong>word</strong> in these exercises have same meaning as defined in regular expressions.</p>
+<pre><code class="language-bash">$ echo 'hi42bye nice421423 bad42 cool_42a 42c' | awk '{gsub(/\B42\B/, &quot;[&amp;]&quot;)} 1'
+hi[42]bye nice[42]1[42]3 bad42 cool_[42]a 42c
+</code></pre>
+<p><strong>c)</strong> Add <code>[]</code> around words starting with <code>s</code> and containing <code>e</code> and <code>t</code> in any order.</p>
+<pre><code class="language-bash">$ words='sequoia subtle exhibit asset sets tests site'
+$ echo &quot;$words&quot; | awk '{gsub(/\&lt;s\w*(e\w*t|t\w*e)\w*/, &quot;[&amp;]&quot;)} 1'
+sequoia [subtle] exhibit asset [sets] tests [site]
+</code></pre>
+<p><strong>d)</strong> Replace the space character that occurs after a word ending with <code>a</code> or <code>r</code> with a newline character.</p>
+<pre><code class="language-bash">$ echo 'area not a _a2_ roar took 22' | awk '{print gensub(/([ar])\&gt; /, &quot;\\1\n&quot;, &quot;g&quot;)}'
+area
+not a
+_a2_ roar
+took 22
+</code></pre>
+<p><strong>e)</strong> Replace all occurrences of <code>[4]|*</code> with <code>2</code> for the given input.</p>
+<pre><code class="language-bash">$ echo '2.3/[4]|*6 foo 5.3-[4]|*9' | awk '{gsub(/\[4]\|\*/, &quot;2&quot;)} 1'
+2.3/26 foo 5.3-29
+</code></pre>
+<p><strong>f)</strong> <code>awk '/\&lt;[a-z](on|no)[a-z]\&gt;/'</code> is same as <code>awk '/\&lt;[a-z][on]{2}[a-z]\&gt;/'</code>. True or False? Sample input shown below might help to understand the differences, if any.</p>
+<p>False. <code>[on]{2}</code> will also match <code>oo</code> and <code>nn</code>.</p>
+<pre><code class="language-bash">$ printf 'known\nmood\nknow\npony\ninns\n'
+known
+mood
+know
+pony
+inns
+</code></pre>
+<p><strong>g)</strong> Print all lines that start with <code>hand</code> and ends with <code>s</code> or <code>y</code> or <code>le</code> or no further character. For example, <code>handed</code> shouldn't be printed even though it starts with <code>hand</code>.</p>
+<pre><code class="language-bash">$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\n'
+$ printf '%b' &quot;$lines&quot; | awk '/^hand([sy]|le)?$/'
+hand
+handy
+hands
+handle
+</code></pre>
+<p><strong>h)</strong> Replace <code>42//5</code> or <code>42/5</code> with <code>8</code> for the given input.</p>
+<pre><code class="language-bash">$ echo 'a+42//5-c pressure*3+42/5-14256' | awk '{gsub(&quot;42//?5&quot;, &quot;8&quot;)} 1'
+a+8-c pressure*3+8-14256
+</code></pre>
+<p><strong>i)</strong> For the given quantifiers, what would be the equivalent form using <code>{m,n}</code> representation?</p>
+<ul>
+<li><code>?</code> is same as <code>{,1}</code></li>
+<li><code>*</code> is same as <code>{0,}</code></li>
+<li><code>+</code> is same as <code>{1,}</code></li>
+</ul>
+<p><strong>j)</strong> True or False? <code>(a*|b*)</code> is same as <code>(a|b)*</code> </p>
+<p>False. Because <code>(a*|b*)</code> will match only sequences like <code>a</code>, <code>aaa</code>, <code>bb</code>, <code>bbbbbbbb</code>. But <code>(a|b)*</code> can match a mixed sequence like <code>ababbba</code> too.</p>
+<p><strong>k)</strong> For the given input, construct two different regexps to get the outputs as shown below.</p>
+<pre><code class="language-bash">$ # delete from '(' till next ')'
+$ echo 'a/b(division) + c%d() - (a#(b)2(' | awk '{gsub(/\([^)]*)/, &quot;&quot;)} 1'
+a/b + c%d - 2(
+
+$ # delete from '(' till next ')' but not if there is '(' in between
+$ echo 'a/b(division) + c%d() - (a#(b)2(' | awk '{gsub(/\([^()]*)/, &quot;&quot;)} 1'
+a/b + c%d - (a#2(
+</code></pre>
+<p><strong>l)</strong> For the input file <code>anchors.txt</code>, convert <strong>markdown</strong> anchors to corresponding <strong>hyperlinks</strong>.</p>
+<pre><code class="language-bash">$ cat anchors.txt
+# &lt;a name=&quot;regular-expressions&quot;&gt;&lt;/a&gt;Regular Expressions
+## &lt;a name=&quot;subexpression-calls&quot;&gt;&lt;/a&gt;Subexpression calls
+
+$ awk '{print gensub(/#+ &lt;a name=&quot;([^&quot;]+)&quot;&gt;&lt;\/a&gt;(.+)/, &quot;[\\2](#\\1)&quot;, 1)}' anchors.txt
+[Regular Expressions](#regular-expressions)
+[Subexpression calls](#subexpression-calls)
+</code></pre>
+<p><strong>m)</strong> Display all lines that satisfies <strong>both</strong> of these conditions:</p>
+<ul>
+<li><code>professor</code> matched irrespective of case</li>
+<li><code>quip</code> or <code>this</code> matched case sensitively</li>
+</ul>
+<p>Input is a file downloaded from internet as shown below.</p>
+<pre><code class="language-bash">$ wget https://www.gutenberg.org/files/345/345.txt -O dracula.txt
+
+$ awk 'tolower($0) ~ /professor/ &amp;&amp; /this|quip/' dracula.txt
+equipment of a professor of the healing craft. When we were shown in,
+should be. I could see that the Professor had carried out in this room,
+&quot;Not up to this moment, Professor,&quot; she said impulsively, &quot;but up to
+and sprang at us. But by this time the Professor had gained his feet,
+this time the Professor had to ask her questions, and to ask them pretty
+</code></pre>
+<p><strong>n)</strong> Given sample strings have fields separated by <code>,</code> and field values cannot be empty. Replace the third field with <code>42</code>.</p>
+<pre><code class="language-bash">$ echo 'lion,ant,road,neon' | awk '{print gensub(/[^,]+/, &quot;42&quot;, 3)}'
+lion,ant,42,neon
+
+$ echo '_;3%,.,=-=,:' | awk '{print gensub(/[^,]+/, &quot;42&quot;, 3)}'
+_;3%,.,42,:
+</code></pre>
+<p><strong>o)</strong> For the given strings, replace last but third <code>so</code> with <code>X</code>. Only print the lines which are changed by the substitution.</p>
+<pre><code class="language-bash">$ printf 'so and so also sow and soup' | awk 'BEGIN{r = @/(.*)so((.*so){3})/}
+                                              $0~r{print gensub(r, &quot;\\1X\\2&quot;, 1)}'
+so and X also sow and soup
+
+$ printf 'sososososososo\nso and so\n' | awk 'BEGIN{r = @/(.*)so((.*so){3})/}
+                                              $0~r{print gensub(r, &quot;\\1X\\2&quot;, 1)}'
+sososoXsososo
+</code></pre>
+<p><strong>p)</strong> Surround all whole words with <code>()</code>. Additionally, if the whole word is <code>imp</code> or <code>ant</code>, delete them. Can you do it with single substitution?</p>
+<pre><code class="language-bash">$ words='tiger imp goat eagle ant important'
+$ echo &quot;$words&quot; | awk '{print gensub(/\&lt;(imp|ant|(\w+))\&gt;/, &quot;(\\2)&quot;, &quot;g&quot;)}'
+(tiger) () (goat) (eagle) () (important)
+</code></pre>
+<br>
+<h1><a class="header" href="#field-separators" id="field-separators">Field separators</a></h1>
+<p><strong>a)</strong> Extract only the contents between <code>()</code> or <code>)(</code> from each input line. Assume that <code>()</code> characters will be present only once every line.</p>
+<pre><code class="language-bash">$ cat brackets.txt
+foo blah blah(ice) 123 xyz$ 
+(almond-pista) choco
+yo )yoyo( yo
+
+$ awk -F'[()]' '{print $2}' brackets.txt
+ice
+almond-pista
+yoyo
+</code></pre>
+<p><strong>b)</strong> For the input file <code>scores.csv</code>, extract <code>Name</code> and <code>Physics</code> fields in the format shown below.</p>
+<pre><code class="language-bash">$ cat scores.csv
+Name,Maths,Physics,Chemistry
+Blue,67,46,99
+Lin,78,83,80
+Er,56,79,92
+Cy,97,98,95
+Ort,68,72,66
+Ith,100,100,100
+
+$ awk -F, -v OFS=: '{print $1, $3}' scores.csv
+Name:Physics
+Blue:46
+Lin:83
+Er:79
+Cy:98
+Ort:72
+Ith:100
+</code></pre>
+<p><strong>c)</strong> For the input file <code>scores.csv</code>, display names of those who've scored above <code>70</code> in Maths.</p>
+<pre><code class="language-bash">$ awk -F, '+$2&gt;70{print $1}' scores.csv
+Lin
+Cy
+Ith
+</code></pre>
+<p><strong>d)</strong> Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with <code>gsub</code> and one without substitution functions?</p>
+<pre><code class="language-bash">$ echo 'hi there' | awk '{print gsub(/\w/, &quot;&quot;)}'
+7
+
+$ echo 'u-no;co%.&quot;(do_12:as' | awk -F'\\w' '{print NF-1}'
+12
+</code></pre>
+<p><strong>e)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions or string concatenation.</p>
+<pre><code class="language-bash">$ echo '1 &quot;grape&quot; and &quot;mango&quot; and &quot;guava&quot;' | awk -v FPAT='&quot;[^&quot;]+&quot;' -v OFS=, '{print $1, $3}'
+&quot;grape&quot;,&quot;guava&quot;
+
+$ echo '(&quot;a 1&quot;&quot;b&quot;&quot;c-2&quot;&quot;d&quot;)' | awk -v FPAT='&quot;[^&quot;]+&quot;' -v OFS=, '{print $1, $3}'
+&quot;a 1&quot;,&quot;c-2&quot;
+</code></pre>
+<p><strong>f)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions. Can you do it without explicitly using <code>print</code> function as well?</p>
+<pre><code class="language-bash">$ echo 'hi,bye,there,was,here,to' | awk -F, -v OFS=, '{$3=$NF; NF=3} 1'
+hi,bye,to
+
+$ echo '1,2,3,4,5' | awk -F, -v OFS=, '{$3=$NF; NF=3} 1'
+1,2,5
+</code></pre>
+<p><strong>g)</strong> Transform the given input file <code>fw.txt</code> to get the output as shown below. If a field is empty (i.e. contains only space characters), replace it with <code>NA</code>.</p>
+<pre><code class="language-bash">$ cat fw.txt
+1.3  rs   90  0.134563
+3.8           6
+5.2  ye       8.2387
+4.2  kt   32  45.1
+
+$ awk -v FIELDWIDTHS='3 2:2 3:2 2:*' -v OFS=, '$2==&quot;  &quot;{$2=&quot;NA&quot;} {print $1, $2, $4}' fw.txt
+1.3,rs,0.134563
+3.8,NA,6
+5.2,ye,8.2387
+4.2,kt,45.1
+</code></pre>
+<p><strong>h)</strong> Display only the third and fifth characters from each line input line as shown below.</p>
+<pre><code class="language-bash">$ printf 'restore\ncat one\ncricket' | awk -F '' -v OFS= '{print $3, $5}'
+so
+to
+ik
+</code></pre>
+<br>
+<h1><a class="header" href="#record-separators" id="record-separators">Record separators</a></h1>
+<p><strong>a)</strong> The input file <code>jumbled.txt</code> consists of words separated by various delimiters. Display all words that contain <code>an</code> or <code>at</code> or <code>in</code> or <code>it</code>, one per line.</p>
+<pre><code class="language-bash">$ cat jumbled.txt
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+joint[]seer{intuition}titanic
+
+$ awk -v RS='\\W+' '/[ai][nt]/' jumbled.txt
+overcoats
+furrowing
+wavering
+joint
+intuition
+titanic
+</code></pre>
+<p><strong>b)</strong> Emulate <code>paste -sd,</code> with <code>awk</code>.</p>
+<pre><code class="language-bash">$ # this command joins all input lines with ',' character
+$ paste -sd, addr.txt
+Hello World,How are you,This game is good,Today is sunny,12345,You are funny
+$ # make sure there's no ',' at end of the line
+$ # and that there's a newline character at the end of the line
+$ awk -v ORS= 'NR&gt;1{print &quot;,&quot;} 1; END{print &quot;\n&quot;}' addr.txt 
+Hello World,How are you,This game is good,Today is sunny,12345,You are funny
+
+$ # if there's only one line in input, again make sure there's no trailing ','
+$ printf 'foo' | paste -sd,
+foo
+$ printf 'foo' | awk -v ORS= 'NR&gt;1{print &quot;,&quot;} 1; END{print &quot;\n&quot;}'
+foo
+</code></pre>
+<p><strong>c)</strong> For the input file <code>scores.csv</code>, add another column named <code>GP</code> which is calculated out of <code>100</code> by giving <code>50%</code> weightage to <code>Maths</code> and <code>25%</code> each for <code>Physics</code> and <code>Chemistry</code>.</p>
+<pre><code class="language-bash">$ awk -F, -v OFS=, '{$(NF+1) = NR==1 ? &quot;GP&quot; : ($2/2 + ($3+$4)/4)} 1' scores.csv
+Name,Maths,Physics,Chemistry,GP
+Blue,67,46,99,69.75
+Lin,78,83,80,79.75
+Er,56,79,92,70.75
+Cy,97,98,95,96.75
+Ort,68,72,66,68.5
+Ith,100,100,100,100
+</code></pre>
+<p><strong>d)</strong> For the input file <code>sample.txt</code>, extract all paragraphs containing <code>do</code> and exactly two lines.</p>
+<pre><code class="language-bash">$ cat sample.txt
+Hello World
+
+Good day
+How are you
+
+Just do-it
+Believe it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+Much ado about nothing
+He he he
+
+$ # note that there's no extra empty line at the end of the output
+$ awk -F'\n' -v RS= 'NF==2 &amp;&amp; /do/{print c++ ? &quot;\n&quot; $0 : $0}' sample.txt
+Just do-it
+Believe it
+
+Much ado about nothing
+He he he
+</code></pre>
+<p><strong>e)</strong> For the input file <code>sample.txt</code>, change all paragraphs into single line by joining lines using <code>.</code> and a space character as the separator. And add a final <code>.</code> to each paragraph.</p>
+<pre><code class="language-bash">$ # note that there's no extra empty line at the end of the output
+$ awk 'BEGIN{FS=&quot;\n&quot;; OFS=&quot;. &quot;; RS=&quot;&quot;} {$1=$1; $NF=$NF &quot;.&quot;;
+       print c++ ? &quot;\n&quot; $0 : $0}' sample.txt
+Hello World.
+
+Good day. How are you.
+
+Just do-it. Believe it.
+
+Today is sunny. Not a bit funny. No doubt you like it too.
+
+Much ado about nothing. He he he.
+</code></pre>
+<p><strong>f)</strong> The various input/output separators can be changed dynamically and comes into effect during the next input/output operation. For the input file <code>mixed_fs.txt</code>, retain only first two fields from each input line. The field separators should be space for first two lines and <code>,</code> for the rest of the lines.</p>
+<pre><code class="language-bash">$ cat mixed_fs.txt
+rose lily jasmine tulip
+pink blue white yellow
+car,mat,ball,basket
+green,brown,black,purple
+
+$ awk 'NF=2; NR==2{FS=OFS=&quot;,&quot;}' mixed_fs.txt
+rose lily
+pink blue
+car,mat
+green,brown
+</code></pre>
+<p><strong>g)</strong> For the input file <code>table.txt</code>, get the outputs shown below. All of them feature line number as part of the solution.</p>
+<pre><code class="language-bash">$ # print other than second line
+$ awk 'NR!=2' table.txt
+brown bread mat hair 42
+yellow banana window shoes 3.14
+
+$ # print line number of lines containing 'air' or 'win'
+$ awk '/air|win/{print NR}' table.txt
+1
+3
+
+$ # calculate the sum of numbers in last column, except second line
+$ awk 'NR!=2{sum += $NF} END{print sum}' table.txt
+45.14
+</code></pre>
+<p><strong>h)</strong> Print second and fourth line for every block of five lines.</p>
+<pre><code class="language-bash">$ seq 15 | awk 'NR%5 == 2 || NR%5 == 4'
+2
+4
+7
+9
+12
+14
+</code></pre>
+<p><strong>i)</strong> For the input file <code>odd.txt</code>, surround all whole words with <code>{}</code> that start and end with the same word character. This is a contrived exercise to make you use <code>RT</code>. In real world, you can use <code>sed -E 's/\b(\w|(\w)\w*\2)\b/{&amp;}/g' odd.txt</code> to solve this.</p>
+<pre><code class="language-bash">$ cat odd.txt
+-oreo-not:a _a2_ roar&lt;=&gt;took%22
+RoaR to wow-
+
+$ awk -F '' -v RS='\\W+' -v ORS= '$0 &amp;&amp; $1==$NF{$0 = &quot;{&quot; $0 &quot;}&quot;} {print $0 RT}' odd.txt
+-{oreo}-not:{a} {_a2_} {roar}&lt;=&gt;took%{22}
+{RoaR} to {wow}-
+</code></pre>
+<br>
+<h1><a class="header" href="#in-place-file-editing" id="in-place-file-editing">In-place file editing</a></h1>
+<p><strong>a)</strong> For the input file <code>copyright.txt</code>, replace <code>copyright: 2018</code> with <code>copyright: 2020</code> and write back the changes to <code>copyright.txt</code> itself. The original contents should get saved to <code>copyright.txt.orig</code></p>
+<pre><code class="language-bash">$ cat copyright.txt
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2018
+$ awk -i inplace -v inplace::suffix='.orig' '{sub(/copyright: 2018/, &quot;copyright: 2020&quot;)} 1' copyright.txt
+
+$ cat copyright.txt
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2020
+$ cat copyright.txt.orig
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2018
+</code></pre>
+<p><strong>b)</strong> For the input files <code>nums1.txt</code> and <code>nums2.txt</code>, retain only second and third lines and write back the changes to their respective files. No need to create backups.</p>
+<pre><code class="language-bash">$ cat nums1.txt
+3.14
+4201
+777
+0323012
+$ cat nums2.txt
+-45.4
+-2
+54316.12
+0x231
+
+$ awk -i inplace 'FNR==2 || FNR==3' nums1.txt nums2.txt
+$ cat nums1.txt
+4201
+777
+$ cat nums2.txt
+-2
+54316.12
+</code></pre>
+<br>
+<h1><a class="header" href="#using-shell-variables" id="using-shell-variables">Using shell variables</a></h1>
+<p><strong>a)</strong> Use contents of <code>s</code> variable to display all matching lines from the input file <code>sample.txt</code>. Assume that the <code>s</code> variable doesn't have any regexp metacharacters and construct a solution such that only whole words are matched.</p>
+<pre><code class="language-bash">$ s='do'
+$ awk -v s=&quot;$s&quot; '$0 ~ &quot;\\&lt;&quot; s &quot;\\&gt;&quot;' sample.txt
+Just do-it
+</code></pre>
+<p><strong>b)</strong> Replace all occurrences of <code>o</code> for the input file <code>addr.txt</code> with literal contents of <code>s</code> variable. Assume that the <code>s</code> variable has regexp metacharacters.</p>
+<pre><code class="language-bash">$ s='\&amp;/'
+$ s=&quot;$s&quot; awk 'BEGIN{gsub(/[\\&amp;]/, &quot;\\\\&amp;&quot;, ENVIRON[&quot;s&quot;])} {gsub(/o/, ENVIRON[&quot;s&quot;])} 1' addr.txt
+Hell\&amp;/ W\&amp;/rld
+H\&amp;/w are y\&amp;/u
+This game is g\&amp;/\&amp;/d
+T\&amp;/day is sunny
+12345
+Y\&amp;/u are funny
+</code></pre>
+<br>
+<h1><a class="header" href="#control-structures" id="control-structures">Control Structures</a></h1>
+<p><strong>a)</strong> The input file <code>nums.txt</code> contains single column of numbers. Change positive numbers to negative and vice versa. Can you do it with using only <code>sub</code> function and without explicit use of <code>if-else</code> or ternary operator?</p>
+<pre><code class="language-bash">$ cat nums.txt
+42
+-2
+10101
+-3.14
+-75
+
+$ # same as: awk '{$0 ~ /^-/ ? sub(/^-/, &quot;&quot;) : sub(/^/, &quot;-&quot;)} 1' nums.txt
+$ awk '!sub(/^-/, &quot;&quot;){sub(/^/, &quot;-&quot;)} 1' nums.txt
+-42
+2
+-10101
+3.14
+75
+</code></pre>
+<p><strong>b)</strong> For the input file <code>table.txt</code>, change the field separator from space to <code>,</code> character. Also, any field not containing digit characters should be surrounded by double quotes.</p>
+<pre><code class="language-bash">$ awk -v q='&quot;' -v OFS=, '{for(i=1; i&lt;=NF; i++) if($i !~ /[0-9]/) $i = q $i q} 1' table.txt
+&quot;brown&quot;,&quot;bread&quot;,&quot;mat&quot;,&quot;hair&quot;,42
+&quot;blue&quot;,&quot;cake&quot;,&quot;mug&quot;,&quot;shirt&quot;,-7
+&quot;yellow&quot;,&quot;banana&quot;,&quot;window&quot;,&quot;shoes&quot;,3.14
+</code></pre>
+<p><strong>c)</strong> For each input line of the file <code>secrets.txt</code>, remove all characters except the last character of each field. Assume space as the input field separator.</p>
+<pre><code class="language-bash">$ cat secrets.txt
+stag area row tick
+deaf chi rate tall glad
+Bi tac toe - 42
+
+$ # same as: awk '{print gensub(/[^ ]*(.)( |$)/, &quot;\\1&quot;, &quot;g&quot;)}' secrets.txt
+$ awk -v OFS= '{for(i=1; i&lt;=NF; i++) $i = gensub(/.*(.)/, &quot;\\1&quot;, 1, $i)} 1' secrets.txt
+gawk
+field
+ice-2
+</code></pre>
+<p><strong>d)</strong> Emulate <code>q</code> and <code>Q</code> commands of <code>sed</code> as shown below.</p>
+<pre><code class="language-bash">$ # sed '/are/q' sample.txt will print until (and including) line contains 'are'
+$ awk '1; /are/{exit}' sample.txt
+Hello World
+
+Good day
+How are you
+
+$ # sed '/are/Q' sample.txt will print until (but excluding) line contains 'are'
+$ awk '/are/{exit} 1' sample.txt
+Hello World
+
+Good day
+</code></pre>
+<p><strong>e)</strong> For the input file <code>addr.txt</code>:</p>
+<ul>
+<li>if line contains <code>e</code>
+<ul>
+<li>delete all occurrences of <code>e</code></li>
+<li>surround all consecutive repeated characters with <code>{}</code></li>
+<li>assume that input will not have more than two consecutive repeats</li>
+</ul>
+</li>
+<li>if line doesn't contain <code>e</code> but contains <code>u</code>
+<ul>
+<li>surround all lowercase vowels in that line with <code>[]</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-bash">$ awk -F '' -v OFS= '/e/{gsub(/e/, &quot;&quot;); for(i=1; i&lt;NF; i++)
+                     if($i==$(i+1)){ $i = &quot;{&quot; $i; $(i+1) = $(i+1) &quot;}&quot; }
+                     print; next}
+                     /u/{gsub(/[aiou]/, &quot;[&amp;]&quot;)} 1' addr.txt
+H{ll}o World
+How ar you
+This gam is g{oo}d
+T[o]d[a]y [i]s s[u]nny
+12345
+You ar fu{nn}y
+</code></pre>
+<br>
+<h1><a class="header" href="#built-in-functions" id="built-in-functions">Built-in functions</a></h1>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Exercises will also include functions and features not discussed in this chapter. Refer to <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Functions">gawk manual: Functions</a> for details.</p>
+</blockquote>
+<p><strong>a)</strong> For the input file <code>scores.csv</code>, sort the rows based on <strong>Physics</strong> values in descending order. Header should be retained as the first line in output.</p>
+<pre><code class="language-bash">$ awk -F, 'NR==1{PROCINFO[&quot;sorted_in&quot;] = &quot;@ind_num_desc&quot;; print; next}
+           {a[$3]=$0} END{for(k in a) print a[k]}' scores.csv
+Name,Maths,Physics,Chemistry
+Ith,100,100,100
+Cy,97,98,95
+Lin,78,83,80
+Er,56,79,92
+Ort,68,72,66
+Blue,67,46,99
+</code></pre>
+<p><strong>b)</strong> For the input file <code>nums3.txt</code>, calculate the square root of numbers and display in two different formats. First with four digits after fractional point and next in scientific notation, again with four digits after fractional point. Assume input has only single column positive numbers.</p>
+<pre><code class="language-bash">$ awk '{printf &quot;%.4f\n&quot;, sqrt($0)}' nums3.txt
+1.7720
+64.8151
+27.8747
+568.3414
+
+$ awk '{printf &quot;%.4e\n&quot;, sqrt($0)}' nums3.txt
+1.7720e+00
+6.4815e+01
+2.7875e+01
+5.6834e+02
+</code></pre>
+<p><strong>c)</strong> Transform the given input strings to the corresponding output shown. Assume space as the field separators. From the second field, remove the second <code>:</code> and the number that follows. Modify the last field by multiplying it by the number that was deleted from the second field. The numbers can be positive/negative integers or floating-point numbers (including scientific notation).</p>
+<pre><code class="language-bash">$ echo 'go x:12:-425 og 6.2' | awk '{split($2, a, /:/); $2=a[1] &quot;:&quot; a[2]; $NF *= a[3]} 1'
+go x:12 og -2635
+
+$ echo 'rx zwt:3.64:12.89e2 ljg 5' | awk '{split($2, a, /:/); $2=a[1] &quot;:&quot; a[2]; $NF *= a[3]} 1'
+rx zwt:3.64 ljg 6445
+</code></pre>
+<p><strong>d)</strong> Transform the given input strings to the corresponding output shown. Assume space as the field separators. Replace the second field with sum of the two numbers embedded in it. The numbers can be positive/negative integers or floating-point numbers (but not scientific notation).</p>
+<pre><code class="language-bash">$ echo 'f2:z3 kt//-42\\3.14//tw 5y6' | awk '{patsplit($2, a, /-?([0-9]+\.)?[0-9]+/); $2=a[1] + a[2]} 1'
+f2:z3 -38.86 5y6
+
+$ echo 't5:x7 qr;wq&lt;=&gt;+10{-8764.124}yb u9' | awk '{patsplit($2, a, /-?([0-9]+\.)?[0-9]+/); $2=a[1] + a[2]} 1'
+t5:x7 -8754.12 u9
+</code></pre>
+<p><strong>e)</strong> For the given input strings, extract portion of the line starting from the matching location specified by shell variable <code>s</code> till the end of the line. If there is no match, do not print that line. The contents of <code>s</code> should be matched literally.</p>
+<pre><code class="language-bash">$ s='(a^b)'
+$ echo '3*f + (a^b) - 45' | s=&quot;$s&quot; awk 'n=index($0, ENVIRON[&quot;s&quot;]){print substr($0, n)}'
+(a^b) - 45
+
+$ s='\&amp;/'
+$ # should be no output for this input
+$ echo 'f\&amp;z\&amp;2.14' | s=&quot;$s&quot; awk 'n=index($0, ENVIRON[&quot;s&quot;]){print substr($0, n)}'
+$ # but this one has a match
+$ echo 'f\&amp;z\&amp;/2.14' | s=&quot;$s&quot; awk 'n=index($0, ENVIRON[&quot;s&quot;]){print substr($0, n)}'
+\&amp;/2.14
+</code></pre>
+<p><strong>f)</strong> Extract all positive integers preceded by <code>-</code> and followed by <code>:</code> or <code>;</code> and display all such matches separated by a newline character.</p>
+<pre><code class="language-bash">$ s='42 foo-5; baz3; x-83, y-20:-34; f12'
+$ echo &quot;$s&quot; | awk '{ while( match($0, /-([0-9]+)[;:]/, m) ){print m[1];
+                     $0=substr($0, RSTART+RLENGTH)} }'
+5
+20
+34
+</code></pre>
+<p><strong>g)</strong> For the input file <code>scores.csv</code>, calculate the average of three marks for each <code>Name</code>. Those with average greater than or equal to <code>80</code> should be saved in <code>pass.csv</code> and the rest in <code>fail.csv</code>. The format is <code>Name</code> and average score (up to two decimal points) separated by a tab character.</p>
+<pre><code class="language-bash">$ awk -F, 'NR&gt;1{t = ($2+$3+$4)/3; op = sprintf(&quot;%s\t%.2f&quot;, $1, t);
+           if(+t&gt;=80) print op &gt; &quot;pass.csv&quot;; else print op &gt; &quot;fail.csv&quot;}' scores.csv
+
+$ cat fail.csv
+Blue    70.67
+Er      75.67
+Ort     68.67
+$ cat pass.csv
+Lin     80.33
+Cy      96.67
+Ith     100.00
+</code></pre>
+<p><strong>h)</strong> For the input file <code>files.txt</code>, replace lines starting with a space with the output of that line executed as a shell command.</p>
+<pre><code class="language-bash">$ cat files.txt
+ sed -n '2p' addr.txt
+-----------
+ wc -w sample.txt
+===========
+ awk '{print $1}' table.txt
+-----------
+
+$ awk '/^ /{system($0); next} 1' files.txt
+How are you
+-----------
+31 sample.txt
+===========
+brown
+blue
+yellow
+-----------
+</code></pre>
+<p><strong>i)</strong> For the input file <code>fw.txt</code>, format the last column of numbers in scientific notation with two digits after the decimal point.</p>
+<pre><code class="language-bash">$ awk -v FIELDWIDTHS='14 *' '{printf &quot;%s%.2e\n&quot;, $1, $2}' fw.txt
+1.3  rs   90  1.35e-01
+3.8           6.00e+00
+5.2  ye       8.24e+00
+4.2  kt   32  4.51e+01
+</code></pre>
+<p><strong>j)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>e</code> or <code>u</code> but not both.</p>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Hint — <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Bitwise-Functions">gawk manual: Bit-Manipulation Functions</a>.</p>
+</blockquote>
+<pre><code class="language-bash">$ awk 'xor(/e/, /u/)' addr.txt
+Hello World
+This game is good
+Today is sunny
+</code></pre>
+<br>
+<h1><a class="header" href="#multiple-file-input" id="multiple-file-input">Multiple file input</a></h1>
+<p><strong>a)</strong> Print the last field of first two lines for the input files <code>table.txt</code>, <code>scores.csv</code> and <code>fw.txt</code>. The field separators for these files are space, comma and fixed width respectively. To make the output more informative, print filenames and a separator as shown in the output below. Assume input files will have at least two lines.</p>
+<pre><code class="language-bash">$ awk 'BEGINFILE{print &quot;&gt;&quot; FILENAME &quot;&lt;&quot;} {print $NF} FNR==2{print &quot;----------&quot;;
+       nextfile}' table.txt FS=, scores.csv FIELDWIDTHS='14 *' fw.txt
+&gt;table.txt&lt;
+42
+-7
+----------
+&gt;scores.csv&lt;
+Chemistry
+99
+----------
+&gt;fw.txt&lt;
+0.134563
+6
+----------
+</code></pre>
+<p><strong>b)</strong> For the given list of input files, display all filenames that contain <code>at</code> or <code>fun</code> in the third field. Assume space as the field separator.</p>
+<pre><code class="language-bash">$ awk '$3 ~ /fun|at/{print FILENAME; nextfile}' sample.txt secrets.txt addr.txt table.txt
+secrets.txt
+addr.txt
+table.txt
+</code></pre>
+<br>
+<h1><a class="header" href="#processing-multiple-records" id="processing-multiple-records">Processing multiple records</a></h1>
+<p><strong>a)</strong> For the input file <code>sample.txt</code>, print a matching line containing <code>do</code> only if the previous line is empty and the line before that contains <code>you</code>.</p>
+<pre><code class="language-bash">$ awk 'p2 ~ /you/ &amp;&amp; p1==&quot;&quot; &amp;&amp; /do/; {p2=p1; p1=$0}' sample.txt
+Just do-it
+Much ado about nothing
+</code></pre>
+<p><strong>b)</strong> Print only the second matching line respectively for the search terms <code>do</code> and <code>not</code> for the input file <code>sample.txt</code>. Match these terms case insensitively.</p>
+<pre><code class="language-bash">$ awk -v IGNORECASE=1 '/do/ &amp;&amp; ++d == 2; /not/ &amp;&amp; ++n == 2' sample.txt
+No doubt you like it too
+Much ado about nothing
+</code></pre>
+<p><strong>c)</strong> For the input file <code>sample.txt</code>, print the matching lines containing <code>are</code> or <code>bit</code> as well as <code>n</code> lines around the matching lines. The value for <code>n</code> is passed to the <code>awk</code> command via the <code>-v</code> option.</p>
+<pre><code class="language-bash">$ awk -v n=1 '/are|bit/{for(i=NR-n; i&lt;NR; i++) if(i&gt;0) print a[i]; c=n+1}
+              c &amp;&amp; c--; {a[NR]=$0}' sample.txt
+Good day
+How are you
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+$ # note that first and last line are empty for this case
+$ awk -v n=2 '/are|bit/{for(i=NR-n; i&lt;NR; i++) if(i&gt;0) print a[i]; c=n+1}
+              c &amp;&amp; c--; {a[NR]=$0}' sample.txt
+
+Good day
+How are you
+
+Just do-it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+</code></pre>
+<p><strong>d)</strong> For the input file <code>broken.txt</code>, print all lines between the markers <code>top</code> and <code>bottom</code>. The first <code>awk</code> command shown below doesn't work because it is matching till end of file if second marker isn't found. Assume that the input file cannot have two <code>top</code> markers without a <code>bottom</code> marker appearing in between and vice-versa.</p>
+<pre><code class="language-bash">$ cat broken.txt
+top
+3.14
+bottom
+---
+top
+1234567890
+bottom
+top
+Hi there
+Have a nice day
+Good bye
+
+$ # wrong output
+$ awk '/bottom/{f=0} f; /top/{f=1}' broken.txt
+3.14
+1234567890
+Hi there
+Have a nice day
+Good bye
+
+$ # expected output
+$ tac broken.txt | awk '/top/{f=0} f; /bottom/{f=1}' | tac
+3.14
+1234567890
+</code></pre>
+<p><strong>e)</strong> For the input file <code>concat.txt</code>, extract contents from a line starting with <code>### </code> until but not including the next such line. The block to be extracted is indicated by variable <code>n</code> passed via the <code>-v</code> option.</p>
+<pre><code class="language-bash">$ cat concat.txt
+### addr.txt
+How are you
+This game is good
+Today is sunny
+### broken.txt
+top
+1234567890
+bottom
+### sample.txt
+Just do-it
+Believe it
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+
+$ awk -v n=2 '/^### /{f=1; c++} c==n' concat.txt
+### broken.txt
+top
+1234567890
+bottom
+$ awk -v n=4 '/^### /{f=1; c++} c==n' concat.txt
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+</code></pre>
+<p><strong>f)</strong> For the input file <code>ruby.md</code>, replace all occurrences of <code>ruby</code> (irrespective of case) with <code>Ruby</code>. But, do not replace any matches between <code>```ruby</code> and <code>```</code> lines (<code>ruby</code> in these markers shouldn't be replaced either).</p>
+<pre><code class="language-bash">$ awk -v IGNORECASE=1 '/```ruby/{f=1} !f{gsub(/ruby/, &quot;Ruby&quot;)} /```$/{f=0} 1' ruby.md &gt; out.md
+$ diff -sq out.md expected.md 
+Files out.md and expected.md are identical
+</code></pre>
+<br>
+<h1><a class="header" href="#two-file-processing" id="two-file-processing">Two file processing</a></h1>
+<p><strong>a)</strong> Use contents of <code>match_words.txt</code> file to display matching lines from <code>jumbled.txt</code> and <code>sample.txt</code>. The matching criteria is that the second word of lines from these files should match the third word of lines from <code>match_words.txt</code>.</p>
+<pre><code class="language-bash">$ cat match_words.txt
+%whole(Hello)--{doubt}==ado==
+just,\joint*,concession&lt;=nice
+
+$ # 'concession' is one of the third words from 'match_words.txt'
+$ # and second word from 'jumbled.txt'
+$ awk -v FPAT='\\w+' 'NR==FNR{a[$3]; next} $2 in a' match_words.txt jumbled.txt sample.txt
+wavering:concession/woof\retailer
+No doubt you like it too
+</code></pre>
+<p><strong>b)</strong> Interleave contents of <code>secrets.txt</code> with the contents of a file passed via <code>-v</code> option as shown below.</p>
+<pre><code class="language-bash">$ awk -v f='table.txt' '{print; getline &lt; f; print; print &quot;---&quot;}' secrets.txt
+stag area row tick
+brown bread mat hair 42
+---
+deaf chi rate tall glad
+blue cake mug shirt -7
+---
+Bi tac toe - 42
+yellow banana window shoes 3.14
+---
+</code></pre>
+<p><strong>c)</strong> The file <code>search_terms.txt</code> contains one search string per line (these have no regexp metacharacters). Construct an <code>awk</code> command that reads this file and displays search terms (matched case insensitively) that were found in all of the other file arguments. Note that these terms should be matched with any part of the line, not just whole words.</p>
+<pre><code class="language-bash">$ cat search_terms.txt
+hello
+row
+you
+is
+at
+
+$ awk -v IGNORECASE=1 'NR==FNR{s[$0]; next} {for(k in s){if($0 ~ k &amp;&amp; ++s[k]==(ARGC-2))
+                       print k}}' search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt
+at
+row
+$ awk -v IGNORECASE=1 'NR==FNR{s[$0]; next} {for(k in s){if($0 ~ k &amp;&amp; ++s[k]==(ARGC-2))
+                       print k}}' search_terms.txt addr.txt sample.txt
+is
+you
+hello
+</code></pre>
+<br>
+<h1><a class="header" href="#dealing-with-duplicates" id="dealing-with-duplicates">Dealing with duplicates</a></h1>
+<p><strong>a)</strong> Retain only first copy of a line for the input file <code>lines.txt</code>. Case should be ignored while comparing lines. For example <code>hi there</code> and <code>HI TheRE</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ cat lines.txt
+Go There
+come on
+go there
+---
+2 apples and 5 mangoes
+come on!
+---
+2 Apples
+COME ON
+
+$ awk '!seen[tolower($0)]++' lines.txt
+Go There
+come on
+---
+2 apples and 5 mangoes
+come on!
+2 Apples
+</code></pre>
+<p><strong>b)</strong> Retain only first copy of a line for the input file <code>lines.txt</code>. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, <code>hehe haha</code> and <code>haha hehe</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ cat twos.txt
+hehe haha
+door floor
+haha hehe
+6;8 3-4
+true blue
+hehe bebe
+floor door
+3-4 6;8
+tru eblue
+haha hehe
+
+$ awk '!($1,$2) in seen &amp;&amp; !($2,$1) in seen; {seen[$1,$2]}' twos.txt
+hehe haha
+door floor
+6;8 3-4
+true blue
+hehe bebe
+tru eblue
+</code></pre>
+<p><strong>c)</strong> For the input file <code>twos.txt</code>, create a file <code>uniq.txt</code> with all the unique lines and <code>dupl.txt</code> with all the duplicate lines. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, <code>hehe haha</code> and <code>haha hehe</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ awk 'NR==FNR{c[$1,$2]++; next} {if((c[$1,$2] + c[$2,$1]) == 1) print &gt; &quot;uniq.txt&quot;;
+       else print &gt; &quot;dupl.txt&quot;}' twos.txt twos.txt
+
+$ cat uniq.txt 
+true blue
+hehe bebe
+tru eblue
+$ cat dupl.txt 
+hehe haha
+door floor
+haha hehe
+6;8 3-4
+floor door
+3-4 6;8
+haha hehe
+</code></pre>
+<br>
+<h1><a class="header" href="#awk-scripts" id="awk-scripts">awk scripts</a></h1>
+<p><strong>a)</strong> Before explaining the problem statement, here's an example of markdown headers and their converted link version. Note the use of <code>-1</code> for the second occurrence of <code>Summary</code> header. Also note that this sample doesn't simulate all the rules.</p>
+<pre><code class="language-bash"># Field separators
+## Summary
+# Gotchas and Tips
+## Summary
+
+* [Field separators](#field-separators)
+    * [Summary](#summary)
+* [Gotchas and Tips](#gotchas-and-tips)
+    * [Summary](#summary-1)
+</code></pre>
+<p>For the input file <code>gawk.md</code>, construct table of content links as per the details described below.</p>
+<ul>
+<li>Identify all header lines
+<ul>
+<li>there are two types of header lines, one starting with <code># </code> and the other starting with <code>## </code></li>
+<li>lines starting with <code>#</code> inside code blocks defined by <code>```bash</code> and <code>```</code> markers should be ignored</li>
+</ul>
+</li>
+<li>The headers lines should then be converted as per the following rules:
+<ul>
+<li>content is defined as portion of the header ignoring the initial <code>#</code> or <code>##</code> characters and a space character</li>
+<li>initial <code>##</code> should be replaced with four spaces and a <code>*</code></li>
+<li>else, initial <code>#</code> should be replaced with <code>*</code></li>
+<li>create a copy of the content, change it to all lowercase, replace all space characters with <code>-</code> character and then place it within <code>(#</code> and <code>)</code>
+<ul>
+<li>if there are multiple headers with same content, append <code>-1</code>, <code>-2</code>, etc respectively for the second header, third header, etc</li>
+</ul>
+</li>
+<li>surround the original content with <code>[]</code> and then append the string obtained from previous step</li>
+</ul>
+</li>
+<li>Note that the output should have only the converted headers, all other input lines should not be present</li>
+</ul>
+<p>As the input file <code>gawk.md</code> is too long, only the commands to verify your solution is shown.</p>
+<pre><code class="language-bash">$ cat toc.awk 
+/^```bash$/ {
+	f = 1
+}
+
+/^```$/ {
+	f = 0
+}
+
+! f &amp;&amp; /^#+ / {
+    m = tolower($0)
+    a[m]++ &amp;&amp; m = m &quot;-&quot; (a[m]-1)
+    sub(/^#+ /, &quot;&quot;, m)
+    gsub(/ /, &quot;-&quot;, m)
+
+    /^# / ? sub(/^# /, &quot;* &quot;) : sub(/^## /, &quot;    * &quot;)
+    print gensub(/* (.+)/, &quot;* [\\1](#&quot; m &quot;)&quot;, 1)
+}
+
+$ awk -f toc.awk gawk.md &gt; out.md
+$ diff -sq out.md toc_expected.md
+Files out.md and toc_expected.md are identical
+</code></pre>
+<p><strong>b)</strong> For the input file <code>odd.txt</code>, surround first two whole words of each line with <code>{}</code> that start and end with the same word character. Assume that input file will not require case insensitive comparison. This is a contrived exercise that needs around 10 instructions and makes you recall various features presented in this book.</p>
+<pre><code class="language-bash">$ cat odd.txt
+-oreo-not:a _a2_ roar&lt;=&gt;took%22
+RoaR to wow-
+
+$ cat same.awk 
+{
+    c = 0
+    n = split($0, a, /\W+/, seps)
+    for (i = 1; i &lt;= n; i++) {
+        len = length(a[i])
+        if (len &amp;&amp; substr(a[i], 1, 1) == substr(a[i], len) &amp;&amp; c++ &lt; 2) {
+            a[i] = &quot;{&quot; a[i] &quot;}&quot;
+        }
+        printf &quot;%s%s&quot;, a[i], seps[i]
+    }
+    print &quot;&quot;
+}
+
+$ awk -f same.awk odd.txt
+-{oreo}-not:{a} _a2_ roar&lt;=&gt;took%22
+{RoaR} to {wow}-
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="further-reading.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="further-reading.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

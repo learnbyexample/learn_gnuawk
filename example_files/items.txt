@@ -1,2 +1,0 @@
-apple   fig banana
-50      10  200

@@ -1,2 +1,0 @@
-# <a name="regular-expressions"></a>Regular Expressions
-## <a name="subexpression-calls"></a>Subexpression calls

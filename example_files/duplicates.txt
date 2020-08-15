@@ -1,7 +1,0 @@
-brown,toy,bread,42
-dark red,ruby,rose,111
-blue,ruby,water,333
-dark red,sky,rose,555
-yellow,toy,flower,333
-white,sky,bread,111
-light red,purse,rose,333

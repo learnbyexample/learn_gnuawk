@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Dealing with duplicates - GNU AWK</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide to mastering GNU AWK">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="installation-and-documentation.html"><strong aria-hidden="true">2.</strong> Installation and Documentation</a></li><li class="chapter-item expanded "><a href="awk-introduction.html"><strong aria-hidden="true">3.</strong> awk introduction</a></li><li class="chapter-item expanded "><a href="regular-expressions.html"><strong aria-hidden="true">4.</strong> Regular Expressions</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">5.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">6.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">7.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="using-shell-variables.html"><strong aria-hidden="true">8.</strong> Using shell variables</a></li><li class="chapter-item expanded "><a href="control-structures.html"><strong aria-hidden="true">9.</strong> Control Structures</a></li><li class="chapter-item expanded "><a href="built-in-functions.html"><strong aria-hidden="true">10.</strong> Built-in functions</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">11.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">12.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">13.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html" class="active"><strong aria-hidden="true">14.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="awk-scripts.html"><strong aria-hidden="true">15.</strong> awk scripts</a></li><li class="chapter-item expanded "><a href="gotchas-and-tips.html"><strong aria-hidden="true">16.</strong> Gotchas and Tips</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">17.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">18.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GNU AWK</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_gnuawk" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#dealing-with-duplicates" id="dealing-with-duplicates">Dealing with duplicates</a></h1>
+<p>Often, you need to eliminate duplicates from an input file. This could be based on entire line content or based on certain fields. These are typically solved with <code>sort</code> and <code>uniq</code> commands. Advantage with <code>awk</code> include regexp based field and record separators, input doesn't have to be sorted, and in general more flexibility because it is a programming language.</p>
+<h2><a class="header" href="#whole-line-duplicates" id="whole-line-duplicates">Whole line duplicates</a></h2>
+<p><code>awk '!a[$0]++'</code> is one of the most famous <code>awk</code> one-liners. It eliminates line based duplicates while retaining input order. The following example shows it in action along with an illustration of how the logic works.</p>
+<pre><code class="language-bash">$ cat purchases.txt
+coffee
+tea
+washing powder
+coffee
+toothpaste
+tea
+soap
+tea
+
+$ awk '{print +a[$0] &quot;\t&quot; $0; a[$0]++}' purchases.txt
+0       coffee
+0       tea
+0       washing powder
+1       coffee
+0       toothpaste
+1       tea
+0       soap
+2       tea
+
+$ # only those entries with zero in first column will be retained
+$ awk '!a[$0]++' purchases.txt
+coffee
+tea
+washing powder
+toothpaste
+soap
+</code></pre>
+<h2><a class="header" href="#column-wise-duplicates" id="column-wise-duplicates">Column wise duplicates</a></h2>
+<p>Removing field based duplicates is simple for single field comparison. Just change <code>$0</code> to the required field number after setting the appropriate field separator.</p>
+<pre><code class="language-bash">$ cat duplicates.txt
+brown,toy,bread,42
+dark red,ruby,rose,111
+blue,ruby,water,333
+dark red,sky,rose,555
+yellow,toy,flower,333
+white,sky,bread,111
+light red,purse,rose,333
+
+$ # based on last field
+$ awk -F, '!seen[$NF]++' duplicates.txt
+brown,toy,bread,42
+dark red,ruby,rose,111
+blue,ruby,water,333
+dark red,sky,rose,555
+</code></pre>
+<p>For multiple fields comparison, separate the fields with <code>,</code> so that <code>SUBSEP</code> is used to combine the field values to generate the key. As mentioned before, <code>SUBSEP</code> has a default value of <code>\034</code> non-printing character, which is typically not used in text files.</p>
+<pre><code class="language-bash">$ # based on first and third field
+$ awk -F, '!seen[$1,$3]++' duplicates.txt
+brown,toy,bread,42
+dark red,ruby,rose,111
+blue,ruby,water,333
+yellow,toy,flower,333
+white,sky,bread,111
+light red,purse,rose,333
+</code></pre>
+<h2><a class="header" href="#duplicate-count" id="duplicate-count">Duplicate count</a></h2>
+<p>In this section, how many times a duplicate record is found plays a role in determining the output.</p>
+<p>First up, printing only a specific numbered duplicate.</p>
+<pre><code class="language-bash">$ # print only the second occurrence of duplicates based on 2nd field
+$ awk -F, '++seen[$2]==2' duplicates.txt
+blue,ruby,water,333
+yellow,toy,flower,333
+white,sky,bread,111
+
+$ # print only the third occurrence of duplicates based on last field
+$ awk -F, '++seen[$NF]==3' duplicates.txt
+light red,purse,rose,333
+</code></pre>
+<p>Next, printing only the last copy of duplicate. Since the count isn't known, the <code>tac</code> command comes in handy again.</p>
+<pre><code class="language-bash">$ # reverse the input line-wise, retain first copy and then reverse again
+$ tac duplicates.txt | awk -F, '!seen[$NF]++' | tac
+brown,toy,bread,42
+dark red,sky,rose,555
+white,sky,bread,111
+light red,purse,rose,333
+</code></pre>
+<p>To get all the records based on a duplicate count, you can pass the input file twice. Then use the two file processing trick to make decisions.</p>
+<pre><code class="language-bash">$ # all duplicates based on last column
+$ awk -F, 'NR==FNR{a[$NF]++; next} a[$NF]&gt;1' duplicates.txt duplicates.txt
+dark red,ruby,rose,111
+blue,ruby,water,333
+yellow,toy,flower,333
+white,sky,bread,111
+light red,purse,rose,333
+
+$ # all duplicates based on last column, minimum 3 duplicates
+$ awk -F, 'NR==FNR{a[$NF]++; next} a[$NF]&gt;2' duplicates.txt duplicates.txt
+blue,ruby,water,333
+yellow,toy,flower,333
+light red,purse,rose,333
+
+$ # only unique lines based on 3rd column
+$ awk -F, 'NR==FNR{a[$3]++; next} a[$3]==1' duplicates.txt duplicates.txt
+blue,ruby,water,333
+yellow,toy,flower,333
+</code></pre>
+<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
+<p>This chapter showed how to work with duplicate contents, both record and field based. If you don't need regexp based separators and if your input is too big to handle, then specialized command line tools <code>sort</code> and <code>uniq</code> will be better suited compared to <code>awk</code>.</p>
+<p>Next chapter will show how to write <code>awk</code> scripts instead of the usual one-liners.</p>
+<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
+<p><strong>a)</strong> Retain only first copy of a line for the input file <code>lines.txt</code>. Case should be ignored while comparing lines. For example <code>hi there</code> and <code>HI TheRE</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ cat lines.txt
+Go There
+come on
+go there
+---
+2 apples and 5 mangoes
+come on!
+---
+2 Apples
+COME ON
+
+$ awk ##### add your solution here
+Go There
+come on
+---
+2 apples and 5 mangoes
+come on!
+2 Apples
+</code></pre>
+<p><strong>b)</strong> Retain only first copy of a line for the input file <code>lines.txt</code>. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, <code>hehe haha</code> and <code>haha hehe</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ cat twos.txt
+hehe haha
+door floor
+haha hehe
+6;8 3-4
+true blue
+hehe bebe
+floor door
+3-4 6;8
+tru eblue
+haha hehe
+
+$ awk ##### add your solution here
+hehe haha
+door floor
+6;8 3-4
+true blue
+hehe bebe
+tru eblue
+</code></pre>
+<p><strong>c)</strong> For the input file <code>twos.txt</code>, create a file <code>uniq.txt</code> with all the unique lines and <code>dupl.txt</code> with all the duplicate lines. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, <code>hehe haha</code> and <code>haha hehe</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ awk ##### add your solution here
+
+$ cat uniq.txt 
+true blue
+hehe bebe
+tru eblue
+$ cat dupl.txt 
+hehe haha
+door floor
+haha hehe
+6;8 3-4
+floor door
+3-4 6;8
+haha hehe
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="two-file-processing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="awk-scripts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="two-file-processing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="awk-scripts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

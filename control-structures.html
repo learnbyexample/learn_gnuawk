@@ -1,0 +1,429 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Control Structures - GNU AWK</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide to mastering GNU AWK">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="installation-and-documentation.html"><strong aria-hidden="true">2.</strong> Installation and Documentation</a></li><li class="chapter-item expanded "><a href="awk-introduction.html"><strong aria-hidden="true">3.</strong> awk introduction</a></li><li class="chapter-item expanded "><a href="regular-expressions.html"><strong aria-hidden="true">4.</strong> Regular Expressions</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">5.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">6.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">7.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="using-shell-variables.html"><strong aria-hidden="true">8.</strong> Using shell variables</a></li><li class="chapter-item expanded "><a href="control-structures.html" class="active"><strong aria-hidden="true">9.</strong> Control Structures</a></li><li class="chapter-item expanded "><a href="built-in-functions.html"><strong aria-hidden="true">10.</strong> Built-in functions</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">11.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">12.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">13.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">14.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="awk-scripts.html"><strong aria-hidden="true">15.</strong> awk scripts</a></li><li class="chapter-item expanded "><a href="gotchas-and-tips.html"><strong aria-hidden="true">16.</strong> Gotchas and Tips</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">17.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">18.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GNU AWK</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_gnuawk" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#control-structures" id="control-structures">Control Structures</a></h1>
+<p>You've already seen various examples requiring conditional expressions. This chapter will revisit <code>if-else</code> control structure along with the ternary operator. Then you will see some examples with explicit loops (recall that <code>awk</code> is already looping over input records). Followed by keywords that control loop flow. Most of the syntax is very similar to the <code>C</code> language.</p>
+<h2><a class="header" href="#if-else" id="if-else">if-else</a></h2>
+<p>Mostly, when you need to use <code>if</code> control structure, you can get away with using <code>condX{actionX}</code> format in <code>awk</code> one-liners. But sometimes, you need additional condition checking within such action blocks. Or, you might need it inside loops. The syntax is <code>if(cond){action}</code> where the braces are optional if you need only one statement. <code>if</code> can be optionally followed by multiple <code>else if</code> conditions and a final <code>else</code> condition. These can also be nested as needed.</p>
+<pre><code class="language-bash">$ # print all lines starting with 'b'
+$ # additionally, if last column is &gt; 0, then print some more info
+$ awk '/^b/{print; if($NF&gt;0) print &quot;------&quot;}' table.txt
+brown bread mat hair 42
+------
+blue cake mug shirt -7
+
+$ # same as above, but includes 'else' condition as well
+$ awk '/^b/{print; if($NF&gt;0) print &quot;------&quot;; else print &quot;======&quot;}' table.txt
+brown bread mat hair 42
+------
+blue cake mug shirt -7
+======
+</code></pre>
+<p>The ternary operator often reduces the need for single statement <code>if-else</code> cases.</p>
+<pre><code class="language-bash">$ # same as: awk '{if(NR%3) ORS=&quot;-&quot; ; else ORS=RS} 1'
+$ seq 6 | awk '{ORS = NR%3 ? &quot;-&quot; : RS} 1'
+1-2-3
+4-5-6
+
+$ # note that parentheses is necessary for print in this case
+$ awk '/^b/{print; print($NF&gt;0 ? &quot;------&quot; : &quot;======&quot;)}' table.txt
+brown bread mat hair 42
+------
+blue cake mug shirt -7
+======
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See also <a href="https://stackoverflow.com/a/29784278">stackoverflow: finding min and max value of a column</a>.</p>
+</blockquote>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See also <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Switch-Statement">gawk manual: switch</a>.</p>
+</blockquote>
+<h2><a class="header" href="#loops" id="loops">loops</a></h2>
+<p><code>for</code> loops are handy when you are working with arrays. Also for processing input fields, since <code>$N</code> syntax allows passing an expression instead of fixed value.</p>
+<pre><code class="language-bash">$ awk 'BEGIN{for(i=2; i&lt;7; i+=2) print i}'
+2
+4
+6
+
+$ # looping each field
+$ awk -v OFS=, '{for(i=1; i&lt;=NF; i++) if($i ~ /^[bm]/) $i=&quot;[&quot;$i&quot;]&quot;} 1' table.txt
+[brown],[bread],[mat],hair,42
+[blue],cake,[mug],shirt,-7
+yellow,[banana],window,shoes,3.14
+</code></pre>
+<p>Here's an example of looping over a dynamically constructed array.</p>
+<pre><code class="language-bash">$ cat marks.txt
+Dept    Name    Marks
+ECE     Raj     53
+ECE     Joel    72
+EEE     Moi     68
+CSE     Surya   81
+EEE     Tia     59
+ECE     Om      92
+CSE     Amy     67
+
+$ # average marks for each department
+$ awk 'NR&gt;1{d[$1]+=$3; c[$1]++} END{for(k in d) print k, d[k]/c[k]}' marks.txt
+ECE 72.3333
+EEE 63.5
+CSE 74
+</code></pre>
+<p>You can use <code>break</code> and <code>continue</code> to alter the normal flow of loops. <code>break</code> will cause the current loop to quit immediately without processing the remaining statements and iterations. <code>continue</code> will skip the remaining statements in the loop and start next iteration.</p>
+<pre><code class="language-bash">$ awk -v OFS=, '{for(i=1; i&lt;=NF; i++) if($i ~ /b/){NF=i; break}} 1' table.txt
+brown
+blue
+yellow,banana
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See also <a href="https://stackoverflow.com/questions/38491676/how-can-i-find-the-missing-integers-in-a-unique-and-sequential-list-one-per-lin">stackoverflow: find missing numbers from sequential list</a>.</p>
+</blockquote>
+<p><code>awk</code> supports <code>while</code> and <code>do-while</code> loop mechanisms as well.</p>
+<pre><code class="language-bash">$ awk 'BEGIN{i=6; while(i&gt;0){print i; i-=2}}'
+6
+4
+2
+
+$ # recursive substitution
+$ echo 'titillate' | awk '{while(gsub(/til/, &quot;&quot;)) print}'
+tilate
+ate
+$ echo 'titillate' | awk '{do{print} while(gsub(/til/, &quot;&quot;))}'
+titillate
+tilate
+ate
+</code></pre>
+<h2><a class="header" href="#next" id="next">next</a></h2>
+<p><code>next</code> is similar to <code>continue</code> statement but it acts on the default loop that goes through the input records. It doesn't affect <code>BEGIN</code> or <code>END</code> blocks as they are outside the record looping. When <code>next</code> is executed, rest of the statements will be skipped and next input record will be fetched for processing.</p>
+<pre><code class="language-bash">$ awk '/\&lt;par/{print &quot;%% &quot; $0; next} {print /s/ ? &quot;X&quot; : &quot;Y&quot;}' word_anchors.txt
+%% sub par
+X
+Y
+X
+%% cart part tart mart
+</code></pre>
+<p>You'll see more examples with <code>next</code> in coming chapters.</p>
+<h2><a class="header" href="#exit" id="exit">exit</a></h2>
+<p>You saw the use of <code>exit</code> earlier to quit early and avoid unnecessary processing of records. If an argument isn't passed, <code>awk</code> considers the command to have finished normally and <strong>exit status</strong> will indicate success. You can pass a number to indicate other cases.</p>
+<pre><code class="language-bash">$ seq 3542 4623452 | awk 'NR==2452{print; exit}'
+5993
+$ echo $?
+0
+
+$ awk '/^br/{print &quot;Invalid input&quot;; exit 1}' table.txt
+Invalid input
+$ echo $?
+1
+
+$ # any remaining files to be processed are also skipped
+$ awk 'FNR==2{print; exit}' table.txt greeting.txt
+blue cake mug shirt -7
+</code></pre>
+<p>If <code>exit</code> is used in <code>BEGIN</code> or normal blocks, any code in <code>END</code> block will still be executed. For more details and corner cases, see <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Exit-Statement">gawk manual: exit</a>.</p>
+<pre><code class="language-bash">$ # first print is executed
+$ # on seeing exit, rest of BEGIN and normal blocks are skipped
+$ # code in END is then executed
+$ awk 'BEGIN{print &quot;hi&quot;; exit; print &quot;hello&quot;}
+       /^b/;
+       END{print &quot;bye&quot;}' table.txt
+hi
+bye
+</code></pre>
+<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
+<p>This chapter covered some of the control flow structures provided by <code>awk</code>. These features makes <code>awk</code> flexible and easier to use compared to <code>sed</code> for those familiar with programming languages.</p>
+<p>Next chapter will discuss some of the built-in functions.</p>
+<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
+<p><strong>a)</strong> The input file <code>nums.txt</code> contains single column of numbers. Change positive numbers to negative and vice versa. Can you do it with using only <code>sub</code> function and without explicit use of <code>if-else</code> or ternary operator?</p>
+<pre><code class="language-bash">$ cat nums.txt
+42
+-2
+10101
+-3.14
+-75
+
+$ awk ##### add your solution here
+-42
+2
+-10101
+3.14
+75
+</code></pre>
+<p><strong>b)</strong> For the input file <code>table.txt</code>, change the field separator from space to <code>,</code> character. Also, any field not containing digit characters should be surrounded by double quotes.</p>
+<pre><code class="language-bash">$ awk ##### add your solution here
+&quot;brown&quot;,&quot;bread&quot;,&quot;mat&quot;,&quot;hair&quot;,42
+&quot;blue&quot;,&quot;cake&quot;,&quot;mug&quot;,&quot;shirt&quot;,-7
+&quot;yellow&quot;,&quot;banana&quot;,&quot;window&quot;,&quot;shoes&quot;,3.14
+</code></pre>
+<p><strong>c)</strong> For each input line of the file <code>secrets.txt</code>, remove all characters except the last character of each field. Assume space as the input field separator.</p>
+<pre><code class="language-bash">$ cat secrets.txt
+stag area row tick
+deaf chi rate tall glad
+Bi tac toe - 42
+
+$ awk ##### add your solution here
+gawk
+field
+ice-2
+</code></pre>
+<p><strong>d)</strong> Emulate <code>q</code> and <code>Q</code> commands of <code>sed</code> as shown below.</p>
+<pre><code class="language-bash">$ # sed '/are/q' sample.txt will print until (and including) line contains 'are'
+$ awk ##### add your solution here
+Hello World
+
+Good day
+How are you
+
+$ # sed '/are/Q' sample.txt will print until (but excluding) line contains 'are'
+$ awk ##### add your solution here
+Hello World
+
+Good day
+</code></pre>
+<p><strong>e)</strong> For the input file <code>addr.txt</code>:</p>
+<ul>
+<li>if line contains <code>e</code>
+<ul>
+<li>delete all occurrences of <code>e</code></li>
+<li>surround all consecutive repeated characters with <code>{}</code></li>
+<li>assume that input will not have more than two consecutive repeats</li>
+</ul>
+</li>
+<li>if line doesn't contain <code>e</code> but contains <code>u</code>
+<ul>
+<li>surround all lowercase vowels in that line with <code>[]</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-bash">$ awk ##### add your solution here
+H{ll}o World
+How ar you
+This gam is g{oo}d
+T[o]d[a]y [i]s s[u]nny
+12345
+You ar fu{nn}y
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="using-shell-variables.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="built-in-functions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="using-shell-variables.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="built-in-functions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

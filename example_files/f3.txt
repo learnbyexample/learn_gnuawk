@@ -1,3 +1,0 @@
-  Name    Physics  Maths
- Moe  76  82
-Raj  56  64

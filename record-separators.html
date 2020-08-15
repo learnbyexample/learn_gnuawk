@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Record separators - GNU AWK</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide to mastering GNU AWK">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="installation-and-documentation.html"><strong aria-hidden="true">2.</strong> Installation and Documentation</a></li><li class="chapter-item expanded "><a href="awk-introduction.html"><strong aria-hidden="true">3.</strong> awk introduction</a></li><li class="chapter-item expanded "><a href="regular-expressions.html"><strong aria-hidden="true">4.</strong> Regular Expressions</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">5.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html" class="active"><strong aria-hidden="true">6.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">7.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="using-shell-variables.html"><strong aria-hidden="true">8.</strong> Using shell variables</a></li><li class="chapter-item expanded "><a href="control-structures.html"><strong aria-hidden="true">9.</strong> Control Structures</a></li><li class="chapter-item expanded "><a href="built-in-functions.html"><strong aria-hidden="true">10.</strong> Built-in functions</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">11.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">12.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">13.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">14.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="awk-scripts.html"><strong aria-hidden="true">15.</strong> awk scripts</a></li><li class="chapter-item expanded "><a href="gotchas-and-tips.html"><strong aria-hidden="true">16.</strong> Gotchas and Tips</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">17.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">18.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GNU AWK</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_gnuawk" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#record-separators" id="record-separators">Record separators</a></h1>
+<p>So far, you've seen examples where <code>awk</code> automatically splits input line by line based on the <code>\n</code> newline character. Just like you can control how those lines are further split into fields using <code>FS</code> and other features, <code>awk</code> provides a way to control what constitutes a line in the first place. In <code>awk</code> parlance, the term <strong>record</strong> is used to describe the contents that gets placed in the <code>$0</code> variable. And similar to <code>OFS</code>, you can control the string that gets added at the end for <code>print</code> function. This chapter will also discuss how you can use special variables that have information related to record (line) numbers.</p>
+<h2><a class="header" href="#input-record-separator" id="input-record-separator">Input record separator</a></h2>
+<p>The <code>RS</code> special variable is used to control how the input content is split into records. The default is <code>\n</code> newline character, as evident with examples used in previous chapters. The special variable <code>NR</code> keeps track of the current record number.</p>
+<pre><code class="language-bash">$ # changing input record separator to comma
+$ # note the content of second record, newline is just another character
+$ printf 'this,is\na,sample' | awk -v RS=, '{print NR &quot;)&quot;, $0}'
+1) this
+2) is
+a
+3) sample
+</code></pre>
+<p>Recall that default <code>FS</code> will split input record based on spaces, tabs and newlines. Now that you've seen how <code>RS</code> can be something other than newline, here's an example to show the full effect of default record splitting.</p>
+<pre><code class="language-bash">$ s='   a\t\tb:1000\n\n\n\n123 7777:x  y \n \n z  '
+$ printf '%b' &quot;$s&quot; | awk -v RS=: -v OFS=, '{$1=$1} 1'
+a,b
+1000,123,7777
+x,y,z
+</code></pre>
+<p>Similar to <code>FS</code>, the <code>RS</code> value is treated as a string literal and then converted to a regexp. For now, consider an example with multiple characters for <code>RS</code> but without needing regexp metacharacters.</p>
+<pre><code class="language-bash">$ cat report.log
+blah blah Error: second record starts
+something went wrong
+some more details Error: third record
+details about what went wrong
+
+$ # uses 'Error:' as the input record separator
+$ # prints all the records that contains 'something'
+$ awk -v RS='Error:' '/something/' report.log
+ second record starts
+something went wrong
+some more details 
+</code></pre>
+<blockquote>
+<p><img src="images/warning.svg" alt="warning" /> If <code>IGNORECASE</code> is set, it will affect record separation as well. Except when record separator is a single character, which can be worked around by using a character class.</p>
+</blockquote>
+<pre><code class="language-bash">$ awk -v IGNORECASE=1 -v RS='error:' 'NR==1' report.log
+blah blah 
+
+$ # when RS is a single character
+$ awk -v IGNORECASE=1 -v RS='e' 'NR==1' report.log
+blah blah Error: s
+$ awk -v IGNORECASE=1 -v RS='[e]' 'NR==1' report.log
+blah blah 
+</code></pre>
+<blockquote>
+<p><img src="images/warning.svg" alt="warning" /> The default line ending for text files varies between different platforms. For example, a text file downloaded from internet or a file originating from Windows OS would typically have lines ending with carriage return and line feed characters. So, you'll have to use <code>RS='\r\n'</code> for such files. See also <a href="https://stackoverflow.com/questions/45772525/why-does-my-tool-output-overwrite-itself-and-how-do-i-fix-it">stackoverflow: Why does my tool output overwrite itself and how do I fix it?</a> for a detailed discussion and mitigation methods.</p>
+</blockquote>
+<h2><a class="header" href="#output-record-separator" id="output-record-separator">Output record separator</a></h2>
+<p>The <code>ORS</code> special variable is used for output record separator. <code>ORS</code> is the string that gets added to the end of every call to the <code>print</code> function. The default value for <code>ORS</code> is a single newline character, just like <code>RS</code>.</p>
+<pre><code class="language-bash">$ # change NUL record separator to dot and newline
+$ printf 'foo\0bar\0' | awk -v RS='\0' -v ORS='.\n' '1'
+foo.
+bar.
+
+$ cat msg.txt
+Hello there.
+It will rain to-
+day. Have a safe
+and pleasant jou-
+rney.
+$ # here ORS is empty string
+$ awk -v RS='-\n' -v ORS= '1' msg.txt
+Hello there.
+It will rain today. Have a safe
+and pleasant journey.
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Note that the <code>$0</code> variable is assigned after removing trailing characters matched by <code>RS</code>. Thus, you cannot directly manipulate those characters with functions like <code>sub</code>. With tools that don't automatically strip record separator, such as <code>perl</code>, the previous example can be solved as <code>perl -pe 's/-\n//' msg.txt</code>.</p>
+</blockquote>
+<p>Many a times, you need to change <code>ORS</code> depending upon contents of input record or some other condition. The <code>cond ? expr1 : expr2</code> ternary operator is often used in such scenarios. The below example assumes that input is evenly divisible, you'll have to add more logic if that is not the case.</p>
+<pre><code class="language-bash">$ # can also use RS instead of &quot;\n&quot; here
+$ seq 6 | awk '{ORS = NR%3 ? &quot;-&quot; : &quot;\n&quot;} 1'
+1-2-3
+4-5-6
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> If the last line of input didn't end with the input record separator, it might get added in the output if <code>print</code> is used, as <code>ORS</code> gets appended.</p>
+</blockquote>
+<pre><code class="language-bash">$ # here last line of input didn't end with newline
+$ # but gets added via ORS when 'print' is used
+$ printf '1\n2' | awk '1; END{print 3}'
+1
+2
+3
+</code></pre>
+<h2><a class="header" href="#regexp-rs-and-rt" id="regexp-rs-and-rt">Regexp RS and RT</a></h2>
+<p>As mentioned before, the value passed to <code>RS</code> is treated as a string literal and then converted to a regexp. Here's some examples.</p>
+<pre><code class="language-bash">$ # set input record separator as one or more digit characters
+$ # print records containing 'i' and 't'
+$ printf 'Sample123string42with777numbers' | awk -v RS='[0-9]+' '/i/ &amp;&amp; /t/'
+string
+with
+
+$ # similar to FS, the value passed to RS is string literal
+$ # which is then converted to regexp, so need \\ instead of \ here
+$ printf 'load;err_msg--ant,r2..not' | awk -v RS='\\W+' '/an/'
+ant
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> First record will be empty if <code>RS</code> matches from the start of input file. However, if <code>RS</code> matches until the very last character of the input file, there won't be empty record as the last record. This is different from how <code>FS</code> behaves if it matches until the last character.</p>
+</blockquote>
+<pre><code class="language-bash">$ # first record is empty and last record is newline character
+$ # change 'echo' command to 'printf' and see what changes
+$ echo '123string42with777' | awk -v RS='[0-9]+' '{print NR &quot;) [&quot; $0 &quot;]&quot;}'
+1) []
+2) [string]
+3) [with]
+4) [
+]
+
+$ printf '123string42with777' | awk -v FS='[0-9]+' '{print NF}'
+4
+$ printf '123string42with777' | awk -v RS='[0-9]+' 'END{print NR}'
+3
+</code></pre>
+<p>The <code>RT</code> special variable contains the text that was matched by <code>RS</code>. This variable gets updated for every input record.</p>
+<pre><code class="language-bash">$ # print record number and value of RT for that record
+$ # last record has empty RT because it didn't end with digits
+$ echo 'Sample123string42with777numbers' | awk -v RS='[0-9]+' '{print NR, RT}'
+1 123
+2 42
+3 777
+4 
+</code></pre>
+<h2><a class="header" href="#paragraph-mode" id="paragraph-mode">Paragraph mode</a></h2>
+<p>As a special case, when <code>RS</code> is set to empty string, one or more consecutive empty lines is used as the input record separator. Consider the below sample file:</p>
+<pre><code class="language-bash">$ cat programming_quotes.txt
+Debugging is twice as hard as writing the code in the first place.
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it by Brian W. Kernighan
+
+Some people, when confronted with a problem, think - I know, I will
+use regular expressions. Now they have two problems by Jamie Zawinski
+
+A language that does not affect the way you think about programming,
+is not worth knowing by Alan Perlis
+
+There are 2 hard problems in computer science: cache invalidation,
+naming things, and off-by-1 errors by Leon Bambrick
+</code></pre>
+<p>Here's an example of processing input paragraph wise.</p>
+<pre><code class="language-bash">$ # print all paragraphs containing 'you'
+$ # note that there'll be an empty line after the last record
+$ awk -v RS= -v ORS='\n\n' '/you/' programming_quotes.txt
+Debugging is twice as hard as writing the code in the first place.
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it by Brian W. Kernighan
+
+A language that does not affect the way you think about programming,
+is not worth knowing by Alan Perlis
+
+</code></pre>
+<p>The empty line at the end is a common problem when dealing with custom record separators. You could either process the output to remove it or add logic to avoid the extras. Here's one workaround for the previous example.</p>
+<pre><code class="language-bash">$ # here ORS is left as default newline character
+$ # uninitialized variable will be false in conditional expression
+$ # after the first record is printed, counter 'c' becomes non-zero
+$ awk -v RS= '/you/{print c++ ? &quot;\n&quot; $0 : $0}' programming_quotes.txt
+Debugging is twice as hard as writing the code in the first place.
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it by Brian W. Kernighan
+
+A language that does not affect the way you think about programming,
+is not worth knowing by Alan Perlis
+</code></pre>
+<p>Paragraph mode is not the same as using <code>RS='\n\n+'</code> because <code>awk</code> does a few more operations when <code>RS</code> is empty. See <a href="https://www.gnu.org/software/gawk/manual/html_node/Multiple-Line.html#Multiple-Line">gawk manual: multiline records</a> for details. Important points are quoted below and illustrated with examples.</p>
+<blockquote>
+<p>However, there is an important difference between <code>RS = &quot;&quot;</code> and <code>RS = &quot;\n\n+&quot;</code>. In the first case, leading newlines in the input data file are ignored</p>
+</blockquote>
+<pre><code class="language-bash">$ s='\n\n\na\nb\n\n12\n34\n\nhi\nhello\n'
+
+$ # paragraph mode
+$ printf '%b' &quot;$s&quot; | awk -v RS= -v ORS='\n---\n' 'NR&lt;=2'
+a
+b
+---
+12
+34
+---
+
+$ # RS is '\n\n+' instead of paragraph mode
+$ printf '%b' &quot;$s&quot; | awk -v RS='\n\n+' -v ORS='\n---\n' 'NR&lt;=2'
+
+---
+a
+b
+---
+</code></pre>
+<blockquote>
+<p>and if a file ends without extra blank lines after the last record, the final newline is removed from the record. In the second case, this special processing is not done.</p>
+</blockquote>
+<pre><code class="language-bash">$ s='\n\n\na\nb\n\n12\n34\n\nhi\nhello\n'
+
+$ # paragraph mode
+$ printf '%b' &quot;$s&quot; | awk -v RS= -v ORS='\n---\n' 'END{print}'
+hi
+hello
+---
+
+$ # RS is '\n\n+' instead of paragraph mode
+$ printf '%b' &quot;$s&quot; | awk -v RS='\n\n+' -v ORS='\n---\n' 'END{print}'
+hi
+hello
+
+---
+</code></pre>
+<blockquote>
+<p>When RS is set to the empty string and FS is set to a single character, the newline character always acts as a field separator. This is in addition to whatever field separations result from FS. When FS is the null string (<code>&quot;&quot;</code>) or a regexp, this special feature of RS does not apply. It does apply to the default field separator of a single space: <code>FS = &quot; &quot;</code></p>
+</blockquote>
+<pre><code class="language-bash">$ s='a:b\nc:d\n\n1\n2\n3'
+
+$ # FS is a single character in paragraph mode
+$ printf '%b' &quot;$s&quot; | awk -F: -v RS= -v ORS='\n---\n' '{$1=$1} 1'
+a b c d
+---
+1 2 3
+---
+
+$ # FS is a regexp in paragraph mode
+$ printf '%b' &quot;$s&quot; | awk -F':+' -v RS= -v ORS='\n---\n' '{$1=$1} 1'
+a b
+c d
+---
+1
+2
+3
+---
+
+$ # FS is single character and RS is '\n\n+' instead of paragraph mode
+$ printf '%b' &quot;$s&quot; | awk -F: -v RS='\n\n+' -v ORS='\n---\n' '{$1=$1} 1'
+a b
+c d
+---
+1
+2
+3
+---
+</code></pre>
+<h2><a class="header" href="#nr-vs-fnr" id="nr-vs-fnr">NR vs FNR</a></h2>
+<p>There are two special variables related to record number. You've seen <code>NR</code> earlier in the chapter, but here's some more examples.</p>
+<pre><code class="language-bash">$ # same as: head -n2
+$ seq 5 | awk 'NR&lt;=2'
+1
+2
+
+$ # same as: tail -n1
+$ awk 'END{print}' table.txt
+yellow banana window shoes 3.14
+
+$ # change first field content only for second line
+$ awk 'NR==2{$1=&quot;green&quot;} 1' table.txt
+brown bread mat hair 42
+green cake mug shirt -7
+yellow banana window shoes 3.14
+</code></pre>
+<p>All the examples with <code>NR</code> so far has been with single file input. If there are multiple file inputs, then you can choose between <code>NR</code> and the second special variable <code>FNR</code>. The difference is that <code>NR</code> contains total records read so far whereas <code>FNR</code> contains record number of only the current file being processed. Here's some examples to show them in action. You'll see more examples in later chapters as well.</p>
+<pre><code class="language-bash">$ awk -v OFS='\t' 'BEGIN{print &quot;NR&quot;, &quot;FNR&quot;, &quot;Content&quot;}
+                   {print NR, FNR, $0}' report.log table.txt
+NR      FNR     Content
+1       1       blah blah Error: second record starts
+2       2       something went wrong
+3       3       some more details Error: third record
+4       4       details about what went wrong
+5       1       brown bread mat hair 42
+6       2       blue cake mug shirt -7
+7       3       yellow banana window shoes 3.14
+
+$ # same as: head -q -n1
+$ awk 'FNR==1' report.log table.txt
+blah blah Error: second record starts
+brown bread mat hair 42
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> For large input files, use <code>exit</code> to avoid unnecessary record processing.</p>
+</blockquote>
+<pre><code class="language-bash">$ seq 3542 4623452 | awk 'NR==2452{print; exit}'
+5993
+$ seq 3542 4623452 | awk 'NR==250; NR==2452{print; exit}'
+3791
+5993
+
+$ # here is a sample time comparison
+$ time seq 3542 4623452 | awk 'NR==2452{print; exit}' &gt; f1
+real    0m0.004s
+$ time seq 3542 4623452 | awk 'NR==2452' &gt; f2
+real    0m0.717s
+</code></pre>
+<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
+<p>This chapter showed you how to change the way input content is split into records and how to set the string to be appended when <code>print</code> is used. The paragraph mode is useful for processing multiline records separated by empty lines. You also learned two special variables related to record numbers and where to use them.</p>
+<p>So far, you've used <code>awk</code> to manipulate file content without modifying the source file. The next chapter will discuss how to write back the changes to the original input files.</p>
+<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
+<p><strong>a)</strong> The input file <code>jumbled.txt</code> consists of words separated by various delimiters. Display all words that contain <code>an</code> or <code>at</code> or <code>in</code> or <code>it</code>, one per line.</p>
+<pre><code class="language-bash">$ cat jumbled.txt
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+joint[]seer{intuition}titanic
+
+$ awk ##### add your solution here
+overcoats
+furrowing
+wavering
+joint
+intuition
+titanic
+</code></pre>
+<p><strong>b)</strong> Emulate <code>paste -sd,</code> with <code>awk</code>.</p>
+<pre><code class="language-bash">$ # this command joins all input lines with ',' character
+$ paste -sd, addr.txt
+Hello World,How are you,This game is good,Today is sunny,12345,You are funny
+$ # make sure there's no ',' at end of the line
+$ # and that there's a newline character at the end of the line
+$ awk ##### add your solution here
+Hello World,How are you,This game is good,Today is sunny,12345,You are funny
+
+$ # if there's only one line in input, again make sure there's no trailing ','
+$ printf 'foo' | paste -sd,
+foo
+$ printf 'foo' | awk ##### add your solution here
+foo
+</code></pre>
+<p><strong>c)</strong> For the input file <code>scores.csv</code>, add another column named <code>GP</code> which is calculated out of <code>100</code> by giving <code>50%</code> weightage to <code>Maths</code> and <code>25%</code> each for <code>Physics</code> and <code>Chemistry</code>.</p>
+<pre><code class="language-bash">$ awk ##### add your solution here
+Name,Maths,Physics,Chemistry,GP
+Blue,67,46,99,69.75
+Lin,78,83,80,79.75
+Er,56,79,92,70.75
+Cy,97,98,95,96.75
+Ort,68,72,66,68.5
+Ith,100,100,100,100
+</code></pre>
+<p><strong>d)</strong> For the input file <code>sample.txt</code>, extract all paragraphs containing <code>do</code> and exactly two lines.</p>
+<pre><code class="language-bash">$ cat sample.txt
+Hello World
+
+Good day
+How are you
+
+Just do-it
+Believe it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+Much ado about nothing
+He he he
+
+$ # note that there's no extra empty line at the end of the output
+$ awk ##### add your solution here
+Just do-it
+Believe it
+
+Much ado about nothing
+He he he
+</code></pre>
+<p><strong>e)</strong> For the input file <code>sample.txt</code>, change all paragraphs into single line by joining lines using <code>.</code> and a space character as the separator. And add a final <code>.</code> to each paragraph.</p>
+<pre><code class="language-bash">$ # note that there's no extra empty line at the end of the output
+$ awk ##### add your solution here
+Hello World.
+
+Good day. How are you.
+
+Just do-it. Believe it.
+
+Today is sunny. Not a bit funny. No doubt you like it too.
+
+Much ado about nothing. He he he.
+</code></pre>
+<p><strong>f)</strong> The various input/output separators can be changed dynamically and comes into effect during the next input/output operation. For the input file <code>mixed_fs.txt</code>, retain only first two fields from each input line. The field separators should be space for first two lines and <code>,</code> for the rest of the lines.</p>
+<pre><code class="language-bash">$ cat mixed_fs.txt
+rose lily jasmine tulip
+pink blue white yellow
+car,mat,ball,basket
+green,brown,black,purple
+
+$ awk ##### add your solution here
+rose lily
+pink blue
+car,mat
+green,brown
+</code></pre>
+<p><strong>g)</strong> For the input file <code>table.txt</code>, get the outputs shown below. All of them feature line number as part of the solution.</p>
+<pre><code class="language-bash">$ # print other than second line
+$ awk ##### add your solution here
+brown bread mat hair 42
+yellow banana window shoes 3.14
+
+$ # print line number of lines containing 'air' or 'win'
+$ awk ##### add your solution here
+1
+3
+
+$ # calculate the sum of numbers in last column, except second line
+$ awk ##### add your solution here
+45.14
+</code></pre>
+<p><strong>h)</strong> Print second and fourth line for every block of five lines.</p>
+<pre><code class="language-bash">$ seq 15 | awk ##### add your solution here
+2
+4
+7
+9
+12
+14
+</code></pre>
+<p><strong>i)</strong> For the input file <code>odd.txt</code>, surround all whole words with <code>{}</code> that start and end with the same word character. This is a contrived exercise to make you use <code>RT</code>. In real world, you can use <code>sed -E 's/\b(\w|(\w)\w*\2)\b/{&amp;}/g' odd.txt</code> to solve this.</p>
+<pre><code class="language-bash">$ cat odd.txt
+-oreo-not:a _a2_ roar&lt;=&gt;took%22
+RoaR to wow-
+
+$ awk ##### add your solution here
+-{oreo}-not:{a} {_a2_} {roar}&lt;=&gt;took%{22}
+{RoaR} to {wow}-
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="field-separators.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="in-place-file-editing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="field-separators.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="in-place-file-editing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

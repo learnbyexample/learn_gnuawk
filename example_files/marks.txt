@@ -1,8 +1,0 @@
-Dept    Name    Marks
-ECE     Raj     53
-ECE     Joel    72
-EEE     Moi     68
-CSE     Surya   81
-EEE     Tia     59
-ECE     Om      92
-CSE     Amy     67

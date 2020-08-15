@@ -1,0 +1,1024 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Regular Expressions - GNU AWK</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide to mastering GNU AWK">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="installation-and-documentation.html"><strong aria-hidden="true">2.</strong> Installation and Documentation</a></li><li class="chapter-item expanded "><a href="awk-introduction.html"><strong aria-hidden="true">3.</strong> awk introduction</a></li><li class="chapter-item expanded "><a href="regular-expressions.html" class="active"><strong aria-hidden="true">4.</strong> Regular Expressions</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">5.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">6.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">7.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="using-shell-variables.html"><strong aria-hidden="true">8.</strong> Using shell variables</a></li><li class="chapter-item expanded "><a href="control-structures.html"><strong aria-hidden="true">9.</strong> Control Structures</a></li><li class="chapter-item expanded "><a href="built-in-functions.html"><strong aria-hidden="true">10.</strong> Built-in functions</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">11.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">12.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">13.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">14.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="awk-scripts.html"><strong aria-hidden="true">15.</strong> awk scripts</a></li><li class="chapter-item expanded "><a href="gotchas-and-tips.html"><strong aria-hidden="true">16.</strong> Gotchas and Tips</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">17.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">18.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GNU AWK</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_gnuawk" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#regular-expressions" id="regular-expressions">Regular Expressions</a></h1>
+<p>Regular Expressions is a versatile tool for text processing. It helps to precisely define a matching criteria. For learning and understanding purposes, one can view regular expressions as a mini programming language in itself, specialized for text processing. Parts of a regular expression can be saved for future use, analogous to variables and functions. There are ways to perform AND, OR, NOT conditionals, features to concisely define repetition to avoid manual replication and so on.</p>
+<p>Here's some common use cases.</p>
+<ul>
+<li>Sanitizing a string to ensure that it satisfies a known set of rules. For example, to check if a given string matches password rules.</li>
+<li>Filtering or extracting portions on an abstract level like alphabets, numbers, punctuation and so on.</li>
+<li>Qualified string replacement. For example, at the start or the end of a string, only whole words, based on surrounding text, etc.</li>
+</ul>
+<p>This chapter will cover regular expressions as implemented in <code>awk</code>. Most of <code>awk</code>'s regular expression syntax is similar to Extended Regular Expression (ERE) found with <code>grep -E</code> and <code>sed -E</code>. Unless otherwise indicated, examples and descriptions will assume ASCII input.</p>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See also <a href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap09.html">POSIX specification</a> for regular expressions. And <a href="https://unix.stackexchange.com/questions/119905/why-does-my-regular-expression-work-in-x-but-not-in-y">unix.stackexchange: Why does my regular expression work in X but not in Y?</a></p>
+</blockquote>
+<h2><a class="header" href="#syntax-and-variable-assignment" id="syntax-and-variable-assignment">Syntax and variable assignment</a></h2>
+<p>As seen in previous chapter, the syntax is <code>string ~ /regexp/</code> to check if the given string satisfies the rules specified by the regexp. And <code>string !~ /regexp/</code> to invert the condition. By default, <code>$0</code> is checked if the string isn't specified. You can also save a regexp literal in a variable by prefixing <code>@</code> symbol. The prefix is needed because <code>/regexp/</code> by itself would mean <code>$0 ~ /regexp/</code>.</p>
+<pre><code class="language-bash">$ printf 'spared no one\ngrasped\nspar\n' | awk '/ed/'
+spared no one
+grasped
+
+$ printf 'spared no one\ngrasped\nspar\n' | awk '{r = @/ed/} $0 ~ r'
+spared no one
+grasped
+</code></pre>
+<h2><a class="header" href="#line-anchors" id="line-anchors">Line Anchors</a></h2>
+<p>In the examples seen so far, the regexp was a simple string value without any special characters. Also, the regexp pattern evaluated to <code>true</code> if it was found anywhere in the string. Instead of matching anywhere in the line, restrictions can be specified. These restrictions are made possible by assigning special meaning to certain characters and escape sequences. The characters with special meaning are known as <strong>metacharacters</strong> in regular expressions parlance. In case you need to match those characters literally, you need to escape them with a <code>\</code> (discussed in <a href="./regular-expressions.html#matching-the-metacharacters">Matching the metacharacters</a> section).</p>
+<p>There are two line anchors:</p>
+<ul>
+<li><code>^</code> metacharacter restricts the matching to start of line</li>
+<li><code>$</code> metacharacter restricts the matching to end of line</li>
+</ul>
+<pre><code class="language-bash">$ # lines starting with 'sp'
+$ printf 'spared no one\ngrasped\nspar\n' | awk '/^sp/'
+spared no one
+spar
+
+$ # lines ending with 'ar'
+$ printf 'spared no one\ngrasped\nspar\n' | awk '/ar$/'
+spar
+
+$ # change only whole line 'spar'
+$ # can also use: awk '/^spar$/{$0 = 123} 1'
+$ printf 'spared no one\ngrasped\nspar\n' | awk '{sub(/^spar$/, &quot;123&quot;)} 1'
+spared no one
+grasped
+123
+</code></pre>
+<p>The anchors can be used by themselves as a pattern. Helps to insert text at start or end of line, emulating string concatenation operations. These might not feel like useful capability, but combined with other features they become quite a handy tool.</p>
+<pre><code class="language-bash">$ printf 'spared no one\ngrasped\nspar\n' | awk '{gsub(/^/, &quot;* &quot;)} 1'
+* spared no one
+* grasped
+* spar
+
+$ # append only if line doesn't contain space characters
+$ printf 'spared no one\ngrasped\nspar\n' | awk '!/ /{gsub(/$/, &quot;.&quot;)} 1'
+spared no one
+grasped.
+spar.
+</code></pre>
+<h2><a class="header" href="#word-anchors" id="word-anchors">Word Anchors</a></h2>
+<p>The second type of restriction is word anchors. A word character is any alphabet (irrespective of case), digit and the underscore character. You might wonder why there are digits and underscores as well, why not only alphabets? This comes from variable and function naming conventions — typically alphabets, digits and underscores are allowed. So, the definition is more programming oriented than natural language.</p>
+<p>Use <code>\&lt;</code> to indicate start of word anchor and <code>\&gt;</code> to indicate end of word anchor. As an alternate, you can use <code>\y</code> to indicate both the start of word and end of word anchors.</p>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Typically <code>\b</code> is used to represent word anchor (for example, in <code>grep</code>, <code>sed</code>, <code>perl</code>, etc), but in <code>awk</code> the escape sequence <code>\b</code> refers to the backspace character.</p>
+</blockquote>
+<pre><code class="language-bash">$ cat word_anchors.txt
+sub par
+spar
+apparent effort
+two spare computers
+cart part tart mart
+
+$ # words starting with 'par'
+$ awk '/\&lt;par/' word_anchors.txt
+sub par
+cart part tart mart
+
+$ # words ending with 'par'
+$ awk '/par\&gt;/' word_anchors.txt
+sub par
+spar
+
+$ # only whole word 'par'
+$ # note that only lines where substitution succeeded will be printed
+$ # as return value of sub/gsub is number of substitutions made
+$ awk 'gsub(/\&lt;par\&gt;/, &quot;***&quot;)' word_anchors.txt
+sub ***
+</code></pre>
+<blockquote>
+<p><img src="images/warning.svg" alt="warning" /> See also <a href="./gotchas-and-tips.html#word-boundary-differences">Word boundary differences</a> section.</p>
+</blockquote>
+<p><code>\y</code> has an opposite too. <code>\B</code> matches locations other than those places where the word anchor would match.</p>
+<pre><code class="language-bash">$ # match 'par' if it is surrounded by word characters
+$ awk '/\Bpar\B/' word_anchors.txt
+apparent effort
+two spare computers
+
+$ # match 'par' but not as start of word
+$ awk '/\Bpar/' word_anchors.txt
+spar
+apparent effort
+two spare computers
+
+$ # match 'par' but not as end of word
+$ awk '/par\B/' word_anchors.txt
+apparent effort
+two spare computers
+cart part tart mart
+</code></pre>
+<p>Here's an example for using word boundaries by themselves as a pattern. It also neatly shows the opposite functionality of <code>\y</code> and <code>\B</code>.</p>
+<pre><code class="language-bash">$ echo 'copper' | awk '{gsub(/\y/, &quot;:&quot;)} 1'
+:copper:
+$ echo 'copper' | awk '{gsub(/\B/, &quot;:&quot;)} 1'
+c:o:p:p:e:r
+</code></pre>
+<blockquote>
+<p><img src="images/warning.svg" alt="warning" /> Negative logic is handy in many text processing situations. But use it with care, you might end up matching things you didn't intend.</p>
+</blockquote>
+<h2><a class="header" href="#combining-conditions" id="combining-conditions">Combining conditions</a></h2>
+<p>Before seeing next regexp feature, it is good to note that sometimes using logical operators is easier to read and maintain compared to doing everything with regexp.</p>
+<pre><code class="language-bash">$ # lines starting with 'b' but not containing 'at'
+$ awk '/^b/ &amp;&amp; !/at/' table.txt
+blue cake mug shirt -7
+
+$ # if first field contains 'low' or last field is less than 0
+$ awk '$1 ~ /low/ || $NF&lt;0' table.txt
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+</code></pre>
+<h2><a class="header" href="#alternation" id="alternation">Alternation</a></h2>
+<p>Many a times, you'd want to search for multiple terms. In a conditional expression, you can use the logical operators to combine multiple conditions. With regular expressions, the <code>|</code> metacharacter is similar to logical OR. The regular expression will match if any of the expression separated by <code>|</code> is satisfied. These can have their own independent anchors as well.</p>
+<p>Alternation is similar to using <code>||</code> operator between two regexps. Having a single regexp helps to write terser code and <code>||</code> cannot be used when substitution is required.</p>
+<pre><code class="language-bash">$ # lines with whole word 'par' or lines ending with 's'
+$ # same as: awk '/\&lt;par\&gt;/ || /s$/'
+$ awk '/\&lt;par\&gt;|s$/' word_anchors.txt
+sub par
+two spare computers
+
+$ # replace 'cat' or 'dog' or 'fox' with '--'
+$ echo 'cats dog bee parrot foxed' | awk '{gsub(/cat|dog|fox/, &quot;--&quot;)} 1'
+--s -- bee parrot --ed
+</code></pre>
+<p>There's some tricky situations when using alternation. If it is used for filtering a line, there is no ambiguity. However, for use cases like substitution, it depends on a few factors. Say, you want to replace <code>are</code> or <code>spared</code> — which one should get precedence? The bigger word <code>spared</code> or the substring <code>are</code> inside it or based on something else?</p>
+<p>The alternative which matches earliest in the input gets precedence.</p>
+<pre><code class="language-bash">$ # note that 'sub' is used here, so only first match gets replaced
+$ echo 'cats dog bee parrot foxed' | awk '{sub(/bee|parrot|at/, &quot;--&quot;)} 1'
+c--s dog bee parrot foxed
+$ echo 'cats dog bee parrot foxed' | awk '{sub(/parrot|at|bee/, &quot;--&quot;)} 1'
+c--s dog bee parrot foxed
+</code></pre>
+<p>In case of matches starting from same location, for example <code>spar</code> and <code>spared</code>, the longest matching portion gets precedence. Unlike other regular expression implementations, left-to-right priority for alternation comes into play only if length of the matches are the same. See <a href="./regular-expressions.html#longest-match-wins">Longest match wins</a> and <a href="./regular-expressions.html#backreferences">Backreferences</a> sections for more examples.</p>
+<pre><code class="language-bash">$ # example for alternations starting from same location
+$ echo 'spared party parent' | awk '{sub(/spa|spared/, &quot;**&quot;)} 1'
+** party parent
+$ echo 'spared party parent' | awk '{sub(/spared|spa/, &quot;**&quot;)} 1'
+** party parent
+
+$ # other implementations like 'perl' have left-to-right priority
+$ echo 'spared party parent' | perl -pe 's/spa|spared/**/'
+**red party parent
+</code></pre>
+<h2><a class="header" href="#grouping" id="grouping">Grouping</a></h2>
+<p>Often, there are some common things among the regular expression alternatives. It could be common characters or qualifiers like the anchors. In such cases, you can group them using a pair of parentheses metacharacters. Similar to <code>a(b+c)d = abd+acd</code> in maths, you get <code>a(b|c)d = abd|acd</code> in regular expressions.</p>
+<pre><code class="language-bash">$ # without grouping
+$ printf 'red\nreform\nread\narrest\n' | awk '/reform|rest/'
+reform
+arrest
+$ # with grouping
+$ printf 'red\nreform\nread\narrest\n' | awk '/re(form|st)/'
+reform
+arrest
+
+$ # without grouping
+$ printf 'sub par\nspare\npart time\n' | awk '/\&lt;par\&gt;|\&lt;part\&gt;/'
+sub par
+part time
+$ # taking out common anchors
+$ printf 'sub par\nspare\npart time\n' | awk '/\&lt;(par|part)\&gt;/'
+sub par
+part time
+$ # taking out common characters as well
+$ # you'll later learn a better technique instead of using empty alternate
+$ printf 'sub par\nspare\npart time\n' | awk '/\&lt;par(|t)\&gt;/'
+sub par
+part time
+</code></pre>
+<h2><a class="header" href="#matching-the-metacharacters" id="matching-the-metacharacters">Matching the metacharacters</a></h2>
+<p>You have seen a few metacharacters and escape sequences that help to compose a regular expression. To match the metacharacters literally, i.e. to remove their special meaning, prefix those characters with a <code>\</code> character. To indicate a literal <code>\</code> character, use <code>\\</code>.</p>
+<p>Unlike <code>grep</code> and <code>sed</code>, the line anchors have to be always escaped to match them literally as there is no BRE mode in <code>awk</code>. They do not lose their special meaning when not used in their customary positions.</p>
+<pre><code class="language-bash">$ # awk '/b^2/' will not work even though ^ isn't being used as anchor
+$ # b^2 will work for both grep and sed if you use BRE syntax
+$ echo 'a^2 + b^2 - C*3' | awk '/b\^2/'
+a^2 + b^2 - C*3
+
+$ # note that ')' doesn't need to be escaped
+$ echo '(a*b) + c' | awk '{gsub(/\(|)/, &quot;&quot;)} 1'
+a*b + c
+
+$ echo '\learn\by\example' | awk '{gsub(/\\/, &quot;/&quot;)} 1'
+/learn/by/example
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> <a href="./regular-expressions.html#backreferences">Backreferences</a> section will discuss how to handle the metacharacters in replacement section.</p>
+</blockquote>
+<h2><a class="header" href="#using-string-literal-as-regexp" id="using-string-literal-as-regexp">Using string literal as regexp</a></h2>
+<p>The first argument to <code>sub</code> and <code>gsub</code> functions can be a string as well, <code>awk</code> will handle converting it to a regexp. This has a few advantages. For example, if you have many <code>/</code> characters in the search pattern, it might become easier to use string instead of regexp.</p>
+<pre><code class="language-bash">$ p='/home/learnbyexample/reports'
+$ echo &quot;$p&quot; | awk '{sub(/\/home\/learnbyexample\//, &quot;~/&quot;)} 1'
+~/reports
+$ echo &quot;$p&quot; | awk '{sub(&quot;/home/learnbyexample/&quot;, &quot;~/&quot;)} 1'
+~/reports
+
+$ # example with line matching instead of substitution
+$ printf '/foo/bar/1\n/foo/baz/1\n' | awk '/\/foo\/bar\//'
+/foo/bar/1
+$ printf '/foo/bar/1\n/foo/baz/1\n' | awk '$0 ~ &quot;/foo/bar/&quot;'
+/foo/bar/1
+</code></pre>
+<p>In the above examples, the string literal was supplied directly. But any other expression or variable can be used as well, examples for which will be shown later in this chapter. The reason why string isn't always used as the first argument is that the special meaning for <code>\</code> character will clash. For example:</p>
+<pre><code class="language-bash">$ awk 'gsub(&quot;\&lt;par\&gt;&quot;, &quot;X&quot;)' word_anchors.txt
+awk: cmd. line:1: warning: escape sequence `\&lt;' treated as plain `&lt;'
+awk: cmd. line:1: warning: escape sequence `\&gt;' treated as plain `&gt;'
+
+$ # you'll need \\ to represent \
+$ awk 'gsub(&quot;\\&lt;par\\&gt;&quot;, &quot;X&quot;)' word_anchors.txt
+sub X
+$ # much more readable with regexp literal
+$ awk 'gsub(/\&lt;par\&gt;/, &quot;X&quot;)' word_anchors.txt
+sub X
+
+$ # another example
+$ echo '\learn\by\example' | awk '{gsub(&quot;\\\\&quot;, &quot;/&quot;)} 1'
+/learn/by/example
+$ echo '\learn\by\example' | awk '{gsub(/\\/, &quot;/&quot;)} 1'
+/learn/by/example
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Gory-Details">gawk manual: Gory details</a> for more information than you'd want.</p>
+</blockquote>
+<h2><a class="header" href="#the-dot-meta-character" id="the-dot-meta-character">The dot meta character</a></h2>
+<p>The dot metacharacter serves as a placeholder to match any character (including newline character). Later you'll learn how to define your own custom placeholder for limited set of characters.</p>
+<pre><code class="language-bash">$ # 3 character sequence starting with 'c' and ending with 't'
+$ echo 'tac tin cot abc:tyz excited' | awk '{gsub(/c.t/, &quot;-&quot;)} 1'
+ta-in - ab-yz ex-ed
+
+$ # any character followed by 3 and again any character
+$ printf '4\t35x\n' | awk '{gsub(/.3./, &quot;&quot;)} 1'
+4x
+
+$ # 'c' followed by any character followed by 'x'
+$ awk 'BEGIN{s=&quot;abc\nxyz&quot;; sub(/c.x/, &quot; &quot;, s); print s}'
+ab yz
+</code></pre>
+<h2><a class="header" href="#quantifiers" id="quantifiers">Quantifiers</a></h2>
+<p>As an analogy, alternation provides logical OR. Combining the dot metacharacter <code>.</code> and quantifiers (and alternation if needed) paves a way to perform logical AND. For example, to check if a string matches two patterns with any number of characters in between. Quantifiers can be applied to both characters and groupings. Apart from ability to specify exact quantity and bounded range, these can also match unbounded varying quantities.</p>
+<p>First up, the <code>?</code> metacharacter which quantifies a character or group to match <code>0</code> or <code>1</code> times. This helps to define optional patterns and build terser patterns compared to groupings for some cases.</p>
+<pre><code class="language-bash">$ # same as: awk '{gsub(/\&lt;(fe.d|fed)\&gt;/, &quot;X&quot;)} 1'
+$ echo 'fed fold fe:d feeder' | awk '{gsub(/\&lt;fe.?d\&gt;/, &quot;X&quot;)} 1'
+X fold X feeder
+
+$ # same as: awk '/\&lt;par(|t)\&gt;/'
+$ printf 'sub par\nspare\npart time\n' | awk '/\&lt;part?\&gt;/'
+sub par
+part time
+
+$ # same as: awk '{gsub(/part|parrot/, &quot;X&quot;)} 1'
+$ echo 'par part parrot parent' | awk '{gsub(/par(ro)?t/, &quot;X&quot;)} 1'
+par X X parent
+$ # same as: awk '{gsub(/part|parrot|parent/, &quot;X&quot;)} 1'
+$ echo 'par part parrot parent' | awk '{gsub(/par(en|ro)?t/, &quot;X&quot;)} 1'
+par X X X
+
+$ # both '&lt;' and '\&lt;' are replaced with '\&lt;'
+$ echo 'blah \&lt; foo bar &lt; blah baz &lt;' | awk '{gsub(/\\?&lt;/, &quot;\\&lt;&quot;)} 1'
+blah \&lt; foo bar \&lt; blah baz \&lt;
+</code></pre>
+<p>The <code>*</code> metacharacter quantifies a character or group to match <code>0</code> or more times. There is no upper bound, more details will be discussed later in the next section.</p>
+<pre><code class="language-bash">$ # 'f' followed by zero or more of 'e' followed by 'd'
+$ echo 'fd fed fod fe:d feeeeder' | awk '{gsub(/fe*d/, &quot;X&quot;)} 1'
+X X fod fe:d Xer
+
+$ # zero or more of '1' followed by '2'
+$ echo '3111111111125111142' | awk '{gsub(/1*2/, &quot;-&quot;)} 1'
+3-511114-
+</code></pre>
+<p>The <code>+</code> metacharacter quantifies a character or group to match <code>1</code> or more times. Similar to <code>*</code> quantifier, there is no upper bound.</p>
+<pre><code class="language-bash">$ # 'f' followed by one or more of 'e' followed by 'd'
+$ echo 'fd fed fod fe:d feeeeder' | awk '{gsub(/fe+d/, &quot;X&quot;)} 1'
+fd X fod fe:d Xer
+
+$ # 'f' followed by at least one of 'e' or 'o' or ':' followed by 'd'
+$ echo 'fd fed fod fe:d feeeeder' | awk '{gsub(/f(e|o|:)+d/, &quot;X&quot;)} 1'
+fd X X X Xer
+
+$ # one or more of '1' followed by optional '4' and then '2'
+$ echo '3111111111125111142' | awk '{gsub(/1+4?2/, &quot;-&quot;)} 1'
+3-5-
+</code></pre>
+<p>You can specify a range of integer numbers, both bounded and unbounded, using <code>{}</code> metacharacters. There are four ways to use this quantifier as listed below:</p>
+<table><thead><tr><th>Pattern</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>{m,n}</code></td><td>match <code>m</code> to <code>n</code> times</td></tr>
+<tr><td><code>{m,}</code></td><td>match at least <code>m</code> times</td></tr>
+<tr><td><code>{,n}</code></td><td>match up to <code>n</code> times (including <code>0</code> times)</td></tr>
+<tr><td><code>{n}</code></td><td>match exactly <code>n</code> times</td></tr>
+</tbody></table>
+<pre><code class="language-bash">$ # note that inside {} space is not allowed
+$ echo 'ac abc abbc abbbc abbbbbbbbc' | awk '{gsub(/ab{1,4}c/, &quot;X&quot;)} 1'
+ac X X X abbbbbbbbc
+
+$ echo 'ac abc abbc abbbc abbbbbbbbc' | awk '{gsub(/ab{3,}c/, &quot;X&quot;)} 1'
+ac abc abbc X X
+
+$ echo 'ac abc abbc abbbc abbbbbbbbc' | awk '{gsub(/ab{,2}c/, &quot;X&quot;)} 1'
+X X X abbbc abbbbbbbbc
+
+$ echo 'ac abc abbc abbbc abbbbbbbbc' | awk '{gsub(/ab{3}c/, &quot;X&quot;)} 1'
+ac abc abbc X abbbbbbbbc
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> The <code>{}</code> metacharacters have to be escaped to match them literally. Similar to <code>()</code> metacharacters, escaping <code>{</code> alone is enough.</p>
+</blockquote>
+<p>Next up, how to construct conditional AND using dot metacharacter and quantifiers.</p>
+<pre><code class="language-bash">$ # match 'Error' followed by zero or more characters followed by 'valid'
+$ echo 'Error: not a valid input' | awk '/Error.*valid/'
+Error: not a valid input
+</code></pre>
+<p>To allow matching in any order, you'll have to bring in alternation as well. But, for more than 3 patterns, the combinations become too many to write and maintain.</p>
+<pre><code class="language-bash">$ # 'cat' followed by 'dog' or 'dog' followed by 'cat'
+$ echo 'two cats and a dog' | awk '{gsub(/cat.*dog|dog.*cat/, &quot;pets&quot;)} 1'
+two pets
+$ echo 'two dogs and a cat' | awk '{gsub(/cat.*dog|dog.*cat/, &quot;pets&quot;)} 1'
+two pets
+</code></pre>
+<h2><a class="header" href="#longest-match-wins" id="longest-match-wins">Longest match wins</a></h2>
+<p>You've already seen an example with alternation, where the longest matching portion was chosen if two alternatives started from same location. For example <code>spar|spared</code> will result in <code>spared</code> being chosen over <code>spar</code>. The same applies whenever there are two or more matching possibilities from same starting location. For example, <code>f.?o</code> will match <code>foo</code> instead of <code>fo</code> if the input string to match is <code>foot</code>.</p>
+<pre><code class="language-bash">$ # longest match among 'foo' and 'fo' wins here
+$ echo 'foot' | awk '{sub(/f.?o/, &quot;X&quot;)} 1'
+Xt
+$ # everything will match here
+$ echo 'car bat cod map scat dot abacus' | awk '{sub(/.*/, &quot;X&quot;)} 1'
+X
+
+$ # longest match happens when (1|2|3)+ matches up to '1233' only
+$ # so that '12baz' can match as well
+$ echo 'foo123312baz' | awk '{sub(/o(1|2|3)+(12baz)?/, &quot;X&quot;)} 1'
+foX
+$ # in other implementations like 'perl', that is not the case
+$ # quantifiers match as much as possible, but precedence is left to right
+$ echo 'foo123312baz' | perl -pe 's/o(1|2|3)+(12baz)?/X/'
+foXbaz
+</code></pre>
+<p>While determining the longest match, overall regular expression matching is also considered. That's how <code>Error.*valid</code> example worked. If <code>.*</code> had consumed everything after <code>Error</code>, there wouldn't be any more characters to try to match <code>valid</code>. So, among the varying quantity of characters to match for <code>.*</code>, the longest portion that satisfies the overall regular expression is chosen. Something like <code>a.*b</code> will match from first <code>a</code> in the input string to the last <code>b</code> in the string. In other implementations, like <code>perl</code>, this is achieved through a process called <strong>backtracking</strong>. Both approaches have their own advantages and disadvantages and have cases where the regexp can result in exponential time consumption.</p>
+<pre><code class="language-bash">$ # from start of line to last 'm' in the line
+$ echo 'car bat cod map scat dot abacus' | awk '{sub(/.*m/, &quot;-&quot;)} 1'
+-ap scat dot abacus
+
+$ # from first 'b' to last 't' in the line
+$ echo 'car bat cod map scat dot abacus' | awk '{sub(/b.*t/, &quot;-&quot;)} 1'
+car - abacus
+
+$ # from first 'b' to last 'at' in the line
+$ echo 'car bat cod map scat dot abacus' | awk '{sub(/b.*at/, &quot;-&quot;)} 1'
+car - dot abacus
+
+$ # here 'm*' will match 'm' zero times as that gives the longest match
+$ echo 'car bat cod map scat dot abacus' | awk '{sub(/a.*m*/, &quot;-&quot;)} 1'
+c-
+</code></pre>
+<h2><a class="header" href="#character-classes" id="character-classes">Character classes</a></h2>
+<p>To create a custom placeholder for limited set of characters, enclose them inside <code>[]</code> metacharacters. It is similar to using single character alternations inside a grouping, but with added flexibility and features. Character classes have their own versions of metacharacters and provide special predefined sets for common use cases. Quantifiers are also applicable to character classes.</p>
+<pre><code class="language-bash">$ # same as: awk '/cot|cut/' and awk '/c(o|u)t/'
+$ printf 'cute\ncat\ncot\ncoat\ncost\nscuttle\n' | awk '/c[ou]t/'
+cute
+cot
+scuttle
+
+$ # same as: awk '/.(a|e|o)+t/'
+$ printf 'meeting\ncute\nboat\nat\nfoot\n' | awk '/.[aeo]+t/'
+meeting
+boat
+foot
+
+$ # same as: awk '{gsub(/\&lt;(s|o|t)(o|n)\&gt;/, &quot;X&quot;)} 1'
+$ echo 'no so in to do on' | awk '{gsub(/\&lt;[sot][on]\&gt;/, &quot;X&quot;)} 1'
+no X in X do X
+
+$ # lines made up of letters 'o' and 'n', line length at least 2
+$ # /usr/share/dict/words contains dictionary words, one word per line
+$ awk '/^[on]{2,}$/' /usr/share/dict/words
+no
+non
+noon
+on
+</code></pre>
+<p>Character classes have their own metacharacters to help define the sets succinctly. Metacharacters outside of character classes like <code>^</code>, <code>$</code>, <code>()</code> etc either don't have special meaning or have completely different one inside the character classes.</p>
+<p>First up, the <code>-</code> metacharacter that helps to define a range of characters instead of having to specify them all individually.</p>
+<pre><code class="language-bash">$ # same as: awk '{gsub(/[0123456789]+/, &quot;-&quot;)} 1'
+$ echo 'Sample123string42with777numbers' | awk '{gsub(/[0-9]+/, &quot;-&quot;)} 1'
+Sample-string-with-numbers
+
+$ # whole words made up of lowercase alphabets and digits only
+$ echo 'coat Bin food tar12 best' | awk '{gsub(/\&lt;[a-z0-9]+\&gt;/, &quot;X&quot;)} 1'
+X Bin X X X
+
+$ # whole words made up of lowercase alphabets, starting with 'p' to 'z'
+$ echo 'road i post grip read eat pit' | awk '{gsub(/\&lt;[p-z][a-z]*\&gt;/, &quot;X&quot;)} 1'
+X i X grip X eat X
+</code></pre>
+<p>Character classes can also be used to construct numeric ranges. However, it is easy to miss corner cases and some ranges are complicated to design. See also <a href="https://www.regular-expressions.info/numericranges.html">regular-expressions: Matching Numeric Ranges with a Regular Expression</a>.</p>
+<pre><code class="language-bash">$ # numbers between 10 to 29
+$ echo '23 154 12 26 34' | awk '{gsub(/\&lt;[12][0-9]\&gt;/, &quot;X&quot;)} 1'
+X 154 X X 34
+
+$ # numbers &gt;= 100 with optional leading zeros
+$ echo '0501 035 154 12 26 98234' | awk '{gsub(/\&lt;0*[1-9][0-9]{2,}\&gt;/, &quot;X&quot;)} 1'
+X 035 X 12 26 X
+</code></pre>
+<p>Next metacharacter is <code>^</code> which has to specified as the first character of the character class. It negates the set of characters, so all characters other than those specified will be matched. Handle negative logic with care though, you might end up matching more than you wanted.</p>
+<pre><code class="language-bash">$ # replace all non-digits
+$ echo 'Sample123string42with777numbers' | awk '{gsub(/[^0-9]+/, &quot;-&quot;)} 1'
+-123-42-777-
+
+$ # delete last two columns based on a delimiter
+$ echo 'foo:123:bar:baz' | awk '{sub(/(:[^:]+){2}$/, &quot;&quot;)} 1'
+foo:123
+
+$ # sequence of characters surrounded by unique character
+$ echo 'I like &quot;mango&quot; and &quot;guava&quot;' | awk '{gsub(/&quot;[^&quot;]+&quot;/, &quot;X&quot;)} 1'
+I like X and X
+
+$ # sometimes it is simpler to positively define a set than negation
+$ # same as: awk '/^[^aeiou]*$/'
+$ printf 'tryst\nfun\nglyph\npity\nwhy\n' | awk '!/[aeiou]/'
+tryst
+glyph
+why
+</code></pre>
+<p>Some commonly used character sets have predefined escape sequences:</p>
+<ul>
+<li><code>\w</code> matches all <strong>word</strong> characters <code>[a-zA-Z0-9_]</code> (recall the description for word boundaries)</li>
+<li><code>\W</code> matches all non-word characters (recall duality seen earlier, like <code>\y</code> and <code>\B</code>)</li>
+<li><code>\s</code> matches all <strong>whitespace</strong> characters: tab, newline, vertical tab, form feed, carriage return and space</li>
+<li><code>\S</code> matches all non-whitespace characters</li>
+</ul>
+<pre><code class="language-bash">$ # match all non-word characters
+$ echo 'load;err_msg--\/ant,r2..not' | awk '{gsub(/\W+/, &quot;-&quot;)} 1'
+load-err_msg-ant-r2-not
+
+$ # replace all sequences of whitespaces with single space
+$ printf 'hi  \v\f  there.\thave   \ra nice\t\tday\n' | awk '{gsub(/\s+/, &quot; &quot;)} 1'
+hi there. have a nice day
+</code></pre>
+<p>These escape sequences <em>cannot</em> be used inside character classes.</p>
+<pre><code class="language-bash">$ # \w would simply match w inside character classes
+$ echo 'w=y\x+9*3' | awk '{gsub(/[\w=]/, &quot;&quot;)} 1'
+y\x+9*3
+</code></pre>
+<blockquote>
+<p><img src="images/warning.svg" alt="warning" /> <code>awk</code> doesn't support <code>\d</code> and <code>\D</code>, commonly featured in other implementations as a shortcut for all the digits and non-digits.</p>
+</blockquote>
+<p>A <strong>named character set</strong> is defined by a name enclosed between <code>[:</code> and <code>:]</code> and has to be used within a character class <code>[]</code>, along with any other characters as needed.</p>
+<table><thead><tr><th>Named set</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>[:digit:]</code></td><td><code>[0-9]</code></td></tr>
+<tr><td><code>[:lower:]</code></td><td><code>[a-z]</code></td></tr>
+<tr><td><code>[:upper:]</code></td><td><code>[A-Z]</code></td></tr>
+<tr><td><code>[:alpha:]</code></td><td><code>[a-zA-Z]</code></td></tr>
+<tr><td><code>[:alnum:]</code></td><td><code>[0-9a-zA-Z]</code></td></tr>
+<tr><td><code>[:xdigit:]</code></td><td><code>[0-9a-fA-F]</code></td></tr>
+<tr><td><code>[:cntrl:]</code></td><td>control characters - first 32 ASCII characters and 127th (DEL)</td></tr>
+<tr><td><code>[:punct:]</code></td><td>all the punctuation characters</td></tr>
+<tr><td><code>[:graph:]</code></td><td><code>[:alnum:]</code> and <code>[:punct:]</code></td></tr>
+<tr><td><code>[:print:]</code></td><td><code>[:alnum:]</code>, <code>[:punct:]</code> and space</td></tr>
+<tr><td><code>[:blank:]</code></td><td>space and tab characters</td></tr>
+<tr><td><code>[:space:]</code></td><td>whitespace characters, same as <code>\s</code></td></tr>
+</tbody></table>
+<pre><code class="language-bash">$ s='err_msg xerox ant m_2 P2 load1 eel'
+$ echo &quot;$s&quot; | awk '{gsub(/\&lt;[[:lower:]]+\&gt;/, &quot;X&quot;)} 1'
+err_msg X X m_2 P2 load1 X
+
+$ echo &quot;$s&quot; | awk '{gsub(/\&lt;[[:lower:]_]+\&gt;/, &quot;X&quot;)} 1'
+X X X m_2 P2 load1 X
+
+$ echo &quot;$s&quot; | awk '{gsub(/\&lt;[[:alnum:]]+\&gt;/, &quot;X&quot;)} 1'
+err_msg X X m_2 X X X
+
+$ echo ',pie tie#ink-eat_42' | awk '{gsub(/[^[:punct:]]+/, &quot;&quot;)} 1'
+,#-_
+</code></pre>
+<p>Specific placement is needed to match character class metacharacters literally. Or, they can be escaped by prefixing <code>\</code> to avoid having to remember the different rules. As <code>\</code> is special inside character class, use <code>\\</code> to represent it literally.</p>
+<pre><code class="language-bash">$ # - should be first or last character within []
+$ echo 'ab-cd gh-c 12-423' | awk '{gsub(/[a-z-]{2,}/, &quot;X&quot;)} 1'
+X X 12-423
+$ # or escaped with \
+$ echo 'ab-cd gh-c 12-423' | awk '{gsub(/[a-z\-0-9]{2,}/, &quot;X&quot;)} 1'
+X X X
+
+$ # ] should be first character within []
+$ printf 'int a[5]\nfoo\n1+1=2\n' | awk '/[=]]/'
+$ printf 'int a[5]\nfoo\n1+1=2\n' | awk '/[]=]/'
+int a[5]
+1+1=2
+
+$ # to match [ use [ anywhere in the character set
+$ # [][] will match both [ and ]
+$ printf 'int a[5]\nfoo\n1+1=2\n' | awk '/[][]/'
+int a[5]
+
+$ # ^ should be other than first character within []
+$ echo 'f*(a^b) - 3*(a+b)/(a-b)' | awk '{gsub(/a[+^]b/, &quot;c&quot;)} 1'
+f*(c) - 3*(c)/(a-b)
+</code></pre>
+<blockquote>
+<p><img src="images/warning.svg" alt="warning" /> Combinations like <code>[.</code> or <code>[:</code> cannot be used together to mean two individual characters, as they have special meaning within <code>[]</code>. See <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Bracket-Expressions">gawk manual: Using Bracket Expressions</a> for more details.</p>
+</blockquote>
+<pre><code class="language-bash">$ echo 'int a[5]' | awk '/[x[.y]/'
+awk: cmd. line:1: error: Unmatched [, [^, [:, [., or [=: /[x[.y]/
+$ echo 'int a[5]' | awk '/[x[y.]/'
+int a[5]
+</code></pre>
+<h2><a class="header" href="#escape-sequences" id="escape-sequences">Escape sequences</a></h2>
+<p>Certain ASCII characters like tab <code>\t</code>, carriage return <code>\r</code>, newline <code>\n</code>, etc have escape sequences to represent them. Additionally, any character can be represented using their ASCII value in octal <code>\NNN</code> or hexadecimal <code>\xNN</code> formats. Unlike character set escape sequences like <code>\w</code>, these can be used inside character classes.</p>
+<pre><code class="language-bash">$ # using \t to represent tab character
+$ printf 'foo\tbar\tbaz\n' | awk '{gsub(/\t/, &quot; &quot;)} 1'
+foo bar baz
+
+$ # these escape sequence work inside character class too
+$ printf 'a\t\r\fb\vc\n' | awk '{gsub(/[\t\v\f\r]+/, &quot;:&quot;)} 1'
+a:b:c
+
+$ # representing single quotes
+$ # use \047 for octal format
+$ echo &quot;universe: '42'&quot; | awk '{gsub(/\x27/, &quot;&quot;)} 1'
+universe: 42
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> If a metacharacter is specified by ASCII value, it will still act as the metacharacter. Undefined escape sequences will result in a warning and treated as the character it escapes.</p>
+</blockquote>
+<pre><code class="language-bash">$ # \x5e is ^ character, acts as line anchor here
+$ printf 'cute\ncot\ncat\ncoat\n' | awk '/\x5eco/'
+cot
+coat
+
+$ # &amp; metacharacter in replacement will be discussed in a later section
+$ # it represents entire matched portion
+$ echo 'hello world' | awk '{sub(/.*/, &quot;[&amp;]&quot;)} 1'
+[hello world]
+$ # \x26 is &amp; character
+$ echo 'hello world' | awk '{sub(/.*/, &quot;[\x26]&quot;)} 1'
+[hello world]
+
+$ echo 'read' | awk '{sub(/a/, &quot;\.&quot;)} 1'
+awk: cmd. line:1: warning: escape sequence `\.' treated as plain `.'
+re.d
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Escape-Sequences">gawk manual: Escape Sequences</a> for full list and other details.</p>
+</blockquote>
+<h2><a class="header" href="#replace-specific-occurrence" id="replace-specific-occurrence">Replace specific occurrence</a></h2>
+<p>The third substitution function is <code>gensub</code> which can be used instead of both <code>sub</code> and <code>gsub</code> functions. Syntax wise, <code>gensub</code> needs minimum three arguments. The third argument is used to indicate whether you want to replace all occurrences with <code>&quot;g&quot;</code> or specific occurrence by giving a number. Another difference is that <code>gensub</code> returns a string value (irrespective of substitution succeeding) instead of modifying the input.</p>
+<pre><code class="language-bash">$ # same as: sed 's/:/-/2'
+$ # replace only second occurrence of ':' with '-'
+$ # note that output of gensub is passed to print here
+$ echo 'foo:123:bar:baz' | awk '{print gensub(/:/, &quot;-&quot;, 2)}'
+foo:123-bar:baz
+
+$ # same as: sed -E 's/[^:]+/X/3'
+$ # replace only third field with 'X'
+$ echo 'foo:123:bar:baz' | awk '{print gensub(/[^:]+/, &quot;X&quot;, 3)}'
+foo:123:X:baz
+</code></pre>
+<p>The fourth argument for <code>gensub</code> function allows you to specify the input string or variable on which the substitution has to be performed. Default is <code>$0</code>, as seen in previous examples.</p>
+<pre><code class="language-bash">$ # replace vowels with 'X' only for fourth field
+$ # same as: awk '{gsub(/[aeiou]/, &quot;X&quot;, $4)} 1'
+$ echo '1 good 2 apples' | awk '{$4 = gensub(/[aeiou]/, &quot;X&quot;, &quot;g&quot;, $4)} 1'
+1 good 2 XpplXs
+</code></pre>
+<h2><a class="header" href="#backreferences" id="backreferences">Backreferences</a></h2>
+<p>The grouping metacharacters <code>()</code> are also known as <strong>capture groups</strong>. They are like variables, the string captured by <code>()</code> can be referred later using backreference <code>\N</code> where <code>N</code> is the capture group you want. Leftmost <code>(</code> in the regular expression is <code>\1</code>, next one is <code>\2</code> and so on up to <code>\9</code>. As a special case, <code>\0</code> or <code>&amp;</code> metacharacter represents entire matched string. As <code>\</code> is special inside double quotes, you'll have to use <code>&quot;\\1&quot;</code> to represent <code>\1</code>.</p>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Backreferences of the form <code>\N</code> can only be used with <code>gensub</code> function. <code>&amp;</code> can be used with <code>sub</code>, <code>gsub</code> and <code>gensub</code> functions.</p>
+</blockquote>
+<pre><code class="language-bash">$ # reduce \\ to single \ and delete if it is a single \
+$ s='\[\] and \\w and \[a-zA-Z0-9\_\]'
+$ echo &quot;$s&quot; | awk '{print gensub(/(\\?)\\/, &quot;\\1&quot;, &quot;g&quot;)}'
+[] and \w and [a-zA-Z0-9_]
+
+$ # duplicate first column value as final column
+$ echo 'one,2,3.14,42' | awk '{print gensub(/^([^,]+).*/, &quot;&amp;,\\1&quot;, 1)}'
+one,2,3.14,42,one
+
+$ # add something at start and end of line
+$ # as only '&amp;' is used, gensub isn't needed here
+$ echo 'hello world' | awk '{sub(/.*/, &quot;Hi. &amp;. Have a nice day&quot;)} 1'
+Hi. hello world. Have a nice day
+
+$ # here {N} refers to last but Nth occurrence
+$ s='456:foo:123:bar:789:baz'
+$ echo &quot;$s&quot; | awk '{print gensub(/(.*):((.*:){2})/, &quot;\\1[]\\2&quot;, 1)}'
+456:foo:123[]bar:789:baz
+</code></pre>
+<blockquote>
+<p><img src="images/warning.svg" alt="warning" /> See <a href="https://unix.stackexchange.com/questions/579889/why-doesnt-this-sed-command-replace-the-3rd-to-last-and">unix.stackexchange: Why doesn't this sed command replace the 3rd-to-last &quot;and&quot;?</a> for a bug related to use of word boundaries in the <code>((){N})</code> generic case.</p>
+</blockquote>
+<blockquote>
+<p><img src="images/warning.svg" alt="warning" /> Unlike other regular expression implementations, like <code>grep</code> or <code>sed</code> or <code>perl</code>, backreferences cannot be used in search section in <code>awk</code>. See also <a href="https://unix.stackexchange.com/questions/361427/backreference-in-awk-regex">unix.stackexchange: backreference in awk</a>.</p>
+</blockquote>
+<p>If quantifier is applied on a pattern grouped inside <code>()</code> metacharacters, you'll need an outer <code>()</code> group to capture the matching portion. Some regular expression engines provide non-capturing group to handle such cases. In <code>awk</code>, you'll have to work around the extra capture group.</p>
+<pre><code class="language-bash">$ # note the numbers used in replacement section
+$ s='one,2,3.14,42'
+$ echo &quot;$s&quot; | awk '{$0=gensub(/^(([^,]+,){2})([^,]+)/, &quot;[\\1](\\3)&quot;, 1)} 1'
+[one,2,](3.14),42
+</code></pre>
+<p>Here's an example where alternation order matters when matching portions have same length. Aim is to delete all whole words unless it starts with <code>g</code> or <code>p</code> and contains <code>y</code>.</p>
+<pre><code class="language-bash">$ s='tryst,fun,glyph,pity,why,group'
+
+$ # all words get deleted because \w+ gets priority here
+$ echo &quot;$s&quot; | awk '{print gensub(/\&lt;\w+\&gt;|(\&lt;[gp]\w*y\w*\&gt;)/, &quot;\\1&quot;, &quot;g&quot;)}'
+,,,,,
+
+$ # capture group gets priority here, thus words matching the group are retained
+$ echo &quot;$s&quot; | awk '{print gensub(/(\&lt;[gp]\w*y\w*\&gt;)|\&lt;\w+\&gt;/, &quot;\\1&quot;, &quot;g&quot;)}'
+,,glyph,pity,,
+</code></pre>
+<p>As <code>\</code> and <code>&amp;</code> are special characters inside double quotes in replacement section, use <code>\\</code> and <code>\\&amp;</code> respectively for literal representation.</p>
+<pre><code class="language-bash">$ echo 'foo and bar' | awk '{sub(/and/, &quot;[&amp;]&quot;)} 1'
+foo [and] bar
+$ echo 'foo and bar' | awk '{sub(/and/, &quot;[\\&amp;]&quot;)} 1'
+foo [&amp;] bar
+
+$ echo 'foo and bar' | awk '{sub(/and/, &quot;\\&quot;)} 1'
+foo \ bar
+</code></pre>
+<h2><a class="header" href="#case-insensitive-matching" id="case-insensitive-matching">Case insensitive matching</a></h2>
+<p>Unlike <code>sed</code> or <code>perl</code>, regular expressions in <code>awk</code> do not directly support the use of flags to change certain behaviors. For example, there is no flag to force the regexp to ignore case while matching.</p>
+<p>The <code>IGNORECASE</code> special variable controls case sensitivity, which is <code>0</code> by default. By changing it to some other value (which would mean <code>true</code> in conditional expression), you can match case insensitively. The <code>-v</code> command line option allows you to assign a variable before input is read. The <code>BEGIN</code> block is also often used to change such settings.</p>
+<pre><code class="language-bash">$ printf 'Cat\ncOnCaT\nscatter\ncot\n' | awk -v IGNORECASE=1 '/cat/'
+Cat
+cOnCaT
+scatter
+
+$ # for small enough string, can also use character class
+$ printf 'Cat\ncOnCaT\nscatter\ncot\n' | awk '{gsub(/[cC][aA][tT]/, &quot;dog&quot;)} 1'
+dog
+cOndog
+sdogter
+cot
+</code></pre>
+<p>Another way is to use built-in string function <code>tolower</code> to change the input to lowercase first.</p>
+<pre><code class="language-bash">$ printf 'Cat\ncOnCaT\nscatter\ncot\n' | awk 'tolower($0) ~ /cat/'
+Cat
+cOnCaT
+scatter
+</code></pre>
+<h2><a class="header" href="#dynamic-regexp" id="dynamic-regexp">Dynamic regexp</a></h2>
+<p>As seen earlier, you can use a string literal instead of regexp to specify the pattern to be matched. Which implies that you can use any expression or a variable as well. This is helpful if you need to compute the regexp based on some conditions or if you are getting the pattern externally, such as user input.</p>
+<p>The <code>-v</code> command line option comes in handy to get user input, say from a <code>bash</code> variable.</p>
+<pre><code class="language-bash">$ r='cat.*dog|dog.*cat'
+$ echo 'two cats and a dog' | awk -v ip=&quot;$r&quot; '{gsub(ip, &quot;pets&quot;)} 1'
+two pets
+
+$ awk -v s='ow' '$0 ~ s' table.txt
+brown bread mat hair 42
+yellow banana window shoes 3.14
+
+$ # you'll have to make sure to use \\ instead of \
+$ r='\\&lt;[12][0-9]\\&gt;'
+$ echo '23 154 12 26 34' | awk -v ip=&quot;$r&quot; '{gsub(ip, &quot;X&quot;)} 1'
+X 154 X X 34
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See <a href="./using-shell-variables.html#using-shell-variables">Using shell variables</a> chapter for a way to avoid having to use <code>\\</code> instead of <code>\</code>.</p>
+</blockquote>
+<p>Sometimes, you need to get user input and then treat it literally instead of regexp pattern. In such cases, you'll need to first escape the metacharacters before using in substitution functions. Below example shows how to do it for search section. For replace section, you only have to escape the <code>\</code> and <code>&amp;</code> characters.</p>
+<pre><code class="language-bash">$ awk -v s='(a.b)^{c}|d' 'BEGIN{gsub(/[{[(^$*?+.|\\]/, &quot;\\\\&amp;&quot;, s); print s}'
+\(a\.b)\^\{c}\|d
+
+$ echo 'f*(a^b) - 3*(a^b)' |
+     awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, &quot;\\\\&amp;&quot;, s); gsub(s, &quot;c&quot;)} 1'
+f*c - 3*c
+
+$ # match given input string literally, but only at end of line
+$ echo 'f*(a^b) - 3*(a^b)' |
+     awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, &quot;\\\\&amp;&quot;, s); gsub(s &quot;$&quot;, &quot;c&quot;)} 1'
+f*(a^b) - 3*c
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> If you need to match instead of substitution, you can use the <code>index</code> function. See <a href="./built-in-functions.html#index">index</a> section for details.</p>
+</blockquote>
+<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
+<p>Regular expressions is a feature that you'll encounter in multiple command line programs and programming languages. It is a versatile tool for text processing. Although the features in <code>awk</code> are less compared to those found in programming languages, they are sufficient for most of the tasks you'll need for command line usage. It takes a lot of time to get used to syntax and features of regular expressions, so I'll encourage you to practice a lot and maintain notes. It'd also help to consider it as a mini-programming language in itself for its flexibility and complexity.</p>
+<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
+<p><strong>a)</strong> For the given input, print all lines that start with <code>den</code> or end with <code>ly</code>.</p>
+<pre><code class="language-bash">$ lines='lovely\n1 dentist\n2 lonely\neden\nfly away\ndent\n'
+$ printf '%b' &quot;$lines&quot; | awk ##### add your solution here
+lovely
+2 lonely
+dent
+</code></pre>
+<p><strong>b)</strong> Replace all occurrences of <code>42</code> with <code>[42]</code> unless it is at the edge of a word. Note that <strong>word</strong> in these exercises have same meaning as defined in regular expressions.</p>
+<pre><code class="language-bash">$ echo 'hi42bye nice421423 bad42 cool_42a 42c' | awk ##### add your solution here
+hi[42]bye nice[42]1[42]3 bad42 cool_[42]a 42c
+</code></pre>
+<p><strong>c)</strong> Add <code>[]</code> around words starting with <code>s</code> and containing <code>e</code> and <code>t</code> in any order.</p>
+<pre><code class="language-bash">$ words='sequoia subtle exhibit asset sets tests site'
+$ echo &quot;$words&quot; | awk ##### add your solution here
+sequoia [subtle] exhibit asset [sets] tests [site]
+</code></pre>
+<p><strong>d)</strong> Replace the space character that occurs after a word ending with <code>a</code> or <code>r</code> with a newline character.</p>
+<pre><code class="language-bash">$ echo 'area not a _a2_ roar took 22' | awk ##### add your solution here
+area
+not a
+_a2_ roar
+took 22
+</code></pre>
+<p><strong>e)</strong> Replace all occurrences of <code>[4]|*</code> with <code>2</code> for the given input.</p>
+<pre><code class="language-bash">$ echo '2.3/[4]|*6 foo 5.3-[4]|*9' | awk ##### add your solution here
+2.3/26 foo 5.3-29
+</code></pre>
+<p><strong>f)</strong> <code>awk '/\&lt;[a-z](on|no)[a-z]\&gt;/'</code> is same as <code>awk '/\&lt;[a-z][on]{2}[a-z]\&gt;/'</code>. True or False? Sample input shown below might help to understand the differences, if any.</p>
+<pre><code class="language-bash">$ printf 'known\nmood\nknow\npony\ninns\n'
+known
+mood
+know
+pony
+inns
+</code></pre>
+<p><strong>g)</strong> Print all lines that start with <code>hand</code> and ends with <code>s</code> or <code>y</code> or <code>le</code> or no further character. For example, <code>handed</code> shouldn't be printed even though it starts with <code>hand</code>.</p>
+<pre><code class="language-bash">$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\n'
+$ printf '%b' &quot;$lines&quot; | awk ##### add your solution here
+hand
+handy
+hands
+handle
+</code></pre>
+<p><strong>h)</strong> Replace <code>42//5</code> or <code>42/5</code> with <code>8</code> for the given input.</p>
+<pre><code class="language-bash">$ echo 'a+42//5-c pressure*3+42/5-14256' | awk ##### add your solution here
+a+8-c pressure*3+8-14256
+</code></pre>
+<p><strong>i)</strong> For the given quantifiers, what would be the equivalent form using <code>{m,n}</code> representation?</p>
+<ul>
+<li><code>?</code> is same as</li>
+<li><code>*</code> is same as</li>
+<li><code>+</code> is same as</li>
+</ul>
+<p><strong>j)</strong> True or False? <code>(a*|b*)</code> is same as <code>(a|b)*</code> </p>
+<p><strong>k)</strong> For the given input, construct two different regexps to get the outputs as shown below.</p>
+<pre><code class="language-bash">$ # delete from '(' till next ')'
+$ echo 'a/b(division) + c%d() - (a#(b)2(' | awk ##### add your solution here
+a/b + c%d - 2(
+
+$ # delete from '(' till next ')' but not if there is '(' in between
+$ echo 'a/b(division) + c%d() - (a#(b)2(' | awk ##### add your solution here
+a/b + c%d - (a#2(
+</code></pre>
+<p><strong>l)</strong> For the input file <code>anchors.txt</code>, convert <strong>markdown</strong> anchors to corresponding <strong>hyperlinks</strong>.</p>
+<pre><code class="language-bash">$ cat anchors.txt
+# &lt;a name=&quot;regular-expressions&quot;&gt;&lt;/a&gt;Regular Expressions
+## &lt;a name=&quot;subexpression-calls&quot;&gt;&lt;/a&gt;Subexpression calls
+
+$ awk ##### add your solution here
+[Regular Expressions](#regular-expressions)
+[Subexpression calls](#subexpression-calls)
+</code></pre>
+<p><strong>m)</strong> Display all lines that satisfies <strong>both</strong> of these conditions:</p>
+<ul>
+<li><code>professor</code> matched irrespective of case</li>
+<li><code>quip</code> or <code>this</code> matched case sensitively</li>
+</ul>
+<p>Input is a file downloaded from internet as shown below.</p>
+<pre><code class="language-bash">$ wget https://www.gutenberg.org/files/345/345.txt -O dracula.txt
+
+$ awk ##### add your solution here
+equipment of a professor of the healing craft. When we were shown in,
+should be. I could see that the Professor had carried out in this room,
+&quot;Not up to this moment, Professor,&quot; she said impulsively, &quot;but up to
+and sprang at us. But by this time the Professor had gained his feet,
+this time the Professor had to ask her questions, and to ask them pretty
+</code></pre>
+<p><strong>n)</strong> Given sample strings have fields separated by <code>,</code> and field values cannot be empty. Replace the third field with <code>42</code>.</p>
+<pre><code class="language-bash">$ echo 'lion,ant,road,neon' | awk ##### add your solution here
+lion,ant,42,neon
+
+$ echo '_;3%,.,=-=,:' | awk ##### add your solution here
+_;3%,.,42,:
+</code></pre>
+<p><strong>o)</strong> For the given strings, replace last but third <code>so</code> with <code>X</code>. Only print the lines which are changed by the substitution.</p>
+<pre><code class="language-bash">$ printf 'so and so also sow and soup' | awk ##### add your solution here
+so and X also sow and soup
+
+$ printf 'sososososososo\nso and so\n' | awk ##### add your solution here
+sososoXsososo
+</code></pre>
+<p><strong>p)</strong> Surround all whole words with <code>()</code>. Additionally, if the whole word is <code>imp</code> or <code>ant</code>, delete them. Can you do it with single substitution?</p>
+<pre><code class="language-bash">$ words='tiger imp goat eagle ant important'
+$ echo &quot;$words&quot; | awk ##### add your solution here
+(tiger) () (goat) (eagle) () (important)
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="awk-introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="field-separators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="awk-introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="field-separators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

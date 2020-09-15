@@ -4,7 +4,7 @@ printf 'spared no one\ngrasped\nspar\n' | awk '/ed/'
 
 printf 'spared no one\ngrasped\nspar\n' | awk '{r = @/ed/} $0 ~ r'
 
-## Line Anchors
+## String Anchors
 
 printf 'spared no one\ngrasped\nspar\n' | awk '/^sp/'
 

@@ -923,12 +923,12 @@ Believe it
 pink blue white yellow
 car,mat,ball,basket
 
-$ awk -v n=2 '/^### /{f=1; c++} c==n' concat.txt
+$ awk -v n=2 '/^### /{c++} c==n' concat.txt
 ### broken.txt
 top
 1234567890
 bottom
-$ awk -v n=4 '/^### /{f=1; c++} c==n' concat.txt
+$ awk -v n=4 '/^### /{c++} c==n' concat.txt
 ### mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket

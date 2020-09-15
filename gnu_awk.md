@@ -66,7 +66,7 @@ Resources mentioned in Acknowledgements section are available under original lic
 
 ## Book version
 
-1.1  
+1.2  
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/Version_changes.md) to track changes across book versions.
 
 # Installation and Documentation
@@ -386,7 +386,7 @@ Next chapter is dedicated solely for regular expressions. The features introduce
 
 ## Exercises
 
->![info](images/info.svg) Exercise related files are available from [exercises folder of learn_gnuawk repo](https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises).
+>![info](images/info.svg) Exercise related files are available from [exercises folder of learn_gnuawk repo](https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises). All the exercises are also collated together in one place at [Exercises.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercises.md). For solutions, see [Exercise_solutions.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercise_solutions.md).
 
 **a)** For the input file `addr.txt`, display all lines containing `is`.
 
@@ -490,34 +490,34 @@ spared no one
 grasped
 ```
 
-## Line Anchors
+## String Anchors
 
-In the examples seen so far, the regexp was a simple string value without any special characters. Also, the regexp pattern evaluated to `true` if it was found anywhere in the string. Instead of matching anywhere in the line, restrictions can be specified. These restrictions are made possible by assigning special meaning to certain characters and escape sequences. The characters with special meaning are known as **metacharacters** in regular expressions parlance. In case you need to match those characters literally, you need to escape them with a `\` (discussed in [Matching the metacharacters](#matching-the-metacharacters) section).
+In the examples seen so far, the regexp was a simple string value without any special characters. Also, the regexp pattern evaluated to `true` if it was found anywhere in the string. Instead of matching anywhere in the string, restrictions can be specified. These restrictions are made possible by assigning special meaning to certain characters and escape sequences. The characters with special meaning are known as **metacharacters** in regular expressions parlance. In case you need to match those characters literally, you need to escape them with a `\` (discussed in [Matching the metacharacters](#matching-the-metacharacters) section).
 
-There are two line anchors:
+There are two string anchors:
 
-* `^` metacharacter restricts the matching to start of line
-* `$` metacharacter restricts the matching to end of line
+* `^` metacharacter restricts the matching to the start of string
+* `$` metacharacter restricts the matching to the end of string
 
 ```bash
-$ # lines starting with 'sp'
+$ # string starting with 'sp'
 $ printf 'spared no one\ngrasped\nspar\n' | awk '/^sp/'
 spared no one
 spar
 
-$ # lines ending with 'ar'
+$ # string ending with 'ar'
 $ printf 'spared no one\ngrasped\nspar\n' | awk '/ar$/'
 spar
 
-$ # change only whole line 'spar'
-$ # can also use: awk '/^spar$/{$0 = 123} 1'
+$ # change only whole string 'spar'
+$ # can also use: awk '/^spar$/{$0 = 123} 1' or awk '$0=="spar"{$0 = 123} 1'
 $ printf 'spared no one\ngrasped\nspar\n' | awk '{sub(/^spar$/, "123")} 1'
 spared no one
 grasped
 123
 ```
 
-The anchors can be used by themselves as a pattern. Helps to insert text at start or end of line, emulating string concatenation operations. These might not feel like useful capability, but combined with other features they become quite a handy tool.
+The anchors can be used by themselves as a pattern. Helps to insert text at the start or end of string, emulating string concatenation operations. These might not feel like useful capability, but combined with other features they become quite a handy tool.
 
 ```bash
 $ printf 'spared no one\ngrasped\nspar\n' | awk '{gsub(/^/, "* ")} 1'
@@ -525,12 +525,14 @@ $ printf 'spared no one\ngrasped\nspar\n' | awk '{gsub(/^/, "* ")} 1'
 * grasped
 * spar
 
-$ # append only if line doesn't contain space characters
+$ # append only if string doesn't contain space characters
 $ printf 'spared no one\ngrasped\nspar\n' | awk '!/ /{gsub(/$/, ".")} 1'
 spared no one
 grasped.
 spar.
 ```
+
+>![info](images/info.svg) See also [Behavior of ^ and $ when string contains newline](#behavior-of--and--when-string-contains-newline) section.
 
 ## Word Anchors
 
@@ -604,7 +606,7 @@ c:o:p:p:e:r
 Before seeing next regexp feature, it is good to note that sometimes using logical operators is easier to read and maintain compared to doing everything with regexp.
 
 ```bash
-$ # lines starting with 'b' but not containing 'at'
+$ # string starting with 'b' but not containing 'at'
 $ awk '/^b/ && !/at/' table.txt
 blue cake mug shirt -7
 
@@ -621,12 +623,11 @@ Many a times, you'd want to search for multiple terms. In a conditional expressi
 Alternation is similar to using `||` operator between two regexps. Having a single regexp helps to write terser code and `||` cannot be used when substitution is required.
 
 ```bash
-$ # lines with whole word 'par' or lines ending with 's'
+$ # match whole word 'par' or string ending with 's'
 $ # same as: awk '/\<par\>/ || /s$/'
 $ awk '/\<par\>|s$/' word_anchors.txt
 sub par
 two spare computers
-
 $ # replace 'cat' or 'dog' or 'fox' with '--'
 $ echo 'cats dog bee parrot foxed' | awk '{gsub(/cat|dog|fox/, "--")} 1'
 --s -- bee parrot --ed
@@ -691,7 +692,7 @@ part time
 
 You have seen a few metacharacters and escape sequences that help to compose a regular expression. To match the metacharacters literally, i.e. to remove their special meaning, prefix those characters with a `\` character. To indicate a literal `\` character, use `\\`.
 
-Unlike `grep` and `sed`, the line anchors have to be always escaped to match them literally as there is no BRE mode in `awk`. They do not lose their special meaning when not used in their customary positions.
+Unlike `grep` and `sed`, the string anchors have to be always escaped to match them literally as there is no BRE mode in `awk`. They do not lose their special meaning when not used in their customary positions.
 
 ```bash
 $ # awk '/b^2/' will not work even though ^ isn't being used as anchor
@@ -931,7 +932,7 @@ $ # same as: awk '{gsub(/\<(s|o|t)(o|n)\>/, "X")} 1'
 $ echo 'no so in to do on' | awk '{gsub(/\<[sot][on]\>/, "X")} 1'
 no X in X do X
 
-$ # lines made up of letters 'o' and 'n', line length at least 2
+$ # strings made up of letters 'o' and 'n', string length at least 2
 $ # /usr/share/dict/words contains dictionary words, one word per line
 $ awk '/^[on]{2,}$/' /usr/share/dict/words
 no
@@ -1109,7 +1110,7 @@ universe: 42
 >![info](images/info.svg) If a metacharacter is specified by ASCII value, it will still act as the metacharacter. Undefined escape sequences will result in a warning and treated as the character it escapes.
 
 ```bash
-$ # \x5e is ^ character, acts as line anchor here
+$ # \x5e is ^ character, acts as string anchor here
 $ printf 'cute\ncot\ncat\ncoat\n' | awk '/\x5eco/'
 cot
 coat
@@ -1171,7 +1172,7 @@ $ # duplicate first column value as final column
 $ echo 'one,2,3.14,42' | awk '{print gensub(/^([^,]+).*/, "&,\\1", 1)}'
 one,2,3.14,42,one
 
-$ # add something at start and end of line
+$ # add something at start and end of string
 $ # as only '&' is used, gensub isn't needed here
 $ echo 'hello world' | awk '{sub(/.*/, "Hi. &. Have a nice day")} 1'
 Hi. hello world. Have a nice day
@@ -1283,7 +1284,7 @@ $ echo 'f*(a^b) - 3*(a^b)' |
      awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, "\\\\&", s); gsub(s, "c")} 1'
 f*c - 3*c
 
-$ # match given input string literally, but only at end of line
+$ # match given input string literally, but only at the end of string
 $ echo 'f*(a^b) - 3*(a^b)' |
      awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, "\\\\&", s); gsub(s "$", "c")} 1'
 f*(a^b) - 3*c
@@ -3113,10 +3114,10 @@ a+b,pi=3.14,5e12
 The return value is also useful to ensure match is found at specific positions only. For example start or end of input string.
 
 ```bash
-$ # start of line
+$ # start of string
 $ awk 'index($0, "a+b")==1' eqns.txt
 a+b,pi=3.14,5e12
-$ # end of line
+$ # end of string
 $ awk -v s="a+b" 'index($0, s)==length()-length(s)+1' eqns.txt
 i*(t+9-g)/8,4-a+b
 ```
@@ -3968,11 +3969,11 @@ $ seq 30 | awk -v n=2 '/4/{f=1; c++} f && c!=n; /6/{f=0}'
 All blocks, only if the records between the markers match an additional condition.
 
 ```bash
-$ # additional condition here is a line starting with '1'
+$ # additional condition here is a record with entire content as '15'
 $ seq 30 | awk '/4/{f=1; buf=$0; m=0; next}
                 f{buf=buf ORS $0}
-                /6/{f=0; if(buf && m) print buf; buf=""}
-                /^1/{m=1}'
+                /6/{f=0; if(m) print buf}
+                $0=="15"{m=1}'
 14
 15
 16
@@ -4002,7 +4003,7 @@ zzzzzzzzzzzzzzzz
 
 $ awk '/error/{f=1; buf=$0; next}
        f{buf=buf ORS $0}
-       /state/{f=0; if(buf) print buf; buf=""}' broken.txt
+       /state/{if(f) print buf; f=0}' broken.txt
 error 2
 1234
 6789
@@ -4767,6 +4768,20 @@ dog mat
 $ printf 'mat dog\r\n123 789\r\n' | awk -v RS='\r\n' '{sub(/$/, ".")} 1'
 mat dog.
 123 789.
+```
+
+## Behavior of ^ and $ when string contains newline
+
+In some regular expression implementations, `^` matches the start of a line and `$` matches the end of a line (with newline as the line separator). In `awk`, these anchors always match the start of the entire string and end of the entire string respectively. This comes into play when `RS` is other than the newline character, or if you have a string value containing newline characters.
+
+```bash
+$ # 'apple\n' doesn't match as there's newline character
+$ printf 'apple\n,mustard,grape,\nmango' | awk -v RS=, '/e$/'
+grape
+
+$ # '\nmango' doesn't match as there's newline character
+$ printf 'apple\n,mustard,grape,\nmango' | awk -v RS=, '/^m/'
+mustard
 ```
 
 ## Word boundary differences

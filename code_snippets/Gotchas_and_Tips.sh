@@ -18,6 +18,12 @@ printf 'mat dog\r\n123 789\r\n' | awk -v RS='\r\n' '{print $2, $1}'
 
 printf 'mat dog\r\n123 789\r\n' | awk -v RS='\r\n' '{sub(/$/, ".")} 1'
 
+## Behavior of ^ and $ when string contains newline
+
+printf 'apple\n,mustard,grape,\nmango' | awk -v RS=, '/e$/'
+
+printf 'apple\n,mustard,grape,\nmango' | awk -v RS=, '/^m/'
+
 ## Word boundary differences
 
 echo 'I have 12, he has 2!' | awk '{gsub(/\y..\y/, "[&]")} 1'

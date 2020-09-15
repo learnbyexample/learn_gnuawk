@@ -70,8 +70,8 @@ seq 30 | awk -v n=2 '/4/{f=1; c++} f && c!=n; /6/{f=0}'
 
 seq 30 | awk '/4/{f=1; buf=$0; m=0; next}
               f{buf=buf ORS $0}
-              /6/{f=0; if(buf && m) print buf; buf=""}
-              /^1/{m=1}'
+              /6/{f=0; if(m) print buf}
+              $0=="15"{m=1}'
 
 ## Broken blocks
 
@@ -79,5 +79,5 @@ cat broken.txt
 
 awk '/error/{f=1; buf=$0; next}
      f{buf=buf ORS $0}
-     /state/{f=0; if(buf) print buf; buf=""}' broken.txt
+     /state/{if(f) print buf; f=0}' broken.txt
 

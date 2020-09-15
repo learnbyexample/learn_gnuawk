@@ -1,5 +1,14 @@
 <br>
 
+### 1.2
+
+* Added link to exercise solutions
+* Corrected typo in a solution
+* Two of the buffer examples simplified
+* Corrected line anchor explanations to be referred as string anchor instead
+
+<br>
+
 ### 1.1
 
 * Clarified BRE vs ERE difference for line anchor escaping

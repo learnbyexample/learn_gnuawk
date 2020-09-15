@@ -368,10 +368,10 @@ $ awk -F, '$1==&quot;a+b&quot;' eqns.txt
 a+b,pi=3.14,5e12
 </code></pre>
 <p>The return value is also useful to ensure match is found at specific positions only. For example start or end of input string.</p>
-<pre><code class="language-bash">$ # start of line
+<pre><code class="language-bash">$ # start of string
 $ awk 'index($0, &quot;a+b&quot;)==1' eqns.txt
 a+b,pi=3.14,5e12
-$ # end of line
+$ # end of string
 $ awk -v s=&quot;a+b&quot; 'index($0, s)==length()-length(s)+1' eqns.txt
 i*(t+9-g)/8,4-a+b
 </code></pre>

@@ -184,41 +184,44 @@ $ printf 'spared no one\ngrasped\nspar\n' | awk '{r = @/ed/} $0 ~ r'
 spared no one
 grasped
 </code></pre>
-<h2><a class="header" href="#line-anchors" id="line-anchors">Line Anchors</a></h2>
-<p>In the examples seen so far, the regexp was a simple string value without any special characters. Also, the regexp pattern evaluated to <code>true</code> if it was found anywhere in the string. Instead of matching anywhere in the line, restrictions can be specified. These restrictions are made possible by assigning special meaning to certain characters and escape sequences. The characters with special meaning are known as <strong>metacharacters</strong> in regular expressions parlance. In case you need to match those characters literally, you need to escape them with a <code>\</code> (discussed in <a href="./regular-expressions.html#matching-the-metacharacters">Matching the metacharacters</a> section).</p>
-<p>There are two line anchors:</p>
+<h2><a class="header" href="#string-anchors" id="string-anchors">String Anchors</a></h2>
+<p>In the examples seen so far, the regexp was a simple string value without any special characters. Also, the regexp pattern evaluated to <code>true</code> if it was found anywhere in the string. Instead of matching anywhere in the string, restrictions can be specified. These restrictions are made possible by assigning special meaning to certain characters and escape sequences. The characters with special meaning are known as <strong>metacharacters</strong> in regular expressions parlance. In case you need to match those characters literally, you need to escape them with a <code>\</code> (discussed in <a href="./regular-expressions.html#matching-the-metacharacters">Matching the metacharacters</a> section).</p>
+<p>There are two string anchors:</p>
 <ul>
-<li><code>^</code> metacharacter restricts the matching to start of line</li>
-<li><code>$</code> metacharacter restricts the matching to end of line</li>
+<li><code>^</code> metacharacter restricts the matching to the start of string</li>
+<li><code>$</code> metacharacter restricts the matching to the end of string</li>
 </ul>
-<pre><code class="language-bash">$ # lines starting with 'sp'
+<pre><code class="language-bash">$ # string starting with 'sp'
 $ printf 'spared no one\ngrasped\nspar\n' | awk '/^sp/'
 spared no one
 spar
 
-$ # lines ending with 'ar'
+$ # string ending with 'ar'
 $ printf 'spared no one\ngrasped\nspar\n' | awk '/ar$/'
 spar
 
-$ # change only whole line 'spar'
-$ # can also use: awk '/^spar$/{$0 = 123} 1'
+$ # change only whole string 'spar'
+$ # can also use: awk '/^spar$/{$0 = 123} 1' or awk '$0==&quot;spar&quot;{$0 = 123} 1'
 $ printf 'spared no one\ngrasped\nspar\n' | awk '{sub(/^spar$/, &quot;123&quot;)} 1'
 spared no one
 grasped
 123
 </code></pre>
-<p>The anchors can be used by themselves as a pattern. Helps to insert text at start or end of line, emulating string concatenation operations. These might not feel like useful capability, but combined with other features they become quite a handy tool.</p>
+<p>The anchors can be used by themselves as a pattern. Helps to insert text at the start or end of string, emulating string concatenation operations. These might not feel like useful capability, but combined with other features they become quite a handy tool.</p>
 <pre><code class="language-bash">$ printf 'spared no one\ngrasped\nspar\n' | awk '{gsub(/^/, &quot;* &quot;)} 1'
 * spared no one
 * grasped
 * spar
 
-$ # append only if line doesn't contain space characters
+$ # append only if string doesn't contain space characters
 $ printf 'spared no one\ngrasped\nspar\n' | awk '!/ /{gsub(/$/, &quot;.&quot;)} 1'
 spared no one
 grasped.
 spar.
 </code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See also <a href="./gotchas-and-tips.html#behavior-of--and--when-string-contains-newline">Behavior of ^ and $ when string contains newline</a> section.</p>
+</blockquote>
 <h2><a class="header" href="#word-anchors" id="word-anchors">Word Anchors</a></h2>
 <p>The second type of restriction is word anchors. A word character is any alphabet (irrespective of case), digit and the underscore character. You might wonder why there are digits and underscores as well, why not only alphabets? This comes from variable and function naming conventions — typically alphabets, digits and underscores are allowed. So, the definition is more programming oriented than natural language.</p>
 <p>Use <code>\&lt;</code> to indicate start of word anchor and <code>\&gt;</code> to indicate end of word anchor. As an alternate, you can use <code>\y</code> to indicate both the start of word and end of word anchors.</p>
@@ -280,7 +283,7 @@ c:o:p:p:e:r
 </blockquote>
 <h2><a class="header" href="#combining-conditions" id="combining-conditions">Combining conditions</a></h2>
 <p>Before seeing next regexp feature, it is good to note that sometimes using logical operators is easier to read and maintain compared to doing everything with regexp.</p>
-<pre><code class="language-bash">$ # lines starting with 'b' but not containing 'at'
+<pre><code class="language-bash">$ # string starting with 'b' but not containing 'at'
 $ awk '/^b/ &amp;&amp; !/at/' table.txt
 blue cake mug shirt -7
 
@@ -292,12 +295,11 @@ yellow banana window shoes 3.14
 <h2><a class="header" href="#alternation" id="alternation">Alternation</a></h2>
 <p>Many a times, you'd want to search for multiple terms. In a conditional expression, you can use the logical operators to combine multiple conditions. With regular expressions, the <code>|</code> metacharacter is similar to logical OR. The regular expression will match if any of the expression separated by <code>|</code> is satisfied. These can have their own independent anchors as well.</p>
 <p>Alternation is similar to using <code>||</code> operator between two regexps. Having a single regexp helps to write terser code and <code>||</code> cannot be used when substitution is required.</p>
-<pre><code class="language-bash">$ # lines with whole word 'par' or lines ending with 's'
+<pre><code class="language-bash">$ # match whole word 'par' or string ending with 's'
 $ # same as: awk '/\&lt;par\&gt;/ || /s$/'
 $ awk '/\&lt;par\&gt;|s$/' word_anchors.txt
 sub par
 two spare computers
-
 $ # replace 'cat' or 'dog' or 'fox' with '--'
 $ echo 'cats dog bee parrot foxed' | awk '{gsub(/cat|dog|fox/, &quot;--&quot;)} 1'
 --s -- bee parrot --ed
@@ -348,7 +350,7 @@ part time
 </code></pre>
 <h2><a class="header" href="#matching-the-metacharacters" id="matching-the-metacharacters">Matching the metacharacters</a></h2>
 <p>You have seen a few metacharacters and escape sequences that help to compose a regular expression. To match the metacharacters literally, i.e. to remove their special meaning, prefix those characters with a <code>\</code> character. To indicate a literal <code>\</code> character, use <code>\\</code>.</p>
-<p>Unlike <code>grep</code> and <code>sed</code>, the line anchors have to be always escaped to match them literally as there is no BRE mode in <code>awk</code>. They do not lose their special meaning when not used in their customary positions.</p>
+<p>Unlike <code>grep</code> and <code>sed</code>, the string anchors have to be always escaped to match them literally as there is no BRE mode in <code>awk</code>. They do not lose their special meaning when not used in their customary positions.</p>
 <pre><code class="language-bash">$ # awk '/b^2/' will not work even though ^ isn't being used as anchor
 $ # b^2 will work for both grep and sed if you use BRE syntax
 $ echo 'a^2 + b^2 - C*3' | awk '/b\^2/'
@@ -546,7 +548,7 @@ $ # same as: awk '{gsub(/\&lt;(s|o|t)(o|n)\&gt;/, &quot;X&quot;)} 1'
 $ echo 'no so in to do on' | awk '{gsub(/\&lt;[sot][on]\&gt;/, &quot;X&quot;)} 1'
 no X in X do X
 
-$ # lines made up of letters 'o' and 'n', line length at least 2
+$ # strings made up of letters 'o' and 'n', string length at least 2
 $ # /usr/share/dict/words contains dictionary words, one word per line
 $ awk '/^[on]{2,}$/' /usr/share/dict/words
 no
@@ -697,7 +699,7 @@ universe: 42
 <blockquote>
 <p><img src="images/info.svg" alt="info" /> If a metacharacter is specified by ASCII value, it will still act as the metacharacter. Undefined escape sequences will result in a warning and treated as the character it escapes.</p>
 </blockquote>
-<pre><code class="language-bash">$ # \x5e is ^ character, acts as line anchor here
+<pre><code class="language-bash">$ # \x5e is ^ character, acts as string anchor here
 $ printf 'cute\ncot\ncat\ncoat\n' | awk '/\x5eco/'
 cot
 coat
@@ -750,7 +752,7 @@ $ # duplicate first column value as final column
 $ echo 'one,2,3.14,42' | awk '{print gensub(/^([^,]+).*/, &quot;&amp;,\\1&quot;, 1)}'
 one,2,3.14,42,one
 
-$ # add something at start and end of line
+$ # add something at start and end of string
 $ # as only '&amp;' is used, gensub isn't needed here
 $ echo 'hello world' | awk '{sub(/.*/, &quot;Hi. &amp;. Have a nice day&quot;)} 1'
 Hi. hello world. Have a nice day
@@ -840,7 +842,7 @@ $ echo 'f*(a^b) - 3*(a^b)' |
      awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, &quot;\\\\&amp;&quot;, s); gsub(s, &quot;c&quot;)} 1'
 f*c - 3*c
 
-$ # match given input string literally, but only at end of line
+$ # match given input string literally, but only at the end of string
 $ echo 'f*(a^b) - 3*(a^b)' |
      awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, &quot;\\\\&amp;&quot;, s); gsub(s &quot;$&quot;, &quot;c&quot;)} 1'
 f*(a^b) - 3*c

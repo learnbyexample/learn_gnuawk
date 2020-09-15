@@ -200,6 +200,16 @@ $ printf 'mat dog\r\n123 789\r\n' | awk -v RS='\r\n' '{sub(/$/, &quot;.&quot;)} 
 mat dog.
 123 789.
 </code></pre>
+<h2><a class="header" href="#behavior-of--and--when-string-contains-newline" id="behavior-of--and--when-string-contains-newline">Behavior of ^ and $ when string contains newline</a></h2>
+<p>In some regular expression implementations, <code>^</code> matches the start of a line and <code>$</code> matches the end of a line (with newline as the line separator). In <code>awk</code>, these anchors always match the start of the entire string and end of the entire string respectively. This comes into play when <code>RS</code> is other than the newline character, or if you have a string value containing newline characters.</p>
+<pre><code class="language-bash">$ # 'apple\n' doesn't match as there's newline character
+$ printf 'apple\n,mustard,grape,\nmango' | awk -v RS=, '/e$/'
+grape
+
+$ # '\nmango' doesn't match as there's newline character
+$ printf 'apple\n,mustard,grape,\nmango' | awk -v RS=, '/^m/'
+mustard
+</code></pre>
 <h2><a class="header" href="#word-boundary-differences" id="word-boundary-differences">Word boundary differences</a></h2>
 <p>The word boundary <code>\y</code> matches both start and end of word locations. Whereas, <code>\&lt;</code> and <code>\&gt;</code> match exactly the start and end of word locations respectively. This leads to cases where you have to choose which of these word boundaries to use depending on results desired. Consider <code>I have 12, he has 2!</code> as sample text, shown below as an image with vertical bars marking the word boundaries. The last character <code>!</code> doesn't have end of word boundary as it is not a word character.</p>
 <p><img src="images/word_boundary.png" alt="word boundary" /></p>

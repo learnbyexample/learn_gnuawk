@@ -451,11 +451,11 @@ $ seq 30 | awk -v n=2 '/4/{c++} c==n; /6/ &amp;&amp; c==n{exit}'
 26
 </code></pre>
 <p>All blocks, only if the records between the markers match an additional condition.</p>
-<pre><code class="language-bash">$ # additional condition here is a line starting with '1'
+<pre><code class="language-bash">$ # additional condition here is a record with entire content as '15'
 $ seq 30 | awk '/4/{f=1; buf=$0; m=0; next}
                 f{buf=buf ORS $0}
-                /6/{f=0; if(buf &amp;&amp; m) print buf; buf=&quot;&quot;}
-                /^1/{m=1}'
+                /6/{f=0; if(m) print buf}
+                $0==&quot;15&quot;{m=1}'
 14
 15
 16
@@ -481,7 +481,7 @@ zzzzzzzzzzzzzzzz
 
 $ awk '/error/{f=1; buf=$0; next}
        f{buf=buf ORS $0}
-       /state/{f=0; if(buf) print buf; buf=&quot;&quot;}' broken.txt
+       /state/{if(f) print buf; f=0}' broken.txt
 error 2
 1234
 6789

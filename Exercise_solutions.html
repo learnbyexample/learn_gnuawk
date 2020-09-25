@@ -932,12 +932,16 @@ you
 is
 at
 
-$ awk -v IGNORECASE=1 'NR==FNR{s[$0]; next} {for(k in s){if($0 ~ k &amp;&amp; ++s[k]==(ARGC-2))
-                       print k}}' search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt
+$ awk -v IGNORECASE=1 'NR==FNR{s[$0]; next} {for(k in s) if($0 ~ k) a[k]}
+                       ENDFILE{for(k in a) s[k]++; delete a}
+                       END{for(k in s) if(s[k]==(ARGC-2)) print k}
+                      ' search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt
 at
 row
-$ awk -v IGNORECASE=1 'NR==FNR{s[$0]; next} {for(k in s){if($0 ~ k &amp;&amp; ++s[k]==(ARGC-2))
-                       print k}}' search_terms.txt addr.txt sample.txt
+$ awk -v IGNORECASE=1 'NR==FNR{s[$0]; next} {for(k in s) if($0 ~ k) a[k]}
+                       ENDFILE{for(k in a) s[k]++; delete a}
+                       END{for(k in s) if(s[k]==(ARGC-2)) print k}
+                      ' search_terms.txt addr.txt sample.txt
 is
 you
 hello

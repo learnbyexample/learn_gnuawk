@@ -1,6 +1,10 @@
-# awk introduction
+# Exercises
 
 >![info](../images/info.svg) Exercise related files are available from [exercises folder of learn_gnuawk repo](https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises). For solutions, see [Exercise_solutions.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercise_solutions.md).
+
+<br>
+
+# awk introduction
 
 **a)** For the input file `addr.txt`, display all lines containing `is`.
 

@@ -1,60 +1,7 @@
-<!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>Field separators - GNU AWK</title>
-        
-        
-
-
-        <!-- Custom HTML head -->
-        
-
-
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Example based guide to mastering GNU AWK">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
-
-        
-        <link rel="icon" href="favicon.svg">
-        
-        
-        <link rel="shortcut icon" href="favicon.png">
-        
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
-
-        <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
-        <link rel="stylesheet" href="fonts/fonts.css">
-        
-
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
-
-        <!-- Custom theme stylesheets -->
-        
-        <link rel="stylesheet" href="custom.css">
-        
-
-        
-    </head>
-    <body>
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Field separators - GNU AWK</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU AWK"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
-
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        </script><script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -67,10 +14,7 @@
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
             } catch (e) { }
-        </script>
-
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        </script><script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -79,10 +23,7 @@
             html.classList.remove('light')
             html.classList.add(theme);
             html.classList.add('js');
-        </script>
-
-        <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        </script><script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -91,82 +32,13 @@
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
-        </script>
-
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="installation-and-documentation.html"><strong aria-hidden="true">2.</strong> Installation and Documentation</a></li><li class="chapter-item expanded "><a href="awk-introduction.html"><strong aria-hidden="true">3.</strong> awk introduction</a></li><li class="chapter-item expanded "><a href="regular-expressions.html"><strong aria-hidden="true">4.</strong> Regular Expressions</a></li><li class="chapter-item expanded "><a href="field-separators.html" class="active"><strong aria-hidden="true">5.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">6.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">7.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="using-shell-variables.html"><strong aria-hidden="true">8.</strong> Using shell variables</a></li><li class="chapter-item expanded "><a href="control-structures.html"><strong aria-hidden="true">9.</strong> Control Structures</a></li><li class="chapter-item expanded "><a href="built-in-functions.html"><strong aria-hidden="true">10.</strong> Built-in functions</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">11.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">12.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">13.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">14.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="awk-scripts.html"><strong aria-hidden="true">15.</strong> awk scripts</a></li><li class="chapter-item expanded "><a href="gotchas-and-tips.html"><strong aria-hidden="true">16.</strong> Gotchas and Tips</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">17.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">18.</strong> Exercise Solutions</a></li></ol>
-            </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
-        </nav>
-
-        <div id="page-wrapper" class="page-wrapper">
-
-            <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
-                    <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
-                        </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                        </ul>
-                        
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        
-                    </div>
-
-                    <h1 class="menu-title">GNU AWK</h1>
-
-                    <div class="right-buttons">
-                        
-                        <a href="https://github.com/learnbyexample/learn_gnuawk" title="Git repository" aria-label="Git repository">
-                            <i id="git-repository-button" class="fa fa-github"></i>
-                        </a>
-                        
-                    </div>
-                </div>
-
-                
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                    </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
-                        </ul>
-                    </div>
-                </div>
-                
-
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=installation-and-documentation.html><strong aria-hidden=true>2.</strong> Installation and Documentation</a><li class="chapter-item expanded"><a href=awk-introduction.html><strong aria-hidden=true>3.</strong> awk introduction</a><li class="chapter-item expanded"><a href=regular-expressions.html><strong aria-hidden=true>4.</strong> Regular Expressions</a><li class="chapter-item expanded"><a href=field-separators.html class=active><strong aria-hidden=true>5.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>6.</strong> Record separators</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>7.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=using-shell-variables.html><strong aria-hidden=true>8.</strong> Using shell variables</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>9.</strong> Control Structures</a><li class="chapter-item expanded"><a href=built-in-functions.html><strong aria-hidden=true>10.</strong> Built-in functions</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>11.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>12.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>13.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>14.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=awk-scripts.html><strong aria-hidden=true>15.</strong> awk scripts</a><li class="chapter-item expanded"><a href=gotchas-and-tips.html><strong aria-hidden=true>16.</strong> Gotchas and Tips</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>17.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>18.</strong> Exercise Solutions</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU AWK</h1><div class=right-buttons><a href=https://github.com/learnbyexample/learn_gnuawk title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search name=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script>
-
-                <div id="content" class="content">
-                    <main>
-                        <h1><a class="header" href="#field-separators" id="field-separators">Field separators</a></h1>
-<p>Now that you are familiar with basic <code>awk</code> syntax and regular expressions, this chapter will dive deep into field processing. You'll learn how to set input and output field separators, how to use regexps for defining fields and how to work with fixed length fields. </p>
-<h2><a class="header" href="#default-field-separation" id="default-field-separation">Default field separation</a></h2>
-<p>As seen earlier, <code>awk</code> automatically splits input into fields which are accessible using <code>$N</code> where <code>N</code> is the field number you need. You can also pass an expression instead of numeric literal to specify the field required.</p>
-<pre><code class="language-bash">$ cat table.txt
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1><a class=header href=#field-separators id=field-separators>Field separators</a></h1><p>Now that you are familiar with basic <code>awk</code> syntax and regular expressions, this chapter will dive deep into field processing. You'll learn how to set input and output field separators, how to use regexps for defining fields and how to work with fixed length fields.<h2><a class=header href=#default-field-separation id=default-field-separation>Default field separation</a></h2><p>As seen earlier, <code>awk</code> automatically splits input into fields which are accessible using <code>$N</code> where <code>N</code> is the field number you need. You can also pass an expression instead of numeric literal to specify the field required.<pre><code class=language-bash>$ cat table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
 yellow banana window shoes 3.14
@@ -181,9 +53,7 @@ $ awk -v f=3 '{print $f}' table.txt
 mat
 mug
 window
-</code></pre>
-<p>The <code>NF</code> special variable will give you the number of fields for each input line. This is useful when you don't know how many fields are present in the input and you need to specify field number from the end.</p>
-<pre><code class="language-bash">$ # print the last field of each input line
+</code></pre><p>The <code>NF</code> special variable will give you the number of fields for each input line. This is useful when you don't know how many fields are present in the input and you need to specify field number from the end.<pre><code class=language-bash>$ # print the last field of each input line
 $ awk '{print $NF}' table.txt
 42
 -7
@@ -200,29 +70,23 @@ $ awk '{print $NF-1}' table.txt
 41
 -8
 2.14
-</code></pre>
-<p>By default, <code>awk</code> does more than split the input on spaces. It splits based on one or more sequence of <strong>space</strong> or <strong>tab</strong> or <strong>newline</strong> characters. In addition, any of these three characters at the start or end of input gets trimmed and won't be part of field contents. Input containing newline character will be covered in <a href="./record-separators.html#record-separators">Record separators</a> chapter.</p>
-<pre><code class="language-bash">$ echo '   a   b   c   ' | awk '{print NF}'
+</code></pre><p>By default, <code>awk</code> does more than split the input on spaces. It splits based on one or more sequence of <strong>space</strong> or <strong>tab</strong> or <strong>newline</strong> characters. In addition, any of these three characters at the start or end of input gets trimmed and won't be part of field contents. Input containing newline character will be covered in <a href=./record-separators.html#record-separators>Record separators</a> chapter.<pre><code class=language-bash>$ echo '   a   b   c   ' | awk '{print NF}'
 3
 $ # note that leading spaces isn't part of field content
 $ echo '   a   b   c   ' | awk '{print $1}'
 a
 $ # note that trailing spaces isn't part of field content
-$ echo '   a   b   c   ' | awk '{print $NF &quot;.&quot;}'
+$ echo '   a   b   c   ' | awk '{print $NF "."}'
 c.
 
 $ # here's another example with tab characters thrown in
 $ printf '     one \t two\t\t\tthree  ' | awk '{print NF}'
 3
-$ printf '     one \t two\t\t\tthree  ' | awk '{print $2 &quot;.&quot;}'
+$ printf '     one \t two\t\t\tthree  ' | awk '{print $2 "."}'
 two.
-</code></pre>
-<blockquote>
-<p><img src="images/warning.svg" alt="warning" /> When passing an expression for field number, floating-point result is acceptable too. The fractional portion is ignored. However, as precision is limited, it could result in rounding instead of truncation.</p>
-</blockquote>
-<pre><code class="language-bash">$ awk 'BEGIN{printf &quot;%.16f\n&quot;, 2.999999999999999}'
+</code></pre><blockquote><p><img src=images/warning.svg alt=warning> When passing an expression for field number, floating-point result is acceptable too. The fractional portion is ignored. However, as precision is limited, it could result in rounding instead of truncation.</blockquote><pre><code class=language-bash>$ awk 'BEGIN{printf "%.16f\n", 2.999999999999999}'
 2.9999999999999991
-$ awk 'BEGIN{printf &quot;%.16f\n&quot;, 2.9999999999999999}'
+$ awk 'BEGIN{printf "%.16f\n", 2.9999999999999999}'
 3.0000000000000000
 
 $ # same as: awk '{print $2}' table.txt
@@ -235,10 +99,7 @@ $ awk '{print $2.9999999999999999}' table.txt
 mat
 mug
 window
-</code></pre>
-<h2><a class="header" href="#input-field-separator" id="input-field-separator">Input field separator</a></h2>
-<p>The most common way to change the default field separator is to use the <code>-F</code> command line option. The value passed to the option will be treated as a string literal and then converted to a regexp. For now, here's some examples without any special regexp characters.</p>
-<pre><code class="language-bash">$ # use ':' as input field separator
+</code></pre><h2><a class=header href=#input-field-separator id=input-field-separator>Input field separator</a></h2><p>The most common way to change the default field separator is to use the <code>-F</code> command line option. The value passed to the option will be treated as a string literal and then converted to a regexp. For now, here's some examples without any special regexp characters.<pre><code class=language-bash>$ # use ':' as input field separator
 $ echo 'goal:amazing:whistle:kwality' | awk -F: '{print $1}'
 goal
 $ echo 'goal:amazing:whistle:kwality' | awk -F: '{print $NF}'
@@ -249,19 +110,15 @@ $ echo 'one;two;three;four' | awk -F';' '{print $3}'
 three
 
 $ # first and last fields will have empty string as their values
-$ echo '=a=b=c=' | awk -F= '{print $1 &quot;,&quot; $NF &quot;.&quot;}'
+$ echo '=a=b=c=' | awk -F= '{print $1 "," $NF "."}'
 ,.
-</code></pre>
-<p>You can also directly set the special <code>FS</code> variable to change the input field separator. This can be done from the command line using <code>-v</code> option or within the code blocks.</p>
-<pre><code class="language-bash">$ echo 'goal:amazing:whistle:kwality' | awk -v FS=: '{print $2}'
+</code></pre><p>You can also directly set the special <code>FS</code> variable to change the input field separator. This can be done from the command line using <code>-v</code> option or within the code blocks.<pre><code class=language-bash>$ echo 'goal:amazing:whistle:kwality' | awk -v FS=: '{print $2}'
 amazing
 
 $ # field separator can be multiple characters too
-$ echo '1e4SPT2k6SPT3a5SPT4z0' | awk 'BEGIN{FS=&quot;SPT&quot;} {print $3}'
+$ echo '1e4SPT2k6SPT3a5SPT4z0' | awk 'BEGIN{FS="SPT"} {print $3}'
 3a5
-</code></pre>
-<p>If you wish to split the input as individual characters, use an empty string as the field separator.</p>
-<pre><code class="language-bash">$ # note that the space between -F and '' is mandatory
+</code></pre><p>If you wish to split the input as individual characters, use an empty string as the field separator.<pre><code class=language-bash>$ # note that the space between -F and '' is mandatory
 $ echo 'apple' | awk -F '' '{print $1}'
 a
 $ echo 'apple' | awk -v FS= '{print $NF}'
@@ -270,9 +127,7 @@ e
 $ # depending upon the locale, you can work with multibyte characters too
 $ echo 'αλεπού' | awk -v FS= '{print $3}'
 ε
-</code></pre>
-<p>Here's some examples with regexp field separator. The value passed to <code>-F</code> or <code>FS</code> is treated as a string and then converted to regexp. So, you'll need <code>\\</code> instead of <code>\</code> to mean a backslash character. The good news is that for single characters that are also regexp metacharacters, they'll be treated literally and you do not need to escape them.</p>
-<pre><code class="language-bash">$ echo 'Sample123string42with777numbers' | awk -F'[0-9]+' '{print $2}'
+</code></pre><p>Here's some examples with regexp field separator. The value passed to <code>-F</code> or <code>FS</code> is treated as a string and then converted to regexp. So, you'll need <code>\\</code> instead of <code>\</code> to mean a backslash character. The good news is that for single characters that are also regexp metacharacters, they'll be treated literally and you do not need to escape them.<pre><code class=language-bash>$ echo 'Sample123string42with777numbers' | awk -F'[0-9]+' '{print $2}'
 string
 $ echo 'Sample123string42with777numbers' | awk -F'[a-zA-Z]+' '{print $2}'
 123
@@ -289,22 +144,14 @@ $ # count number of vowels for each input line
 $ printf 'cool\nnice car\n' | awk -F'[aeiou]' '{print NF-1}'
 2
 3
-</code></pre>
-<blockquote>
-<p><img src="images/warning.svg" alt="warning" /> The default value of <code>FS</code> is single space character. So, if you set input field separator to single space, then it will be the same as if you are using the default split discussed in previous section. If you want to override this behavior, you can use space inside a character class.</p>
-</blockquote>
-<pre><code class="language-bash">$ # same as: awk '{print NF}'
+</code></pre><blockquote><p><img src=images/warning.svg alt=warning> The default value of <code>FS</code> is single space character. So, if you set input field separator to single space, then it will be the same as if you are using the default split discussed in previous section. If you want to override this behavior, you can use space inside a character class.</blockquote><pre><code class=language-bash>$ # same as: awk '{print NF}'
 $ echo '   a   b   c   ' | awk -F' ' '{print NF}'
 3
 
 $ # there are 12 space characters, thus 13 fields
 $ echo '   a   b   c   ' | awk -F'[ ]' '{print NF}'
 13
-</code></pre>
-<blockquote>
-<p><img src="images/warning.svg" alt="warning" /> If <code>IGNORECASE</code> is set, it will affect field separation as well. Except when field separator is a single character, which can be worked around by using a character class.</p>
-</blockquote>
-<pre><code class="language-bash">$ echo 'RECONSTRUCTED' | awk -F'[aeiou]+' -v IGNORECASE=1 '{print $1}'
+</code></pre><blockquote><p><img src=images/warning.svg alt=warning> If <code>IGNORECASE</code> is set, it will affect field separation as well. Except when field separator is a single character, which can be worked around by using a character class.</blockquote><pre><code class=language-bash>$ echo 'RECONSTRUCTED' | awk -F'[aeiou]+' -v IGNORECASE=1 '{print $1}'
 R
 
 $ # when FS is a single character
@@ -312,10 +159,7 @@ $ echo 'RECONSTRUCTED' | awk -F'e' -v IGNORECASE=1 '{print $1}'
 RECONSTRUCTED
 $ echo 'RECONSTRUCTED' | awk -F'[e]' -v IGNORECASE=1 '{print $1}'
 R
-</code></pre>
-<h2><a class="header" href="#output-field-separator" id="output-field-separator">Output field separator</a></h2>
-<p>The <code>OFS</code> special variable is used for output field separator. <code>OFS</code> is used as the string between multiple arguments passed to <code>print</code> function. It is also used whenever <code>$0</code> has to be reconstructed as a result of changing field contents. The default value for <code>OFS</code> is a single space character, just like for <code>FS</code>. There is no command line option though, you'll have to change <code>OFS</code> directly.</p>
-<pre><code class="language-bash">$ # printing first and third field, OFS is used to join these values
+</code></pre><h2><a class=header href=#output-field-separator id=output-field-separator>Output field separator</a></h2><p>The <code>OFS</code> special variable is used for output field separator. <code>OFS</code> is used as the string between multiple arguments passed to <code>print</code> function. It is also used whenever <code>$0</code> has to be reconstructed as a result of changing field contents. The default value for <code>OFS</code> is a single space character, just like for <code>FS</code>. There is no command line option though, you'll have to change <code>OFS</code> directly.<pre><code class=language-bash>$ # printing first and third field, OFS is used to join these values
 $ # note the use of , to separate print arguments
 $ awk '{print $1, $3}' table.txt
 brown mat
@@ -325,93 +169,65 @@ yellow window
 $ # same FS and OFS
 $ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{print $2, $NF}'
 amazing:kwality
-$ echo 'goal:amazing:whistle:kwality' | awk 'BEGIN{FS=OFS=&quot;:&quot;} {print $2, $NF}'
+$ echo 'goal:amazing:whistle:kwality' | awk 'BEGIN{FS=OFS=":"} {print $2, $NF}'
 amazing:kwality
 
 $ # different values for FS and OFS
 $ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=- '{print $2, $NF}'
 amazing-kwality
-</code></pre>
-<p>Here's some examples for changing field contents and then printing <code>$0</code>.</p>
-<pre><code class="language-bash">$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$2 = 42} 1'
+</code></pre><p>Here's some examples for changing field contents and then printing <code>$0</code>.<pre><code class=language-bash>$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$2 = 42} 1'
 goal:42:whistle:kwality
 $ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=, '{$2 = 42} 1'
 goal,42,whistle,kwality
 
 $ # recall that spaces at start/end gets trimmed for default FS
-$ echo '   a   b   c   ' | awk '{$NF = &quot;last&quot;} 1'
+$ echo '   a   b   c   ' | awk '{$NF = "last"} 1'
 a b last
-</code></pre>
-<p>Sometimes you want to print contents of <code>$0</code> with the new <code>OFS</code> value but field contents aren't being changed. In such cases, you can assign a field value to itself to force reconstruction of <code>$0</code>.</p>
-<pre><code class="language-bash">$ # no change because there was no trigger to rebuild $0
+</code></pre><p>Sometimes you want to print contents of <code>$0</code> with the new <code>OFS</code> value but field contents aren't being changed. In such cases, you can assign a field value to itself to force reconstruction of <code>$0</code>.<pre><code class=language-bash>$ # no change because there was no trigger to rebuild $0
 $ echo 'Sample123string42with777numbers' | awk -F'[0-9]+' -v OFS=, '1'
 Sample123string42with777numbers
 
 $ # assign a field to itself in such cases
 $ echo 'Sample123string42with777numbers' | awk -F'[0-9]+' -v OFS=, '{$1=$1} 1'
 Sample,string,with,numbers
-</code></pre>
-<h2><a class="header" href="#manipulating-nf" id="manipulating-nf">Manipulating NF</a></h2>
-<p>Changing <code>NF</code> value will rebuild <code>$0</code> as well.</p>
-<pre><code class="language-bash">$ # reducing fields
+</code></pre><h2><a class=header href=#manipulating-nf id=manipulating-nf>Manipulating NF</a></h2><p>Changing <code>NF</code> value will rebuild <code>$0</code> as well.<pre><code class=language-bash>$ # reducing fields
 $ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=, '{NF=2} 1'
 goal,amazing
 
 $ # increasing fields
-$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$(NF+1)=&quot;sea&quot;} 1'
+$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$(NF+1)="sea"} 1'
 goal:amazing:whistle:kwality:sea
 
 $ # empty fields will be created as needed
-$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$8=&quot;go&quot;} 1'
+$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$8="go"} 1'
 goal:amazing:whistle:kwality::::go
-</code></pre>
-<blockquote>
-<p><img src="images/warning.svg" alt="warning" /> Assigning <code>NF</code> to <code>0</code> will delete all the fields. However, a negative value will result in an error.</p>
-</blockquote>
-<pre><code class="language-bash">$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{NF=-1} 1'
+</code></pre><blockquote><p><img src=images/warning.svg alt=warning> Assigning <code>NF</code> to <code>0</code> will delete all the fields. However, a negative value will result in an error.</blockquote><pre><code class=language-bash>$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{NF=-1} 1'
 awk: cmd. line:1: (FILENAME=- FNR=1) fatal: NF set to negative value
-</code></pre>
-<h2><a class="header" href="#fpat" id="fpat">FPAT</a></h2>
-<p><code>FS</code> allows to define input field separator. In contrast, <code>FPAT</code> (field pattern) allows to define what should the fields be made up of.</p>
-<pre><code class="language-bash">$ s='Sample123string42with777numbers'
+</code></pre><h2><a class=header href=#fpat id=fpat>FPAT</a></h2><p><code>FS</code> allows to define input field separator. In contrast, <code>FPAT</code> (field pattern) allows to define what should the fields be made up of.<pre><code class=language-bash>$ s='Sample123string42with777numbers'
 
 $ # define fields to be one or more consecutive digits
-$ echo &quot;$s&quot; | awk -v FPAT='[0-9]+' '{print $2}'
+$ echo "$s" | awk -v FPAT='[0-9]+' '{print $2}'
 42
 
 $ # define fields to be one or more consecutive alphabets
-$ echo &quot;$s&quot; | awk -v FPAT='[a-zA-Z]+' -v OFS=, '{$1=$1} 1'
+$ echo "$s" | awk -v FPAT='[a-zA-Z]+' -v OFS=, '{$1=$1} 1'
 Sample,string,with,numbers
-</code></pre>
-<p><code>FPAT</code> is often used for <code>csv</code> input where fields can contain embedded delimiter characters. For example, a field content <code>&quot;fox,42&quot;</code> when <code>,</code> is the delimiter.</p>
-<pre><code class="language-bash">$ s='eagle,&quot;fox,42&quot;,bee,frog'
+</code></pre><p><code>FPAT</code> is often used for <code>csv</code> input where fields can contain embedded delimiter characters. For example, a field content <code>"fox,42"</code> when <code>,</code> is the delimiter.<pre><code class=language-bash>$ s='eagle,"fox,42",bee,frog'
 
 $ # simply using , as separator isn't sufficient
-$ echo &quot;$s&quot; | awk -F, '{print $2}'
-&quot;fox
-</code></pre>
-<p>For such simpler <code>csv</code> input, <code>FPAT</code> helps to define fields as starting and ending with double quotes or containing non-comma characters.</p>
-<pre><code class="language-bash">$ # * is used instead of + to allow empty fields
-$ echo &quot;$s&quot; | awk -v FPAT='&quot;[^&quot;]*&quot;|[^,]*' '{print $2}'
-&quot;fox,42&quot;
-</code></pre>
-<blockquote>
-<p><img src="images/warning.svg" alt="warning" /> The above will not work for all kinds of <code>csv</code> files, for example if fields contain escaped double quotes, newline characters, etc. See <a href="https://stackoverflow.com/questions/45420535/whats-the-most-robust-way-to-efficiently-parse-csv-using-awk">stackoverflow: What's the most robust way to efficiently parse CSV using awk?</a> for such cases. You could also use other programming languages such as Perl, Python, Ruby, etc which come with standard <code>csv</code> parsing libraries or have easy access to third party solutions. There are also specialized command line tools such as <a href="https://github.com/BurntSushi/xsv">xsv</a>.</p>
-</blockquote>
-<blockquote>
-<p><img src="images/info.svg" alt="info" /> If <code>IGNORECASE</code> is set, it will affect field matching. Unlike <code>FS</code>, there is no different behavior for single character pattern.</p>
-</blockquote>
-<pre><code class="language-bash">$ # count number of 'e' in the input string
+$ echo "$s" | awk -F, '{print $2}'
+"fox
+</code></pre><p>For such simpler <code>csv</code> input, <code>FPAT</code> helps to define fields as starting and ending with double quotes or containing non-comma characters.<pre><code class=language-bash>$ # * is used instead of + to allow empty fields
+$ echo "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
+"fox,42"
+</code></pre><blockquote><p><img src=images/warning.svg alt=warning> The above will not work for all kinds of <code>csv</code> files, for example if fields contain escaped double quotes, newline characters, etc. See <a href=https://stackoverflow.com/questions/45420535/whats-the-most-robust-way-to-efficiently-parse-csv-using-awk>stackoverflow: What's the most robust way to efficiently parse CSV using awk?</a> for such cases. You could also use other programming languages such as Perl, Python, Ruby, etc which come with standard <code>csv</code> parsing libraries or have easy access to third party solutions. There are also specialized command line tools such as <a href=https://github.com/BurntSushi/xsv>xsv</a>.</blockquote><blockquote><p><img src=images/info.svg alt=info> If <code>IGNORECASE</code> is set, it will affect field matching. Unlike <code>FS</code>, there is no different behavior for single character pattern.</blockquote><pre><code class=language-bash>$ # count number of 'e' in the input string
 $ echo 'Read Eat Sleep' | awk -v FPAT='e' '{print NF}'
 3
 $ echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='e' '{print NF}'
 4
 $ echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='[e]' '{print NF}'
 4
-</code></pre>
-<h2><a class="header" href="#fieldwidths" id="fieldwidths">FIELDWIDTHS</a></h2>
-<p><code>FIELDWIDTHS</code> is another feature where you get to define field contents. As indicated by the name, you have to specify number of characters for each field. This method is useful to process fixed width file inputs, and especially when they can contain empty fields.</p>
-<pre><code class="language-bash">$ cat items.txt
+</code></pre><h2><a class=header href=#fieldwidths id=fieldwidths>FIELDWIDTHS</a></h2><p><code>FIELDWIDTHS</code> is another feature where you get to define field contents. As indicated by the name, you have to specify number of characters for each field. This method is useful to process fixed width file inputs, and especially when they can contain empty fields.<pre><code class=language-bash>$ cat items.txt
 apple   fig banana
 50      10  200
 
@@ -421,36 +237,26 @@ $ awk -v FIELDWIDTHS='8 4 6' '{print $2}' items.txt
 fig 
 10  
 $ # note that the field contents will include the spaces as well
-$ awk -v FIELDWIDTHS='8 4 6' '{print &quot;[&quot; $2 &quot;]&quot;}' items.txt
+$ awk -v FIELDWIDTHS='8 4 6' '{print "[" $2 "]"}' items.txt
 [fig ]
 [10  ]
-</code></pre>
-<p>You can optionally prefix a field width with number of characters to be ignored.</p>
-<pre><code class="language-bash">$ # first field is 5 characters
+</code></pre><p>You can optionally prefix a field width with number of characters to be ignored.<pre><code class=language-bash>$ # first field is 5 characters
 $ # then 3 characters are ignored and 3 characters for second field
 $ # then 1 character is ignored and 6 characters for third field
-$ awk -v FIELDWIDTHS='5 3:3 1:6' '{print &quot;[&quot; $1 &quot;]&quot;}' items.txt
+$ awk -v FIELDWIDTHS='5 3:3 1:6' '{print "[" $1 "]"}' items.txt
 [apple]
 [50   ]
-$ awk -v FIELDWIDTHS='5 3:3 1:6' '{print &quot;[&quot; $2 &quot;]&quot;}' items.txt
+$ awk -v FIELDWIDTHS='5 3:3 1:6' '{print "[" $2 "]"}' items.txt
 [fig]
 [10 ]
-</code></pre>
-<p>If an input line length exceeds the total widths specified, the extra characters will simply be ignored. If you wish to access those characters, you can use <code>*</code> to represent the last field. See <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Fields-with-fixed-data">gawk manual: FIELDWIDTHS</a> for more corner cases.</p>
-<pre><code class="language-bash">$ awk -v FIELDWIDTHS='5 *' '{print &quot;[&quot; $1 &quot;]&quot;}' items.txt
+</code></pre><p>If an input line length exceeds the total widths specified, the extra characters will simply be ignored. If you wish to access those characters, you can use <code>*</code> to represent the last field. See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Fields-with-fixed-data>gawk manual: FIELDWIDTHS</a> for more corner cases.<pre><code class=language-bash>$ awk -v FIELDWIDTHS='5 *' '{print "[" $1 "]"}' items.txt
 [apple]
 [50   ]
 
-$ awk -v FIELDWIDTHS='5 *' '{print &quot;[&quot; $2 &quot;]&quot;}' items.txt
+$ awk -v FIELDWIDTHS='5 *' '{print "[" $2 "]"}' items.txt
 [   fig banana]
 [   10  200]
-</code></pre>
-<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
-<p>Working with fields is the most popular feature of <code>awk</code>. This chapter discussed various ways in which you can split the input into fields and manipulate them. There's many more examples to be discussed related to fields in upcoming chapters. I'd highly suggest to also read through <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Fields">gawk manual: Fields</a> for more details regarding field processing.</p>
-<p>Next chapter will discuss various ways to use record separators and related special variables.</p>
-<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
-<p><strong>a)</strong> Extract only the contents between <code>()</code> or <code>)(</code> from each input line. Assume that <code>()</code> characters will be present only once every line.</p>
-<pre><code class="language-bash">$ cat brackets.txt
+</code></pre><h2><a class=header href=#summary id=summary>Summary</a></h2><p>Working with fields is the most popular feature of <code>awk</code>. This chapter discussed various ways in which you can split the input into fields and manipulate them. There's many more examples to be discussed related to fields in upcoming chapters. I'd highly suggest to also read through <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Fields>gawk manual: Fields</a> for more details regarding field processing.<p>Next chapter will discuss various ways to use record separators and related special variables.<h2><a class=header href=#exercises id=exercises>Exercises</a></h2><p><strong>a)</strong> Extract only the contents between <code>()</code> or <code>)(</code> from each input line. Assume that <code>()</code> characters will be present only once every line.<pre><code class=language-bash>$ cat brackets.txt
 foo blah blah(ice) 123 xyz$ 
 (almond-pista) choco
 yo )yoyo( yo
@@ -459,9 +265,7 @@ $ awk ##### add your solution here
 ice
 almond-pista
 yoyo
-</code></pre>
-<p><strong>b)</strong> For the input file <code>scores.csv</code>, extract <code>Name</code> and <code>Physics</code> fields in the format shown below.</p>
-<pre><code class="language-bash">$ cat scores.csv
+</code></pre><p><strong>b)</strong> For the input file <code>scores.csv</code>, extract <code>Name</code> and <code>Physics</code> fields in the format shown below.<pre><code class=language-bash>$ cat scores.csv
 Name,Maths,Physics,Chemistry
 Blue,67,46,99
 Lin,78,83,80
@@ -478,36 +282,26 @@ Er:79
 Cy:98
 Ort:72
 Ith:100
-</code></pre>
-<p><strong>c)</strong> For the input file <code>scores.csv</code>, display names of those who've scored above <code>70</code> in Maths.</p>
-<pre><code class="language-bash">$ awk ##### add your solution here
+</code></pre><p><strong>c)</strong> For the input file <code>scores.csv</code>, display names of those who've scored above <code>70</code> in Maths.<pre><code class=language-bash>$ awk ##### add your solution here
 Lin
 Cy
 Ith
-</code></pre>
-<p><strong>d)</strong> Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with <code>gsub</code> and one without substitution functions?</p>
-<pre><code class="language-bash">$ echo 'hi there' | awk ##### add your solution here
+</code></pre><p><strong>d)</strong> Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with <code>gsub</code> and one without substitution functions?<pre><code class=language-bash>$ echo 'hi there' | awk ##### add your solution here
 7
 
-$ echo 'u-no;co%.&quot;(do_12:as' | awk ##### add your solution here
+$ echo 'u-no;co%."(do_12:as' | awk ##### add your solution here
 12
-</code></pre>
-<p><strong>e)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions or string concatenation.</p>
-<pre><code class="language-bash">$ echo '1 &quot;grape&quot; and &quot;mango&quot; and &quot;guava&quot;' | awk ##### add your solution here
-&quot;grape&quot;,&quot;guava&quot;
+</code></pre><p><strong>e)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions or string concatenation.<pre><code class=language-bash>$ echo '1 "grape" and "mango" and "guava"' | awk ##### add your solution here
+"grape","guava"
 
-$ echo '(&quot;a 1&quot;&quot;b&quot;&quot;c-2&quot;&quot;d&quot;)' | awk ##### add your solution here
-&quot;a 1&quot;,&quot;c-2&quot;
-</code></pre>
-<p><strong>f)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions. Can you do it without explicitly using <code>print</code> function as well?</p>
-<pre><code class="language-bash">$ echo 'hi,bye,there,was,here,to' | awk ##### add your solution here
+$ echo '("a 1""b""c-2""d")' | awk ##### add your solution here
+"a 1","c-2"
+</code></pre><p><strong>f)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions. Can you do it without explicitly using <code>print</code> function as well?<pre><code class=language-bash>$ echo 'hi,bye,there,was,here,to' | awk ##### add your solution here
 hi,bye,to
 
 $ echo '1,2,3,4,5' | awk ##### add your solution here
 1,2,5
-</code></pre>
-<p><strong>g)</strong> Transform the given input file <code>fw.txt</code> to get the output as shown below. If a field is empty (i.e. contains only space characters), replace it with <code>NA</code>.</p>
-<pre><code class="language-bash">$ cat fw.txt
+</code></pre><p><strong>g)</strong> Transform the given input file <code>fw.txt</code> to get the output as shown below. If a field is empty (i.e. contains only space characters), replace it with <code>NA</code>.<pre><code class=language-bash>$ cat fw.txt
 1.3  rs   90  0.134563
 3.8           6
 5.2  ye       8.2387
@@ -518,79 +312,10 @@ $ awk ##### add your solution here
 3.8,NA,6
 5.2,ye,8.2387
 4.2,kt,45.1
-</code></pre>
-<p><strong>h)</strong> Display only the third and fifth characters from each line input line as shown below.</p>
-<pre><code class="language-bash">$ printf 'restore\ncat one\ncricket' | awk ##### add your solution here
+</code></pre><p><strong>h)</strong> Display only the third and fifth characters from each line input line as shown below.<pre><code class=language-bash>$ printf 'restore\ncat one\ncricket' | awk ##### add your solution here
 so
 to
 ik
-</code></pre>
-
-                    </main>
-
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="regular-expressions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        
-
-                        
-                            <a rel="next" href="record-separators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        
-
-                        <div style="clear: both"></div>
-                    </nav>
-                </div>
-            </div>
-
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a rel="prev" href="regular-expressions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                
-
-                
-                    <a rel="next" href="record-separators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                
-            </nav>
-
-        </div>
-
-        
-
-        
-
-        
-
-        
-        <script type="text/javascript">
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=regular-expressions.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=record-separators.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=regular-expressions.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=record-separators.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
-        </script>
-        
-
-        
-
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- Custom JS scripts -->
-        
-
-        
-
-    </body>
-</html>
+        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>

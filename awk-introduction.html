@@ -1,60 +1,7 @@
-<!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>awk introduction - GNU AWK</title>
-        
-        
-
-
-        <!-- Custom HTML head -->
-        
-
-
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Example based guide to mastering GNU AWK">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
-
-        
-        <link rel="icon" href="favicon.svg">
-        
-        
-        <link rel="shortcut icon" href="favicon.png">
-        
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
-
-        <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
-        <link rel="stylesheet" href="fonts/fonts.css">
-        
-
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
-
-        <!-- Custom theme stylesheets -->
-        
-        <link rel="stylesheet" href="custom.css">
-        
-
-        
-    </head>
-    <body>
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>awk introduction - GNU AWK</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU AWK"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
-
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        </script><script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -67,10 +14,7 @@
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
             } catch (e) { }
-        </script>
-
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        </script><script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -79,10 +23,7 @@
             html.classList.remove('light')
             html.classList.add(theme);
             html.classList.add('js');
-        </script>
-
-        <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        </script><script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -91,82 +32,13 @@
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
-        </script>
-
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="installation-and-documentation.html"><strong aria-hidden="true">2.</strong> Installation and Documentation</a></li><li class="chapter-item expanded "><a href="awk-introduction.html" class="active"><strong aria-hidden="true">3.</strong> awk introduction</a></li><li class="chapter-item expanded "><a href="regular-expressions.html"><strong aria-hidden="true">4.</strong> Regular Expressions</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">5.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">6.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">7.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="using-shell-variables.html"><strong aria-hidden="true">8.</strong> Using shell variables</a></li><li class="chapter-item expanded "><a href="control-structures.html"><strong aria-hidden="true">9.</strong> Control Structures</a></li><li class="chapter-item expanded "><a href="built-in-functions.html"><strong aria-hidden="true">10.</strong> Built-in functions</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">11.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">12.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">13.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">14.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="awk-scripts.html"><strong aria-hidden="true">15.</strong> awk scripts</a></li><li class="chapter-item expanded "><a href="gotchas-and-tips.html"><strong aria-hidden="true">16.</strong> Gotchas and Tips</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">17.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">18.</strong> Exercise Solutions</a></li></ol>
-            </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
-        </nav>
-
-        <div id="page-wrapper" class="page-wrapper">
-
-            <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
-                    <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
-                        </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                        </ul>
-                        
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        
-                    </div>
-
-                    <h1 class="menu-title">GNU AWK</h1>
-
-                    <div class="right-buttons">
-                        
-                        <a href="https://github.com/learnbyexample/learn_gnuawk" title="Git repository" aria-label="Git repository">
-                            <i id="git-repository-button" class="fa fa-github"></i>
-                        </a>
-                        
-                    </div>
-                </div>
-
-                
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                    </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
-                        </ul>
-                    </div>
-                </div>
-                
-
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=installation-and-documentation.html><strong aria-hidden=true>2.</strong> Installation and Documentation</a><li class="chapter-item expanded"><a href=awk-introduction.html class=active><strong aria-hidden=true>3.</strong> awk introduction</a><li class="chapter-item expanded"><a href=regular-expressions.html><strong aria-hidden=true>4.</strong> Regular Expressions</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>5.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>6.</strong> Record separators</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>7.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=using-shell-variables.html><strong aria-hidden=true>8.</strong> Using shell variables</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>9.</strong> Control Structures</a><li class="chapter-item expanded"><a href=built-in-functions.html><strong aria-hidden=true>10.</strong> Built-in functions</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>11.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>12.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>13.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>14.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=awk-scripts.html><strong aria-hidden=true>15.</strong> awk scripts</a><li class="chapter-item expanded"><a href=gotchas-and-tips.html><strong aria-hidden=true>16.</strong> Gotchas and Tips</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>17.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>18.</strong> Exercise Solutions</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU AWK</h1><div class=right-buttons><a href=https://github.com/learnbyexample/learn_gnuawk title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search name=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script>
-
-                <div id="content" class="content">
-                    <main>
-                        <h1><a class="header" href="#awk-introduction" id="awk-introduction">awk introduction</a></h1>
-<p>This chapter will give an overview of <code>awk</code> syntax and some examples to show what kind of problems you could solve using <code>awk</code>. These features will be covered in depth in later chapters, but don't go skipping this chapter.</p>
-<h2><a class="header" href="#filtering" id="filtering">Filtering</a></h2>
-<p><code>awk</code> provides filtering capabilities like those supported by <code>grep</code> and <code>sed</code> plus some nifty features of its own. And similar to many command line utilities, <code>awk</code> can accept input from both <code>stdin</code> and files.</p>
-<pre><code class="language-bash">$ # sample stdin data
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1><a class=header href=#awk-introduction id=awk-introduction>awk introduction</a></h1><p>This chapter will give an overview of <code>awk</code> syntax and some examples to show what kind of problems you could solve using <code>awk</code>. These features will be covered in depth in later chapters, but don't go skipping this chapter.<h2><a class=header href=#filtering id=filtering>Filtering</a></h2><p><code>awk</code> provides filtering capabilities like those supported by <code>grep</code> and <code>sed</code> plus some nifty features of its own. And similar to many command line utilities, <code>awk</code> can accept input from both <code>stdin</code> and files.<pre><code class=language-bash>$ # sample stdin data
 $ printf 'gate\napple\nwhat\nkite\n'
 gate
 apple
@@ -183,15 +55,7 @@ $ # same as: grep -v 'e' and sed -n '/e/!p'
 $ # print all lines NOT containing 'e'
 $ printf 'gate\napple\nwhat\nkite\n' | awk '!/e/'
 what
-</code></pre>
-<p>Similar to <code>grep</code> and <code>sed</code>, by default <code>awk</code> automatically loops over input content line by line. You can then use <code>awk</code>'s programming instructions to process those lines. As <code>awk</code> is primarily used from the command line, many shortcuts are available to reduce the amount of typing needed.</p>
-<p>In the above examples, a regular expression (defined by the pattern between a pair of forward slashes) has been used to filter the input. Regular expressions (regexp) will be covered in detail in the next chapter, only simple string value is used here without any special characters. The full syntax is <code>string ~ /regexp/</code> to check if the given string matches the regexp and <code>string !~ /regexp/</code> to check if doesn't match. When the string isn't specified, the test is performed against a special variable <code>$0</code>, which has the contents of the input line. The correct term would be input <strong>record</strong>, but that's a discussion for a later chapter.</p>
-<p>Also, in the above examples, only the filtering condition was given and nothing about what should be done. By default, when the condition evaluates to <code>true</code>, the contents of <code>$0</code> is printed. Thus:</p>
-<ul>
-<li><code>awk '/regexp/'</code> is a shortcut for <code>awk '$0 ~ /regexp/{print $0}'</code></li>
-<li><code>awk '!/regexp/'</code> is a shortcut for <code>awk '$0 !~ /regexp/{print $0}'</code></li>
-</ul>
-<pre><code class="language-bash">$ # same as: awk '/at/'
+</code></pre><p>Similar to <code>grep</code> and <code>sed</code>, by default <code>awk</code> automatically loops over input content line by line. You can then use <code>awk</code>'s programming instructions to process those lines. As <code>awk</code> is primarily used from the command line, many shortcuts are available to reduce the amount of typing needed.<p>In the above examples, a regular expression (defined by the pattern between a pair of forward slashes) has been used to filter the input. Regular expressions (regexp) will be covered in detail in the next chapter, only simple string value is used here without any special characters. The full syntax is <code>string ~ /regexp/</code> to check if the given string matches the regexp and <code>string !~ /regexp/</code> to check if doesn't match. When the string isn't specified, the test is performed against a special variable <code>$0</code>, which has the contents of the input line. The correct term would be input <strong>record</strong>, but that's a discussion for a later chapter.<p>Also, in the above examples, only the filtering condition was given and nothing about what should be done. By default, when the condition evaluates to <code>true</code>, the contents of <code>$0</code> is printed. Thus:<ul><li><code>awk '/regexp/'</code> is a shortcut for <code>awk '$0 ~ /regexp/{print $0}'</code><li><code>awk '!/regexp/'</code> is a shortcut for <code>awk '$0 !~ /regexp/{print $0}'</code></ul><pre><code class=language-bash>$ # same as: awk '/at/'
 $ printf 'gate\napple\nwhat\nkite\n' | awk '$0 ~ /at/{print $0}'
 gate
 what
@@ -199,51 +63,29 @@ what
 $ # same as: awk '!/e/'
 $ printf 'gate\napple\nwhat\nkite\n' | awk '$0 !~ /e/{print $0}'
 what
-</code></pre>
-<p>In the above examples, <code>{}</code> is used to specify a block of code to be executed when the condition that precedes the block evaluates to <code>true</code>. One or more statements can be given separated by <code>;</code> character. You'll see such examples and learn more about <code>awk</code> syntax later.</p>
-<p>Any non-zero numeric value and non-empty string value is considered as <code>true</code> when that value is used as a conditional expression. Idiomatically, <code>1</code> is used to denote a <code>true</code> condition in one-liners as a shortcut to print the contents of <code>$0</code>.</p>
-<pre><code class="language-bash">$ # same as: printf 'gate\napple\nwhat\nkite\n' | cat
+</code></pre><p>In the above examples, <code>{}</code> is used to specify a block of code to be executed when the condition that precedes the block evaluates to <code>true</code>. One or more statements can be given separated by <code>;</code> character. You'll see such examples and learn more about <code>awk</code> syntax later.<p>Any non-zero numeric value and non-empty string value is considered as <code>true</code> when that value is used as a conditional expression. Idiomatically, <code>1</code> is used to denote a <code>true</code> condition in one-liners as a shortcut to print the contents of <code>$0</code>.<pre><code class=language-bash>$ # same as: printf 'gate\napple\nwhat\nkite\n' | cat
 $ # same as: awk '{print $0}'
 $ printf 'gate\napple\nwhat\nkite\n' | awk '1'
 gate
 apple
 what
 kite
-</code></pre>
-<h2><a class="header" href="#substitution" id="substitution">Substitution</a></h2>
-<p><code>awk</code> has three functions to cover search and replace requirements. Two of them are shown below. The <code>sub</code> function replaces only the first match whereas <code>gsub</code> function replaces all the matching occurrences. By default, these functions operate on <code>$0</code> when the input string isn't provided. Both <code>sub</code> and <code>gsub</code> modifies the input source on successful substitution.</p>
-<pre><code class="language-bash">$ # for each input line, change only first ':' to '-'
+</code></pre><h2><a class=header href=#substitution id=substitution>Substitution</a></h2><p><code>awk</code> has three functions to cover search and replace requirements. Two of them are shown below. The <code>sub</code> function replaces only the first match whereas <code>gsub</code> function replaces all the matching occurrences. By default, these functions operate on <code>$0</code> when the input string isn't provided. Both <code>sub</code> and <code>gsub</code> modifies the input source on successful substitution.<pre><code class=language-bash>$ # for each input line, change only first ':' to '-'
 $ # same as: sed 's/:/-/'
-$ printf '1:2:3:4\na:b:c:d\n' | awk '{sub(/:/, &quot;-&quot;)} 1'
+$ printf '1:2:3:4\na:b:c:d\n' | awk '{sub(/:/, "-")} 1'
 1-2:3:4
 a-b:c:d
 
 $ # for each input line, change all ':' to '-'
 $ # same as: sed 's/:/-/g'
-$ printf '1:2:3:4\na:b:c:d\n' | awk '{gsub(/:/, &quot;-&quot;)} 1'
+$ printf '1:2:3:4\na:b:c:d\n' | awk '{gsub(/:/, "-")} 1'
 1-2-3-4
 a-b-c-d
-</code></pre>
-<p>The first argument to <code>sub</code> and <code>gsub</code> functions is the regexp to be matched against the input content. The second argument is the replacement string. String literals are specified within double quotes. In the above examples, <code>sub</code> and <code>gsub</code> are used inside a block as they aren't intended to be used as a conditional expression. The <code>1</code> after the block is treated as a conditional expression as it is used outside a block. You can also use the variations presented below to get the same results.</p>
-<ul>
-<li><code>awk '{sub(/:/, &quot;-&quot;)} 1'</code> is same as <code>awk '{sub(/:/, &quot;-&quot;); print $0}'</code></li>
-<li>You can also just use <code>print</code> instead of <code>print $0</code> as <code>$0</code> is the default string</li>
-</ul>
-<blockquote>
-<p><img src="images/info.svg" alt="info" /> You might wonder why to use or learn <code>grep</code> and <code>sed</code> when you can achieve same results with <code>awk</code>. It depends on the problem you are trying to solve. A simple line filtering will be faster with <code>grep</code> compared to <code>sed</code> or <code>awk</code> because <code>grep</code> is optimized for such cases. Similarly, <code>sed</code> will be faster than <code>awk</code> for substitution cases. Also, not all features easily translate among these tools. For example, <code>grep -o</code> requires lot more steps to code with <code>sed</code> or <code>awk</code>. Only <code>grep</code> offers recursive search. And so on. See also <a href="https://unix.stackexchange.com/questions/303044/when-to-use-grep-less-awk-sed">unix.stackexchange: When to use grep, sed, awk, perl, etc</a>.</p>
-</blockquote>
-<h2><a class="header" href="#field-processing" id="field-processing">Field processing</a></h2>
-<p>As mentioned before, <code>awk</code> is primarily used for field based processing. Consider the sample input file shown below with fields separated by a single space character.</p>
-<blockquote>
-<p><img src="images/info.svg" alt="info" /> The <a href="https://github.com/learnbyexample/learn_gnuawk/tree/master/example_files">learn_gnuawk repo</a> has all the files used in examples.</p>
-</blockquote>
-<pre><code class="language-bash">$ cat table.txt
+</code></pre><p>The first argument to <code>sub</code> and <code>gsub</code> functions is the regexp to be matched against the input content. The second argument is the replacement string. String literals are specified within double quotes. In the above examples, <code>sub</code> and <code>gsub</code> are used inside a block as they aren't intended to be used as a conditional expression. The <code>1</code> after the block is treated as a conditional expression as it is used outside a block. You can also use the variations presented below to get the same results.<ul><li><code>awk '{sub(/:/, "-")} 1'</code> is same as <code>awk '{sub(/:/, "-"); print $0}'</code><li>You can also just use <code>print</code> instead of <code>print $0</code> as <code>$0</code> is the default string</ul><blockquote><p><img src=images/info.svg alt=info> You might wonder why to use or learn <code>grep</code> and <code>sed</code> when you can achieve same results with <code>awk</code>. It depends on the problem you are trying to solve. A simple line filtering will be faster with <code>grep</code> compared to <code>sed</code> or <code>awk</code> because <code>grep</code> is optimized for such cases. Similarly, <code>sed</code> will be faster than <code>awk</code> for substitution cases. Also, not all features easily translate among these tools. For example, <code>grep -o</code> requires lot more steps to code with <code>sed</code> or <code>awk</code>. Only <code>grep</code> offers recursive search. And so on. See also <a href=https://unix.stackexchange.com/questions/303044/when-to-use-grep-less-awk-sed>unix.stackexchange: When to use grep, sed, awk, perl, etc</a>.</blockquote><h2><a class=header href=#field-processing id=field-processing>Field processing</a></h2><p>As mentioned before, <code>awk</code> is primarily used for field based processing. Consider the sample input file shown below with fields separated by a single space character.<blockquote><p><img src=images/info.svg alt=info> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/example_files>learn_gnuawk repo</a> has all the files used in examples.</blockquote><pre><code class=language-bash>$ cat table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
 yellow banana window shoes 3.14
-</code></pre>
-<p>Here's some examples that is based on specific field rather than entire line. By default, <code>awk</code> splits the input line based on spaces and the field contents can be accessed using <code>$N</code> where <code>N</code> is the field number required. A special variable <code>NF</code> is updated with the total number of fields for each input line. There's more details to cover, but for now this is enough to proceed.</p>
-<pre><code class="language-bash">$ # print the second field of each input line
+</code></pre><p>Here's some examples that is based on specific field rather than entire line. By default, <code>awk</code> splits the input line based on spaces and the field contents can be accessed using <code>$N</code> where <code>N</code> is the field number required. A special variable <code>NF</code> is updated with the total number of fields for each input line. There's more details to cover, but for now this is enough to proceed.<pre><code class=language-bash>$ # print the second field of each input line
 $ awk '{print $2}' table.txt
 bread
 cake
@@ -251,42 +93,30 @@ banana
 
 $ # print lines only if last field is a negative number
 $ # recall that default action is to print the contents of $0
-$ awk '$NF&lt;0' table.txt
+$ awk '$NF&LT0' table.txt
 blue cake mug shirt -7
 
 $ # change 'b' to 'B' only for the first field
-$ awk '{gsub(/b/, &quot;B&quot;, $1)} 1' table.txt
+$ awk '{gsub(/b/, "B", $1)} 1' table.txt
 Brown bread mat hair 42
 Blue cake mug shirt -7
 yellow banana window shoes 3.14
-</code></pre>
-<h2><a class="header" href="#awk-one-liner-structure" id="awk-one-liner-structure">awk one-liner structure</a></h2>
-<p>The examples in previous sections used a few different ways to construct a typical <code>awk</code> one-liner. If you haven't yet grasped the syntax, this generic structure might help:</p>
-<p><code>awk 'cond1{action1} cond2{action2} ... condN{actionN}'</code></p>
-<p>If a condition isn't provided, the action is always executed. Within a block, you can provide multiple statements separated by semicolon character. If action isn't provided, then by default, contents of <code>$0</code> variable is printed if the condition evaluates to <code>true</code>. When action isn't present, you can use semicolon to terminate a condition and start another <code>condX{actionX}</code> snippet.</p>
-<p>Note that multiple blocks are just a syntactical sugar. It helps to avoid explicit use of <code>if</code> control structure for most one-liners. The below snippet shows the same code with and without <code>if</code> structure.</p>
-<pre><code class="language-bash">$ awk '{
-         if($NF &lt; 0){
+</code></pre><h2><a class=header href=#awk-one-liner-structure id=awk-one-liner-structure>awk one-liner structure</a></h2><p>The examples in previous sections used a few different ways to construct a typical <code>awk</code> one-liner. If you haven't yet grasped the syntax, this generic structure might help:<p><code>awk 'cond1{action1} cond2{action2} ... condN{actionN}'</code><p>If a condition isn't provided, the action is always executed. Within a block, you can provide multiple statements separated by semicolon character. If action isn't provided, then by default, contents of <code>$0</code> variable is printed if the condition evaluates to <code>true</code>. When action isn't present, you can use semicolon to terminate a condition and start another <code>condX{actionX}</code> snippet.<p>Note that multiple blocks are just a syntactical sugar. It helps to avoid explicit use of <code>if</code> control structure for most one-liners. The below snippet shows the same code with and without <code>if</code> structure.<pre><code class=language-bash>$ awk '{
+         if($NF < 0){
             print $0
          }
        }' table.txt
 blue cake mug shirt -7
 
-$ awk '$NF&lt;0' table.txt
+$ awk '$NF&LT0' table.txt
 blue cake mug shirt -7
-</code></pre>
-<p>You can use a <code>BEGIN{}</code> block when you need to execute something before input is read and a <code>END{}</code> block to execute something after all of the input has been processed.</p>
-<pre><code class="language-bash">$ seq 2 | awk 'BEGIN{print &quot;---&quot;} 1; END{print &quot;%%%&quot;}'
+</code></pre><p>You can use a <code>BEGIN{}</code> block when you need to execute something before input is read and a <code>END{}</code> block to execute something after all of the input has been processed.<pre><code class=language-bash>$ seq 2 | awk 'BEGIN{print "---"} 1; END{print "%%%"}'
 ---
 1
 2
 %%%
-</code></pre>
-<p>There are some more types of blocks that can be used, you'll see them in coming chapters. See <a href="https://www.gnu.org/software/gawk/manual/gawk.html#All-Operators">gawk manual: Operators</a> for details about operators and <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Truth-Values-and-Conditions">gawk manual: Truth Values and Conditions</a> for conditional expressions.</p>
-<h2><a class="header" href="#strings-and-numbers" id="strings-and-numbers">Strings and Numbers</a></h2>
-<p>Some examples so far have already used string and numeric literals. As mentioned earlier, <code>awk</code> tries to provide a concise way to construct a solution from the command line. The data type of a value is determined based on the syntax used. String literals are represented inside double quotes. Numbers can be integers or floating point. Scientific notation is allowed as well. See <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Constants">gawk manual: Constant Expressions</a> for more details.</p>
-<pre><code class="language-bash">$ # BEGIN{} is also useful to write awk program without any external input
-$ awk 'BEGIN{print &quot;hi&quot;}'
+</code></pre><p>There are some more types of blocks that can be used, you'll see them in coming chapters. See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#All-Operators>gawk manual: Operators</a> for details about operators and <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Truth-Values-and-Conditions>gawk manual: Truth Values and Conditions</a> for conditional expressions.<h2><a class=header href=#strings-and-numbers id=strings-and-numbers>Strings and Numbers</a></h2><p>Some examples so far have already used string and numeric literals. As mentioned earlier, <code>awk</code> tries to provide a concise way to construct a solution from the command line. The data type of a value is determined based on the syntax used. String literals are represented inside double quotes. Numbers can be integers or floating point. Scientific notation is allowed as well. See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Constants>gawk manual: Constant Expressions</a> for more details.<pre><code class=language-bash>$ # BEGIN{} is also useful to write awk program without any external input
+$ awk 'BEGIN{print "hi"}'
 hi
 
 $ awk 'BEGIN{print 42}'
@@ -295,52 +125,36 @@ $ awk 'BEGIN{print 3.14}'
 3.14
 $ awk 'BEGIN{print 34.23e4}'
 342300
-</code></pre>
-<p>You can also save these literals in variables and use it later. Some variables are predefined, for example <code>NF</code>.</p>
-<pre><code class="language-bash">$ awk 'BEGIN{a=5; b=2.5; print a+b}'
+</code></pre><p>You can also save these literals in variables and use it later. Some variables are predefined, for example <code>NF</code>.<pre><code class=language-bash>$ awk 'BEGIN{a=5; b=2.5; print a+b}'
 7.5
 
 $ # strings placed next to each other are concatenated
-$ awk 'BEGIN{s1=&quot;con&quot;; s2=&quot;cat&quot;; print s1 s2}'
+$ awk 'BEGIN{s1="con"; s2="cat"; print s1 s2}'
 concat
-</code></pre>
-<p>If uninitialized variable is used, it will act as empty string in string context and <code>0</code> in numeric context. You can force a string to behave as a number by simply using it in an expression with numeric values. You can also use unary <code>+</code> or <code>-</code> operators. If the string doesn't start with a valid number (ignoring any starting whitespaces), it will be treated as <code>0</code>. Similarly, concatenating a string to a number will automatically change the number to string. See <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Strings-And-Numbers">gawk manual: How awk Converts Between Strings and Numbers</a> for more details.</p>
-<pre><code class="language-bash">$ # same as: awk 'BEGIN{sum=0} {sum += $NF} END{print sum}'
+</code></pre><p>If uninitialized variable is used, it will act as empty string in string context and <code>0</code> in numeric context. You can force a string to behave as a number by simply using it in an expression with numeric values. You can also use unary <code>+</code> or <code>-</code> operators. If the string doesn't start with a valid number (ignoring any starting whitespaces), it will be treated as <code>0</code>. Similarly, concatenating a string to a number will automatically change the number to string. See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Strings-And-Numbers>gawk manual: How awk Converts Between Strings and Numbers</a> for more details.<pre><code class=language-bash>$ # same as: awk 'BEGIN{sum=0} {sum += $NF} END{print sum}'
 $ awk '{sum += $NF} END{print sum}' table.txt
 38.14
 
-$ awk 'BEGIN{n1=&quot;5.0&quot;; n2=5; if(n1==n2) print &quot;equal&quot;}'
-$ awk 'BEGIN{n1=&quot;5.0&quot;; n2=5; if(+n1==n2) print &quot;equal&quot;}'
+$ awk 'BEGIN{n1="5.0"; n2=5; if(n1==n2) print "equal"}'
+$ awk 'BEGIN{n1="5.0"; n2=5; if(+n1==n2) print "equal"}'
 equal
-$ awk 'BEGIN{n1=&quot;5.0&quot;; n2=5; if(n1==n2&quot;.0&quot;) print &quot;equal&quot;}'
+$ awk 'BEGIN{n1="5.0"; n2=5; if(n1==n2".0") print "equal"}'
 equal
 
-$ awk 'BEGIN{print 5 + &quot;abc 2 xyz&quot;}'
+$ awk 'BEGIN{print 5 + "abc 2 xyz"}'
 5
-$ awk 'BEGIN{print 5 + &quot; \t 2 xyz&quot;}'
+$ awk 'BEGIN{print 5 + " \t 2 xyz"}'
 7
-</code></pre>
-<h2><a class="header" href="#arrays" id="arrays">Arrays</a></h2>
-<p>Arrays in <code>awk</code> are associative, meaning they are key-value pairs. The keys can be both numbers or strings, but numbers get converted to strings internally. They can be multi-dimensional as well. There will be plenty of array examples in later chapters in relevant context. See <a href="https://www.gnu.org/software/gawk/manual/gawk.html#Arrays">gawk manual: Arrays</a> for complete details and gotchas.</p>
-<pre><code class="language-bash">$ # assigning an array and accessing an element based on string key
-$ awk 'BEGIN{student[&quot;id&quot;] = 101; student[&quot;name&quot;] = &quot;Joe&quot;;
-       print student[&quot;name&quot;]}'
+</code></pre><h2><a class=header href=#arrays id=arrays>Arrays</a></h2><p>Arrays in <code>awk</code> are associative, meaning they are key-value pairs. The keys can be both numbers or strings, but numbers get converted to strings internally. They can be multi-dimensional as well. There will be plenty of array examples in later chapters in relevant context. See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Arrays>gawk manual: Arrays</a> for complete details and gotchas.<pre><code class=language-bash>$ # assigning an array and accessing an element based on string key
+$ awk 'BEGIN{student["id"] = 101; student["name"] = "Joe";
+       print student["name"]}'
 Joe
 
 $ # checking if a key exists
-$ awk 'BEGIN{student[&quot;id&quot;] = 101; student[&quot;name&quot;] = &quot;Joe&quot;;
-       if(&quot;id&quot; in student) print &quot;Key found&quot;}'
+$ awk 'BEGIN{student["id"] = 101; student["name"] = "Joe";
+       if("id" in student) print "Key found"}'
 Key found
-</code></pre>
-<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
-<p>In my early days of getting used to the Linux command line, I was intimidated by <code>sed</code> and <code>awk</code> examples and didn't even try to learn them. Hopefully, this gentler introduction works for you and the various syntactical magic has been explained adequately. Try to experiment with the given examples, for example change field number to something other than the number used. Be curious, like what happens if field number is negative or a floating-point number. Read the manual. Practice a lot.</p>
-<p>Next chapter is dedicated solely for regular expressions. The features introduced in this chapter would be used in the examples, so make sure you are comfortable with <code>awk</code> syntax before proceeding. And, do solve the exercises coming up in the next section.</p>
-<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
-<blockquote>
-<p><img src="images/info.svg" alt="info" /> Exercise related files are available from <a href="https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises">exercises folder of learn_gnuawk repo</a>. All the exercises are also collated together in one place at <a href="https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercises.md">Exercises.md</a>. For solutions, see <a href="https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercise_solutions.md">Exercise_solutions.md</a>.</p>
-</blockquote>
-<p><strong>a)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>is</code>.</p>
-<pre><code class="language-bash">$ cat addr.txt
+</code></pre><h2><a class=header href=#summary id=summary>Summary</a></h2><p>In my early days of getting used to the Linux command line, I was intimidated by <code>sed</code> and <code>awk</code> examples and didn't even try to learn them. Hopefully, this gentler introduction works for you and the various syntactical magic has been explained adequately. Try to experiment with the given examples, for example change field number to something other than the number used. Be curious, like what happens if field number is negative or a floating-point number. Read the manual. Practice a lot.<p>Next chapter is dedicated solely for regular expressions. The features introduced in this chapter would be used in the examples, so make sure you are comfortable with <code>awk</code> syntax before proceeding. And, do solve the exercises coming up in the next section.<h2><a class=header href=#exercises id=exercises>Exercises</a></h2><blockquote><p><img src=images/info.svg alt=info> Exercise related files are available from <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises folder of learn_gnuawk repo</a>. All the exercises are also collated together in one place at <a href=https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercises.md>Exercises.md</a>. For solutions, see <a href=https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercise_solutions.md>Exercise_solutions.md</a>.</blockquote><p><strong>a)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>is</code>.<pre><code class=language-bash>$ cat addr.txt
 Hello World
 How are you
 This game is good
@@ -351,113 +165,34 @@ You are funny
 $ awk ##### add your solution here
 This game is good
 Today is sunny
-</code></pre>
-<p><strong>b)</strong> For the input file <code>addr.txt</code>, display first field of lines <em>not</em> containing <code>y</code>. Consider space as the field separator for this file.</p>
-<pre><code class="language-bash">$ awk ##### add your solution here
+</code></pre><p><strong>b)</strong> For the input file <code>addr.txt</code>, display first field of lines <em>not</em> containing <code>y</code>. Consider space as the field separator for this file.<pre><code class=language-bash>$ awk ##### add your solution here
 Hello
 This
 12345
-</code></pre>
-<p><strong>c)</strong> For the input file <code>addr.txt</code>, display all lines containing no more than 2 fields.</p>
-<pre><code class="language-bash">$ awk ##### add your solution here
+</code></pre><p><strong>c)</strong> For the input file <code>addr.txt</code>, display all lines containing no more than 2 fields.<pre><code class=language-bash>$ awk ##### add your solution here
 Hello World
 12345
-</code></pre>
-<p><strong>d)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>is</code> in the second field.</p>
-<pre><code class="language-bash">$ awk ##### add your solution here
+</code></pre><p><strong>d)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>is</code> in the second field.<pre><code class=language-bash>$ awk ##### add your solution here
 Today is sunny
-</code></pre>
-<p><strong>e)</strong> For each line of the input file <code>addr.txt</code>, replace first occurrence of <code>o</code> with <code>0</code>.</p>
-<pre><code class="language-bash">$ awk ##### add your solution here
+</code></pre><p><strong>e)</strong> For each line of the input file <code>addr.txt</code>, replace first occurrence of <code>o</code> with <code>0</code>.<pre><code class=language-bash>$ awk ##### add your solution here
 Hell0 World
 H0w are you
 This game is g0od
 T0day is sunny
 12345
 Y0u are funny
-</code></pre>
-<p><strong>f)</strong> For the input file <code>table.txt</code>, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.</p>
-<pre><code class="language-bash">$ cat table.txt
+</code></pre><p><strong>f)</strong> For the input file <code>table.txt</code>, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.<pre><code class=language-bash>$ cat table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
 yellow banana window shoes 3.14
 
 $ awk ##### add your solution here
 -923.16
-</code></pre>
-<p><strong>g)</strong> Append <code>.</code> to all the input lines for the given <code>stdin</code> data.</p>
-<pre><code class="language-bash">$ printf 'last\nappend\nstop\ntail\n' | awk ##### add your solution here
+</code></pre><p><strong>g)</strong> Append <code>.</code> to all the input lines for the given <code>stdin</code> data.<pre><code class=language-bash>$ printf 'last\nappend\nstop\ntail\n' | awk ##### add your solution here
 last.
 append.
 stop.
 tail.
-</code></pre>
-
-                    </main>
-
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="installation-and-documentation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        
-
-                        
-                            <a rel="next" href="regular-expressions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        
-
-                        <div style="clear: both"></div>
-                    </nav>
-                </div>
-            </div>
-
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a rel="prev" href="installation-and-documentation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                
-
-                
-                    <a rel="next" href="regular-expressions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                
-            </nav>
-
-        </div>
-
-        
-
-        
-
-        
-
-        
-        <script type="text/javascript">
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=installation-and-documentation.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=regular-expressions.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=installation-and-documentation.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=regular-expressions.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
-        </script>
-        
-
-        
-
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- Custom JS scripts -->
-        
-
-        
-
-    </body>
-</html>
+        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>

@@ -1,5 +1,16 @@
 <br>
 
+### 1.3
+
+* Added note regarding use of `NR==FNR` if the first file is empty
+* Added note for `split` function when the field separator is the same as default `FS`
+* Simplified one of the examples for paragraph mode
+    * Updated exercise solutions as well for this usecase
+* Updated timing data for speed comparison examples, added `mawk` results as well
+* Corrected various typos, improved descriptions, comments, external links, etc
+
+<br>
+
 ### 1.2
 
 * Added link to exercise solutions

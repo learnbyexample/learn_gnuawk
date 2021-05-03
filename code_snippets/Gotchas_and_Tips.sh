@@ -88,11 +88,17 @@ time awk '/^([a-d][r-z]){3}$/' /usr/share/dict/words > f1
 
 time LC_ALL=C awk '/^([a-d][r-z]){3}$/' /usr/share/dict/words > f2
 
+time mawk '/^[a-d][r-z][a-d][r-z][a-d][r-z]$/' /usr/share/dict/words > f3
+
 diff -s f1 f2
 
-rm f[12]
+diff -s f2 f3
+
+rm f[123]
 
 time awk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
 
 time LC_ALL=C awk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
+
+time mawk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
 

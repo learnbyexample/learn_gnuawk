@@ -6,7 +6,7 @@ tar -Jxf gawk-5.1.0.tar.xz
 
 cd gawk-5.1.0/
 
-./configure 
+./configure
 
 make
 

@@ -48,7 +48,7 @@ cat programming_quotes.txt
 
 awk -v RS= -v ORS='\n\n' '/you/' programming_quotes.txt
 
-awk -v RS= '/you/{print c++ ? "\n" $0 : $0}' programming_quotes.txt
+awk -v RS= '/you/{print s $0; s="\n"}' programming_quotes.txt
 
 s='\n\n\na\nb\n\n12\n34\n\nhi\nhello\n'
 

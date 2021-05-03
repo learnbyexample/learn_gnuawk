@@ -415,7 +415,7 @@ Much ado about nothing
 He he he
 
 $ # note that there's no extra empty line at the end of the output
-$ awk -F'\n' -v RS= 'NF==2 && /do/{print c++ ? "\n" $0 : $0}' sample.txt
+$ awk -F'\n' -v RS= 'NF==2 && /do/{print s $0; s="\n"}' sample.txt
 Just do-it
 Believe it
 
@@ -428,7 +428,7 @@ He he he
 ```bash
 $ # note that there's no extra empty line at the end of the output
 $ awk 'BEGIN{FS="\n"; OFS=". "; RS=""} {$1=$1; $NF=$NF ".";
-       print c++ ? "\n" $0 : $0}' sample.txt
+       print s $0; s="\n"}' sample.txt
 Hello World.
 
 Good day. How are you.

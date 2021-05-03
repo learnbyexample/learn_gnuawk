@@ -2,7 +2,7 @@
 
 printf 'spared no one\ngrasped\nspar\n' | awk '/ed/'
 
-printf 'spared no one\ngrasped\nspar\n' | awk '{r = @/ed/} $0 ~ r'
+printf 'spared no one\ngrasped\nspar\n' | awk 'BEGIN{r = @/ed/} $0 ~ r'
 
 ## String Anchors
 

@@ -9,8 +9,7 @@ f{
 }
 
 /state/{
-    f = 0
-    if(buf)
+    if(f)
         print buf
-    buf = ""
+    f = 0
 }

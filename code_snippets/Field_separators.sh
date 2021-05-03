@@ -38,7 +38,7 @@ echo 'goal:amazing:whistle:kwality' | awk -F: '{print $NF}'
 
 echo 'one;two;three;four' | awk -F';' '{print $3}'
 
-echo '=a=b=c=' | awk -F= '{print $1 "," $NF "."}'
+echo '=a=b=c=' | awk -F= '{print $1 "[" $NF "]"}'
 
 echo 'goal:amazing:whistle:kwality' | awk -v FS=: '{print $2}'
 

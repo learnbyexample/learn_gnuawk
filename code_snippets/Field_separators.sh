@@ -40,6 +40,8 @@ echo 'one;two;three;four' | awk -F';' '{print $3}'
 
 echo '=a=b=c=' | awk -F= '{print $1 "[" $NF "]"}'
 
+printf '\nhello\napple,banana\n' | awk -F, '{print NF}'
+
 echo 'goal:amazing:whistle:kwality' | awk -v FS=: '{print $2}'
 
 echo '1e4SPT2k6SPT3a5SPT4z0' | awk 'BEGIN{FS="SPT"} {print $3}'

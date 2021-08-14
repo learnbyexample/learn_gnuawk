@@ -11,6 +11,9 @@ awk '/I/{print FILENAME; nextfile}' f[1-3].txt greeting.txt
 awk 'BEGINFILE{m1=m2=0} /o/{m1=1} /at/{m2=1}
      m1 && m2{print FILENAME; nextfile}' f[1-3].txt greeting.txt
 
+awk 'BEGINFILE{m1=m2=0} /o/{m1=1; nextfile} /at/{m2=1}
+     ENDFILE{if(!m1 && m2) print FILENAME}' f[1-3].txt greeting.txt
+
 ## ARGC and ARGV
 
 awk 'BEGIN{for(i=0; i<ARGC; i++) print ARGV[i]}' f[1-3].txt greeting.txt

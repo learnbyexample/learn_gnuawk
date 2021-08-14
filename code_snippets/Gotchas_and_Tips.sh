@@ -64,6 +64,12 @@ awk '{sum += $1} END{print sum}' /dev/null
 
 awk '{sum += $1} END{print +sum}' /dev/null
 
+echo '3.14' | awk '{$0++} 1'
+
+echo '3,14' | awk '{$0++} 1'
+
+echo '3,14' | LC_NUMERIC=de_DE awk -N '{$0++} 1'
+
 ## Forcing string context
 
 echo '5 5.0' | awk '{print ($1==$2 ? "same" : "different"), "number"}'

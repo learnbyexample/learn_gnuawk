@@ -64,7 +64,7 @@ Resources mentioned in Acknowledgements section are available under original lic
 
 ## Book version
 
-1.3
+1.4
 
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -316,7 +316,7 @@ There are some more types of blocks that can be used, you'll see them in coming 
 
 ## Strings and Numbers
 
-Some examples so far have already used string and numeric literals. As mentioned earlier, `awk` tries to provide a concise way to construct a solution from the command line. The data type of a value is determined based on the syntax used. String literals are represented inside double quotes. Numbers can be integers or floating point. Scientific notation is allowed as well. See [gawk manual: Constant Expressions](https://www.gnu.org/software/gawk/manual/gawk.html#Constants) for more details.
+Some examples so far have already used string and numeric literals. As mentioned earlier, `awk` tries to provide a concise way to construct a solution from the command line. The data type of a value is determined based on the syntax used. String literals are represented inside double quotes. Numbers can be integers or floating-point. Scientific notation is allowed as well. See [gawk manual: Constant Expressions](https://www.gnu.org/software/gawk/manual/gawk.html#Constants) for more details.
 
 ```bash
 $ # BEGIN{} is also useful to write awk program without any external input
@@ -1030,7 +1030,7 @@ A **named character set** is defined by a name enclosed between `[:` and `:]` an
 | `[:alpha:]`  | `[a-zA-Z]` |
 | `[:alnum:]`  | `[0-9a-zA-Z]` |
 | `[:xdigit:]` | `[0-9a-fA-F]` |
-| `[:cntrl:]`  | control characters - first 32 ASCII characters and 127th (DEL) |
+| `[:cntrl:]`  | control characters — first 32 ASCII characters and 127th (DEL) |
 | `[:punct:]`  | all the punctuation characters |
 | `[:graph:]`  | `[:alnum:]` and `[:punct:]` |
 | `[:print:]`  | `[:alnum:]`, `[:punct:]` and space |
@@ -1157,9 +1157,9 @@ $ echo '1 good 2 apples' | awk '{$4 = gensub(/[aeiou]/, "X", "g", $4)} 1'
 
 ## Backreferences
 
-The grouping metacharacters `()` are also known as **capture groups**. They are like variables, the string captured by `()` can be referred later using backreference `\N` where `N` is the capture group you want. Leftmost `(` in the regular expression is `\1`, next one is `\2` and so on up to `\9`. As a special case, `\0` or `&` metacharacter represents entire matched string. As `\` is special inside double quotes, you'll have to use `"\\1"` to represent `\1`.
+The grouping metacharacters `()` are also known as **capture groups**. They are like variables, the string captured by `()` can be referred later using backreference `\N` where `N` is the capture group you want. Leftmost `(` in the regular expression is `\1`, next one is `\2` and so on up to `\9`. As a special case, `&` metacharacter represents entire matched string. As `\` is special inside double quotes, you'll have to use `"\\1"` to represent `\1`.
 
->![info](images/info.svg) Backreferences of the form `\N` can only be used with `gensub` function. `&` can be used with `sub`, `gsub` and `gensub` functions.
+>![info](images/info.svg) Backreferences of the form `\N` can only be used with `gensub` function. `&` can be used with `sub`, `gsub` and `gensub` functions. `\0` can also be used instead of `&` with `gensub` function.
 
 ```bash
 $ # reduce \\ to single \ and delete if it is a single \
@@ -1171,8 +1171,7 @@ $ # duplicate first column value as final column
 $ echo 'one,2,3.14,42' | awk '{print gensub(/^([^,]+).*/, "&,\\1", 1)}'
 one,2,3.14,42,one
 
-$ # add something at start and end of string
-$ # as only '&' is used, gensub isn't needed here
+$ # add something at start and end of string, gensub isn't needed here
 $ echo 'hello world' | awk '{sub(/.*/, "Hi. &. Have a nice day")} 1'
 Hi. hello world. Have a nice day
 
@@ -1271,7 +1270,7 @@ $ echo '23 154 12 26 34' | awk -v ip="$r" '{gsub(ip, "X")} 1'
 X 154 X X 34
 ```
 
->![info](images/info.svg) See [Using shell variables](#using-shell-variables) chapter for a way to avoid having to use `\\` instead of `\`.
+>![info](images/info.svg) See [Using shell variables](#using-shell-variables) chapter for a way to avoid having to escape backslashes.
 
 Sometimes, you need to get user input and then treat it literally instead of regexp pattern. In such cases, you'll need to first escape the metacharacters before using in substitution functions. Below example shows how to do it for search section. For replace section, you only have to escape the `\` and `&` characters.
 
@@ -1288,6 +1287,8 @@ $ echo 'f*(a^b) - 3*(a^b)' |
      awk -v s='(a^b)' '{gsub(/[{[(^$*?+.|\\]/, "\\\\&", s); gsub(s "$", "c")} 1'
 f*(a^b) - 3*c
 ```
+
+>![info](images/info.svg) See [my blog post](https://learnbyexample.github.io/escaping-madness-awk-literal-field-separator/) for more details about escaping metacharacters.
 
 >![info](images/info.svg) If you need to match instead of substitution, you can use the `index` function. See [index](#index) section for details.
 
@@ -1526,6 +1527,7 @@ $ awk '{print $2.999999999999999}' table.txt
 bread
 cake
 banana
+
 $ # same as: awk '{print $3}' table.txt
 $ awk '{print $2.9999999999999999}' table.txt
 mat
@@ -1551,6 +1553,12 @@ three
 $ # first and last fields will have empty string as their values
 $ echo '=a=b=c=' | awk -F= '{print $1 "[" $NF "]"}'
 []
+
+$ # difference between empty lines and lines without field separator
+$ printf '\nhello\napple,banana\n' | awk -F, '{print NF}'
+0
+1
+2
 ```
 
 You can also directly set the special `FS` variable to change the input field separator. This can be done from the command line using `-v` option or within the code blocks.
@@ -3512,7 +3520,7 @@ yellow banana window shoes 3.14
 
 ## nextfile
 
-`nextfile` will skip remaining records from current file being processed and move on to the next file.
+`nextfile` will skip remaining records from the current file being processed and move on to the next file.
 
 ```bash
 $ # print filename if it contains 'I' anywhere in the file
@@ -3526,6 +3534,11 @@ $ awk 'BEGINFILE{m1=m2=0} /o/{m1=1} /at/{m2=1}
        m1 && m2{print FILENAME; nextfile}' f[1-3].txt greeting.txt
 f2.txt
 f3.txt
+
+$ # print filename if it contains 'at' but not 'o'
+$ awk 'BEGINFILE{m1=m2=0} /o/{m1=1; nextfile} /at/{m2=1}
+       ENDFILE{if(!m1 && m2) print FILENAME}' f[1-3].txt greeting.txt
+f1.txt
 ```
 
 >![warning](images/warning.svg) `nextfile` cannot be used in `BEGIN` or `END` or `ENDFILE` blocks. See [gawk manual: nextfile](https://www.gnu.org/software/gawk/manual/gawk.html#Nextfile-Statement) for more details, how it affects `ENDFILE` and other special cases.
@@ -3725,7 +3738,8 @@ $ awk '!n && /toy|flower/{n=2; next} n && n--' context.txt
 $ # print only the 2nd line found after matching line
 $ # the array saves matching result for each record
 $ # doesn't rely on a counter, thus works for overlapping cases
-$ awk -v n=2 'a[NR-n]; /toy|flower/{a[NR]=1}' context.txt
+$ # same as: awk -v n=2 'a[NR-n]; /toy|flower/{a[NR]=1}'
+$ awk -v n=2 'NR in a; /toy|flower/{a[NR+n]}' context.txt
     sand stone
 light blue
     water
@@ -4144,7 +4158,6 @@ teal
 light blue
 green
 yellow
-
 $ cat color_list2.txt
 light blue
 black
@@ -4179,7 +4192,7 @@ teal
 green
 ```
 
->![warning](images/warning.svg) Note that the `NR==FNR` logic will fail if the first file is empty.
+>![warning](images/warning.svg) Note that the `NR==FNR` logic will fail if the first file is empty. See [this unix.stackexchange thread](https://unix.stackexchange.com/a/237110/109046) for workarounds.
 
 ## Comparing fields
 
@@ -4303,7 +4316,7 @@ If a file is passed as argument to `awk` command and cannot be opened, you get a
 
 ```bash
 $ awk '{print $2}' xyz.txt
-awk: fatal: cannot open file `xyz.txt' for reading (No such file or directory)
+awk: fatal: cannot open file `xyz.txt' for reading: No such file or directory
 ```
 
 It is recommended to always check for return value when using `getline` or perhaps use techniques from previous sections to avoid `getline` altogether.
@@ -4894,6 +4907,19 @@ $ awk '{sum += $1} END{print sum}' /dev/null
 $ # forced conversion to number, so that 0 is printed
 $ awk '{sum += $1} END{print +sum}' /dev/null
 0
+```
+
+The `-N` option (or `--use-lc-numeric`) is useful to work with floating-point numbers based on the current locale.
+
+```bash
+$ # my locale uses . for decimal point
+$ echo '3.14' | awk '{$0++} 1'
+4.14
+
+$ echo '3,14' | awk '{$0++} 1'
+4
+$ echo '3,14' | LC_NUMERIC=de_DE awk -N '{$0++} 1'
+4,14
 ```
 
 ## Forcing string context

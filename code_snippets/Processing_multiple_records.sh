@@ -20,7 +20,7 @@ awk 'n && n--; /language/{n=1}' context.txt
 
 awk '!n && /toy|flower/{n=2; next} n && n--' context.txt
 
-awk -v n=2 'a[NR-n]; /toy|flower/{a[NR]=1}' context.txt
+awk -v n=2 'NR in a; /toy|flower/{a[NR+n]}' context.txt
 
 awk 'n && !--n; /language/{n=3}' context.txt
 

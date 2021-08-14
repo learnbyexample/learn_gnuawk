@@ -1,5 +1,16 @@
 <br>
 
+### 1.4
+
+* Added example for `NF` value when input line doesn't contain the input field separator or if it is empty.
+* Added example which uses both `nextfile` and `ENDFILE`.
+* Added example for working with floating-point numbers according to locale formatting.
+* Clarified use of `\0` with `gensub` function.
+* Updated error message for file not found.
+* Added further reading links for regexp metacharacter escaping and `NR==FNR` alternatives.
+
+<br>
+
 ### 1.3
 
 * Added note regarding use of `NR==FNR` if the first file is empty

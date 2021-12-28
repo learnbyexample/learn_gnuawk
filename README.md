@@ -38,6 +38,14 @@ For web version of the book, visit https://learnbyexample.github.io/learn_gnuawk
 
 <br>
 
+# Testimonials
+
+>Step up your cli fu with this fabulous intro & deep dive into awk. I learned a ton of tricks!
+>
+> — [feedback on twitter](https://twitter.com/killchain/status/1246820137455452163)
+
+<br>
+
 # Feedback
 
 [Open an issue](https://github.com/learnbyexample/learn_gnuawk/issues) if you spot any typo/errors.

@@ -44,6 +44,12 @@ For web version of the book, visit https://learnbyexample.github.io/learn_gnuawk
 >
 > — [feedback on twitter](https://twitter.com/killchain/status/1246820137455452163)
 
+>I consider myself pretty experienced at shell-fu and capable of doing most things I set out to achieve in either bash scripts or fearless one-liners. However, my awk is rudimentary at best, I think mostly because it's such an unforgiving environment to experiment in.
+>
+>These books you've written are great for a bit of first principles insight and then quickly building up to functional usage. I will have no hesitation in referring colleagues to them!
+>
+> — [feedback on Hacker News](https://news.ycombinator.com/item?id=31930840)
+
 <br>
 
 # Feedback

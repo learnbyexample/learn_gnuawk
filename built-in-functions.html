@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Built-in functions - GNU AWK</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU AWK"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Built-in functions - CLI text processing with GNU awk</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide to mastering GNU awk"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="CLI text processing with GNU awk"property=og:title><meta content=website property=og:type><meta content="Example based guide to mastering GNU awk"property=og:description><meta content=https://learnbyexample.github.io/learn_gnuawk/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_gnuawk/master/images/gawk_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,37 +10,30 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=installation-and-documentation.html><strong aria-hidden=true>2.</strong> Installation and Documentation</a><li class="chapter-item expanded"><a href=awk-introduction.html><strong aria-hidden=true>3.</strong> awk introduction</a><li class="chapter-item expanded"><a href=regular-expressions.html><strong aria-hidden=true>4.</strong> Regular Expressions</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>5.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>6.</strong> Record separators</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>7.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=using-shell-variables.html><strong aria-hidden=true>8.</strong> Using shell variables</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>9.</strong> Control Structures</a><li class="chapter-item expanded"><a href=built-in-functions.html class=active><strong aria-hidden=true>10.</strong> Built-in functions</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>11.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>12.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>13.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>14.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=awk-scripts.html><strong aria-hidden=true>15.</strong> awk scripts</a><li class="chapter-item expanded"><a href=gotchas-and-tips.html><strong aria-hidden=true>16.</strong> Gotchas and Tips</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>17.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>18.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_gnuawk>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU AWK</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_gnuawk title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=installation-and-documentation.html><strong aria-hidden=true>2.</strong> Installation and Documentation</a><li class="chapter-item expanded"><a href=awk-introduction.html><strong aria-hidden=true>3.</strong> awk introduction</a><li class="chapter-item expanded"><a href=regular-expressions.html><strong aria-hidden=true>4.</strong> Regular Expressions</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>5.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>6.</strong> Record separators</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>7.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=using-shell-variables.html><strong aria-hidden=true>8.</strong> Using shell variables</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>9.</strong> Control Structures</a><li class="chapter-item expanded"><a class=active href=built-in-functions.html><strong aria-hidden=true>10.</strong> Built-in functions</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>11.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>12.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>13.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>14.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=awk-scripts.html><strong aria-hidden=true>15.</strong> awk scripts</a><li class="chapter-item expanded"><a href=gotchas-and-tips.html><strong aria-hidden=true>16.</strong> Gotchas and Tips</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>17.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>18.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_gnuawk>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>CLI text processing with GNU awk</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_gnuawk> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=built-in-functions><a class=header href=#built-in-functions>Built-in functions</a></h1><p>You've already seen some built-in functions in detail, such as <code>sub</code>, <code>gsub</code> and <code>gensub</code> functions. This chapter will discuss many more built-ins that are often used in one-liners. You'll also see more examples with arrays.<blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Functions>gawk manual: Functions</a> for details about all the built-in functions as well as how to define your own functions.</blockquote><h2 id=length><a class=header href=#length>length</a></h2><p><code>length</code> function returns number of characters for the given string argument. By default, it acts on <code>$0</code> variable and a number argument is converted to string automatically.<pre><code class=language-bash>$ awk 'BEGIN{print length("road"); print length(123456)}'
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=built-in-functions><a class=header href=#built-in-functions>Built-in functions</a></h1><p>You've already seen some built-in functions in detail, such as the <code>sub</code>, <code>gsub</code> and <code>gensub</code> functions. This chapter will discuss many more built-ins that are often used in one-liners. You'll also see more examples with arrays.<blockquote><p><img alt=info src=images/info.svg> See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Functions>gawk manual: Functions</a> for details about all the built-in functions as well as how to define your own functions.</blockquote><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=length><a class=header href=#length>length</a></h2><p>The <code>length</code> function returns the number of characters for the given string argument. By default, it acts on the <code>$0</code> variable. Numeric arguments will be automatically converted to strings.<pre><code class=language-bash>$ awk 'BEGIN{print length("road"); print length(123456)}'
 4
 6
 
-$ # recall that record separator isn't part of $0
-$ # so, line ending won't be counted here
+# recall that the record separator isn't part of $0
+# so, line ending won't be counted here
 $ printf 'fox\ntiger\n' | awk '{print length()}'
 3
 5
@@ -51,62 +41,62 @@ $ printf 'fox\ntiger\n' | awk '{print length()}'
 $ awk 'length($1) < 6' table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
-</code></pre><p>If you need number of bytes, instead of number of characters, then use the <code>-b</code> command line option as well. Locale can also play a role.<pre><code class=language-bash>$ echo 'αλεπού' | awk '{print length()}'
+</code></pre><p>The <code>-b</code> command line option is handy if you need the number of bytes, instead of the number of characters. Locale also plays a role.<pre><code class=language-bash>$ echo 'αλεπού' | awk '{print length()}'
 6
 $ echo 'αλεπού' | awk -b '{print length()}'
 12
 $ echo 'αλεπού' | LC_ALL=C awk '{print length()}'
 12
-</code></pre><h2 id=array-sorting><a class=header href=#array-sorting>Array sorting</a></h2><p>By default, array looping with <code>for(key in array)</code> format gives you elements in random order. By setting a special value to <code>PROCINFO["sorted_in"]</code>, you can control the order in which you wish to retrieve the elements. See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Controlling-Scanning>gawk manual: Using Predefined Array Scanning Orders</a> for other options and details.<pre><code class=language-bash>$ # by default, array is traversed in random order
+</code></pre><blockquote><p><img alt=info src=images/info.svg> For the above illustration, you can also use <code>match($0, /$/)-1</code> to get the byte count, irrespective of the locale or the use of the <code>-b</code> option. This solution was suggested in <a href=https://github.com/learnbyexample/learn_gnuawk/issues/5>this issue</a>.</blockquote><h2 id=array-sorting><a class=header href=#array-sorting>Array sorting</a></h2><p>By default, array looping with the <code>for(key in array)</code> format gives you elements in random order. By setting a special value to <code>PROCINFO["sorted_in"]</code>, you can control the order in which you wish to retrieve the elements. See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Controlling-Scanning>gawk manual: Using Predefined Array Scanning Orders</a> for other options and details.<pre><code class=language-bash># by default, array is traversed in random order
 $ awk 'BEGIN{a["z"]=1; a["x"]=12; a["b"]=42; for(i in a) print i, a[i]}'
 x 12
 z 1
 b 42
 
-$ # index (i.e. keys) sorted in ascending order as strings
+# index (i.e. keys) sorted in ascending order as strings
 $ awk 'BEGIN{PROCINFO["sorted_in"] = "@ind_str_asc";
        a["z"]=1; a["x"]=12; a["b"]=42; for(i in a) print i, a[i]}'
 b 42
 x 12
 z 1
 
-$ # value sorted in ascending order as numbers
+# value sorted in ascending order as numbers
 $ awk 'BEGIN{PROCINFO["sorted_in"] = "@val_num_asc";
        a["z"]=1; a["x"]=12; a["b"]=42; for(i in a) print i, a[i]}'
 z 1
 x 12
 b 42
-</code></pre><p>Here's an example of sorting input lines in ascending order based on second column, treating the data as string.<pre><code class=language-bash>$ awk 'BEGIN{PROCINFO["sorted_in"] = "@ind_str_asc"}
+</code></pre><p>Here's an example of sorting input lines in ascending order based on the second column, treating the data as strings.<pre><code class=language-bash>$ awk 'BEGIN{PROCINFO["sorted_in"] = "@ind_str_asc"}
        {a[$2]=$0} END{for(k in a) print a[k]}' table.txt
 yellow banana window shoes 3.14
 brown bread mat hair 42
 blue cake mug shirt -7
-</code></pre><h2 id=split><a class=header href=#split>split</a></h2><p>The <code>split</code> function provides the same features as the record splitting done using <code>FS</code>. This is helpful when you need the results as an array for some reason, for example to use array sorting features. Or, when you need to further split a field content. <code>split</code> accepts four arguments, the last two being optional.<ul><li>First argument is the string to be split<li>Second argument is the array variable to save results<li>Third argument is the separator, whose default is <code>FS</code></ul><p>The return value of <code>split</code> function is number of fields, similar to <code>NF</code> variable. The array gets indexed starting from <code>1</code> for first element, <code>2</code> for second element and so on. If the array already had some value, it gets overwritten with the new value.<pre><code class=language-bash>$ # same as: awk '{print $2}'
+</code></pre><h2 id=split><a class=header href=#split>split</a></h2><p>The <code>split</code> function provides the same features as the record splitting done using <code>FS</code>. This is helpful when you need the results as an array for some reason, for example to use array sorting features. Or, when you need to further split a field content. <code>split</code> accepts four arguments, the last two being optional:<ul><li>First argument is the string to be split<li>Second argument is the array variable that saves the results<li>Third argument is the separator, whose default is <code>FS</code></ul><p>The return value of the <code>split</code> function is number of fields, similar to the <code>NF</code> variable. The array gets indexed starting from <code>1</code> for the first element, <code>2</code> for the second element and so on. If the array already had some value, it gets overwritten with the new result.<pre><code class=language-bash># same as: awk '{print $2}'
 $ printf '     one \t two\t\t\tthree  ' | awk '{split($0, a); print a[2]}'
 two
 
-$ # example with both FS and split in action
+# example with both FS and split in action
 $ s='Joe,1996-10-25,64,78'
 $ echo "$s" | awk -F, '{split($2, d, "-"); print $1 " was born in " d[1]}'
 Joe was born in 1996
 
-$ # single row to multiple rows based on splitting last field
+# single row to multiple rows based on splitting the last field
 $ s='air,water,12:42:3'
 $ echo "$s" | awk -F, '{n=split($NF, a, ":");
                        for(i=1; i<=n; i++) print $1, $2, a[i]}'
 air water 12
 air water 42
 air water 3
-</code></pre><p>Similar to <code>FS</code>, you can use regular expression as a separator.<pre><code class=language-bash>$ s='Sample123string42with777numbers'
+</code></pre><p>Similar to <code>FS</code>, you can use a regular expression as the separator.<pre><code class=language-bash>$ s='Sample123string42with777numbers'
 $ echo "$s" | awk '{split($0, s, /[0-9]+/); print s[2], s[4]}'
 string numbers
-</code></pre><p>The fourth argument provides a feature not present with <code>FS</code> splitting. It allows you to save the portions matched by the separator in an array. Quoting from <a href=https://www.gnu.org/software/gawk/manual/gawk.html#index-split_0028_0029-function-1>gawk manual: split()</a>:<blockquote><p>If <code>fieldsep</code> is a single space, then any leading whitespace goes into <code>seps[0]</code> and any trailing whitespace goes into <code>seps[n]</code>, where <code>n</code> is the return value of <code>split()</code> (i.e., the number of elements in <code>array</code>).</blockquote><pre><code class=language-bash>$ s='Sample123string42with777numbers'
+</code></pre><p>The fourth argument provides a feature not present with <code>FS</code> splitting. It allows you to save the portions matched by the separator in an array.<pre><code class=language-bash>$ s='Sample123string42with777numbers'
 $ echo "$s" | awk '{n=split($0, s, /[0-9]+/, seps);
                    for(i=1; i&LTn; i++) print seps[i]}'
 123
 42
 777
-</code></pre><p>Here's an example where <code>split</code> is merely used to initialize an array based on empty separator. Unlike <code>$N</code> syntax where an expression resulting in floating-point number is acceptable, array index has to be an integer. Hence, <code>int</code> function is used to convert floating-point result to integer in the example below.<pre><code class=language-bash>$ cat marks.txt
+</code></pre><blockquote><p><img alt=info src=images/info.svg> Quoting from <a href=https://www.gnu.org/software/gawk/manual/gawk.html#index-split_0028_0029-function-1>gawk manual: split()</a>:<p>If <code>fieldsep</code> is a single space, then any leading whitespace goes into <code>seps[0]</code> and any trailing whitespace goes into <code>seps[n]</code>, where <code>n</code> is the return value of <code>split()</code> (i.e., the number of elements in <code>array</code>).</blockquote><p>Here's an example where <code>split</code> helps to initialize an array using an empty separator. Unlike <code>$N</code> syntax where an expression resulting in a floating-point number is acceptable, array index has to be an integer only. Hence, the <code>int</code> function is used to convert the floating-point result to an integer in the example below.<pre><code class=language-bash>$ cat marks.txt
 Dept    Name    Marks
 ECE     Raj     53
 ECE     Joel    72
@@ -116,7 +106,7 @@ EEE     Tia     59
 ECE     Om      92
 CSE     Amy     67
 
-$ # adds a new grade column based on marks in 3rd column
+# adds a new grade column based on marks in the third column
 $ awk 'BEGIN{OFS="\t"; split("DCBAS", g, //)}
        {$(NF+1) = NR==1 ? "Grade" : g[int($NF/10)-4]} 1' marks.txt
 Dept    Name    Marks   Grade
@@ -131,7 +121,7 @@ CSE     Amy     67      C
 
 $ echo "$s" | awk '{patsplit($0, a, /"[^"]*"|[^,]*/); print a[2]}'
 "fox,42"
-</code></pre><h2 id=substr><a class=header href=#substr>substr</a></h2><p>The <code>substr</code> function allows to extract specified number of characters from given string based on indexing. The argument order is:<ul><li>First argument is the input string<li>Second argument is starting position<li>Third argument is number of characters to extract</ul><p>The index starts from <code>1</code>. If the third argument is not specified, by default all characters until the end of string input is extracted. If the second argument is greater than length of the string or if third argument is less than or equal to <code>0</code> then empty string is returned. Second argument will use <code>1</code> if a number less than one is specified.<pre><code class=language-bash>$ echo 'abcdefghij' | awk '{print substr($0, 1, 5)}'
+</code></pre><h2 id=substr><a class=header href=#substr>substr</a></h2><p>The <code>substr</code> function helps to extract a specified number of characters from an input string based on indexing. The argument order is:<ul><li>First argument is the input string<li>Second argument is the starting position<li>Third argument is the number of characters to extract</ul><p>The index starts from <code>1</code>. If the third argument is not specified, by default all characters until the end of the string is extracted. If the second argument is greater than the length of the string or if the third argument is less than or equal to <code>0</code>, then an empty string is returned. The second argument will be converted <code>1</code> if a number less than one is specified.<pre><code class=language-bash>$ echo 'abcdefghij' | awk '{print substr($0, 1, 5)}'
 abcde
 $ echo 'abcdefghij' | awk '{print substr($0, 4, 3)}'
 def
@@ -141,55 +131,58 @@ fghij
 
 $ echo 'abcdefghij' | awk -v OFS=: '{print substr($0, 2, 3), substr($0, 6, 3)}'
 bcd:fgh
-</code></pre><p>If only a few characters are needed from input record, can also use empty <code>FS</code>.<pre><code class=language-bash>$ echo 'abcdefghij' | awk -v FS= '{print $3}'
+</code></pre><p>If only a few characters are needed from the input record, you can also use empty <code>FS</code>.<pre><code class=language-bash>$ echo 'abcdefghij' | awk -v FS= '{print $3}'
 c
 $ echo 'abcdefghij' | awk -v FS= '{print $3, $5}'
 c e
-</code></pre><h2 id=match><a class=header href=#match>match</a></h2><p>The <code>match</code> function is useful to extract portion of an input string matched by a regexp. There are two ways to get the matched portion:<ul><li>by using <code>substr</code> function along with special variables <code>RSTART</code> and <code>RLENGTH</code><li>by passing a third argument to <code>match</code> so that the results are available from an array</ul><p>The first argument to <code>match</code> is the input string and second is the regexp. If the match fails, then <code>RSTART</code> gets <code>0</code> and <code>RLENGTH</code> gets <code>-1</code>. Return value is same as <code>RSTART</code>.<pre><code class=language-bash>$ s='051 035 154 12 26 98234'
+</code></pre><h2 id=match><a class=header href=#match>match</a></h2><p>The <code>match</code> function is useful to extract portion of an input string matched by a regexp. There are two ways to get the matched portion:<ul><li>by using the <code>substr</code> function along with special variables <code>RSTART</code> (starting position of the match) and <code>RLENGTH</code> (length of the match)<li>by passing a third argument to <code>match</code> so that the results are available from an array</ul><p>The first argument to <code>match</code> is the input string and the second one is the regexp. If the match fails, then <code>RSTART</code> gets <code>0</code> and <code>RLENGTH</code> gets <code>-1</code>. Return value is same as <code>RSTART</code>.<pre><code class=language-bash>$ s='051 035 154 12 26 98234 3'
 
-$ # using substr and RSTART/RLENGTH
+# using substr and RSTART/RLENGTH
+# match a number with >= 4 digits
 $ echo "$s" | awk 'match($0, /[0-9]{4,}/){print substr($0, RSTART, RLENGTH)}'
 98234
 
-$ # using array, note that index 0 is used here, not 1
+# using array, note that index 0 is used here, not 1
+# match a number >= 100 (with optional leading zeros)
 $ echo "$s" | awk 'match($0, /0*[1-9][0-9]{2,}/, m){print m[0]}'
 154
-</code></pre><p>Both the above examples can also be easily solved using <code>FPAT</code> or <code>patsplit</code>. <code>match</code> has an advantage when it comes to getting portions matched only within capture groups. The first element of array will still have the entire match. Second element will contain portion matched by first group, third element will contain portion matched by second group and so on. See also <a href=https://stackoverflow.com/q/62241101/4082052>stackoverflow: arithmetic replacement in a text file</a>.<pre><code class=language-bash>$ # entire matched portion
-$ echo 'foo=42, baz=314' | awk 'match($0, /baz=([0-9]+)/, m){print m[0]}'
-baz=314
-$ # matched portion of first capture group
-$ echo 'foo=42, baz=314' | awk 'match($0, /baz=([0-9]+)/, m){print m[1]}'
+</code></pre><p>Both the above examples can also be easily solved using <code>FPAT</code> or <code>patsplit</code>. <code>match</code> has an advantage when it comes to getting portions matched only within capture groups. The first element of the array will still have the entire match. The second element will contain the portion matched by the first group, the third one will contain the portion matched by the second group and so on. See also <a href=https://stackoverflow.com/q/62241101/4082052>stackoverflow: arithmetic replacement in a text file</a>.<pre><code class=language-bash># entire matched portion
+$ echo 'apple=42, fig=314' | awk 'match($0, /fig=([0-9]+)/, m){print m[0]}'
+fig=314
+# matched portion of the first capture group
+$ echo 'apple=42, fig=314' | awk 'match($0, /fig=([0-9]+)/, m){print m[1]}'
 314
-</code></pre><p>If you need to get matching portions for all the matches instead of just the first match, you can use a loop and adjust the input string every iteration.<pre><code class=language-bash>$ # extract numbers only if it is followed by a comma
-$ s='42 foo-5, baz3; x-83, y-20: f12'
+</code></pre><p>If you need to get matching portions for all the matches instead of just the first match, you can use a loop and adjust the input string every iteration.<pre><code class=language-bash># extract numbers only if it is followed by a comma
+$ s='42 apple-5, fig3; x-83, y-20: f12'
 $ echo "$s" | awk '{ while( match($0, /([0-9]+),/, m) ){print m[1];
                    $0=substr($0, RSTART+RLENGTH)} }'
 5
 83
-</code></pre><h2 id=index><a class=header href=#index>index</a></h2><p>The <code>index</code> function is useful when you need to match a string literally in the given input string. This is similar to <code>grep -F</code> functionality of matching fixed strings. The first argument to this function is the input string and the second is the string to be matched literally. The return value is the index of matching location and <code>0</code> if there is no match.<pre><code class=language-bash>$ cat eqns.txt
+</code></pre><h2 id=index><a class=header href=#index>index</a></h2><p>The <code>index</code> function is useful when you need to match a string literally. This is similar to the <code>grep -F</code> functionality of matching fixed strings. The first argument to this function is the input string and the second one is the string to be matched literally. The return value is the index of the matching location and <code>0</code> if there is no match.<pre><code class=language-bash>$ cat eqns.txt
 a=b,a-b=c,c*d
 a+b,pi=3.14,5e12
 i*(t+9-g)/8,4-a+b
 
-$ # no output because the metacharacters aren't escaped
+# no output because the metacharacters aren't escaped
 $ awk '/i*(t+9-g)/' eqns.txt
-$ # same as: grep -F 'i*(t+9-g)' eqns.txt
+# same as: grep -F 'i*(t+9-g)' eqns.txt
 $ awk 'index($0, "i*(t+9-g)")' eqns.txt
 i*(t+9-g)/8,4-a+b
 
-$ # check only the last field
+# check only the last field
 $ awk -F, 'index($NF, "a+b")' eqns.txt
 i*(t+9-g)/8,4-a+b
-$ # index not needed if entire field/line is being compared
+# index not needed if the entire field/line is being compared
 $ awk -F, '$1=="a+b"' eqns.txt
 a+b,pi=3.14,5e12
-</code></pre><p>The return value is also useful to ensure match is found at specific positions only. For example start or end of input string.<pre><code class=language-bash>$ # start of string
+</code></pre><p>The return value is useful to ensure that the match is found at specific positions only. For example, the start or end of the string.<pre><code class=language-bash># start of string
 $ awk 'index($0, "a+b")==1' eqns.txt
 a+b,pi=3.14,5e12
-$ # end of string
+
+# end of string
 $ awk -v s="a+b" 'index($0, s)==length()-length(s)+1' eqns.txt
 i*(t+9-g)/8,4-a+b
-</code></pre><p>Recall that <code>-v</code> option gets parsed by <code>awk</code>'s string processing rules. So, if you need to pass a literal string without falling in backslash hell, use <code>ENVIRON</code> instead of <code>-v</code> option.<pre><code class=language-bash>$ echo 'a\b\c\d' | awk -v s='a\b' 'index($0, s)'
+</code></pre><p>Recall that the <code>-v</code> option gets parsed by <code>awk</code>'s string processing rules. So, if you need to pass a literal string without falling in backslash hell, use <code>ENVIRON</code> instead.<pre><code class=language-bash>$ echo 'a\b\c\d' | awk -v s='a\b' 'index($0, s)'
 $ echo 'a\b\c\d' | awk -v s='a\\b' 'index($0, s)'
 a\b\c\d
 $ echo 'a\b\c\d' | s='a\b' awk 'index($0, ENVIRON["s"])'
@@ -210,7 +203,7 @@ $ cat t2.txt
 I bought two balls and 3 bats
 $ echo 'f1,t2,f3' | awk -F, '{system("cat " $2 ".txt")}'
 I bought two balls and 3 bats
-</code></pre><p>Return value of <code>system</code> depends on <code>exit</code> status of the executed command. See <a href=https://www.gnu.org/software/gawk/manual/html_node/I_002fO-Functions.html>gawk manual: Input/Output Functions</a> for details.<pre><code class=language-bash>$ ls xyz.txt
+</code></pre><p>The return value of <code>system</code> depends on the exit status of the executed command. See <a href=https://www.gnu.org/software/gawk/manual/html_node/I_002fO-Functions.html>gawk manual: Input/Output Functions</a> for details.<pre><code class=language-bash>$ ls xyz.txt
 ls: cannot access 'xyz.txt': No such file or directory
 $ echo $?
 2
@@ -218,7 +211,7 @@ $ echo $?
 $ awk 'BEGIN{s=system("ls xyz.txt"); print "Exit status: " s}'
 ls: cannot access 'xyz.txt': No such file or directory
 Exit status: 2
-</code></pre><h2 id=printf-and-sprintf><a class=header href=#printf-and-sprintf>printf and sprintf</a></h2><p>The <code>printf</code> function is useful over <code>print</code> function when you need to format the data before printing. Another difference is that <code>OFS</code> and <code>ORS</code> do not affect the <code>printf</code> function. The features are similar to those found in <code>C</code> programming language and the shell built-in command.<pre><code class=language-bash>$ # OFMT controls the formatting for numbers displayed with print function
+</code></pre><h2 id=printf-and-sprintf><a class=header href=#printf-and-sprintf>printf and sprintf</a></h2><p>The <code>printf</code> function is useful over the <code>print</code> function when you need to format the data before printing. Another difference is that <code>OFS</code> and <code>ORS</code> do not affect the <code>printf</code> function. The formatting features are similar to those found in the <code>C</code> programming language and the <code>printf</code> shell built-in command.<pre><code class=language-bash># OFMT controls the formatting for numbers displayed with the print function
 $ awk 'BEGIN{print OFMT}'
 %.6g
 $ awk 'BEGIN{sum = 3.1428 + 100; print sum}'
@@ -226,69 +219,69 @@ $ awk 'BEGIN{sum = 3.1428 + 100; print sum}'
 $ awk 'BEGIN{OFMT="%.5f"; sum = 3.1428 + 100; print sum}'
 103.14280
 
-$ # using printf function
-$ # note the use of \n as ORS isn't appended unlike print
+# using printf function
+# note the use of \n as ORS isn't appended unlike print
 $ awk 'BEGIN{sum = 3.1428 + 10; printf "%f\n", sum}'
 13.142800
 $ awk 'BEGIN{sum = 3.1428 + 10; printf "%.3f\n", sum}'
 13.143
-</code></pre><p>Here's some more formatting options for floating-point numbers.<pre><code class=language-bash>$ # total length is 10, filled with space if needed
-$ # [ and ] are used here for visualization purposes
+</code></pre><p>Here are some more formatting examples for floating-point numbers.<pre><code class=language-bash># total length is 10, filled with space if needed
+# [ and ] are used here for visualization purposes
 $ awk 'BEGIN{pi = 3.14159; printf "[%10.3f]\n", pi}'
 [     3.142]
 $ awk 'BEGIN{pi = 3.14159; printf "[%-10.3f]\n", pi}'
 [3.142     ]
 
-$ # zero filled
+# zero filled
 $ awk 'BEGIN{pi = 3.14159; printf "%010.3f\n", pi}'
 000003.142
 
-$ # scientific notation
+# scientific notation
 $ awk 'BEGIN{pi = 3.14159; printf "%e\n", pi}'
 3.141590e+00
-</code></pre><p>Here's some formatting options for integers.<pre><code class=language-bash>$ # note that there is no rounding
+</code></pre><p>Here are some formatting examples for integers.<pre><code class=language-bash># note that there is no rounding
 $ awk 'BEGIN{printf "%d\n", 1.99}'
 1
 
-$ # ensure there's always a sign prefixed to integer
+# ensure there's always a sign prefixed for integers
 $ awk 'BEGIN{printf "%+d\n", 100}'
 +100
 $ awk 'BEGIN{printf "%+d\n", -100}'
 -100
-</code></pre><p>Here's some formatting options for strings.<pre><code class=language-bash>$ # prefix remaining width with spaces
+</code></pre><p>Here are some formatting examples for strings.<pre><code class=language-bash># prefix remaining width with spaces
 $ awk 'BEGIN{printf "|%10s|\n", "mango"}'
 |     mango|
 
-$ # suffix remaining width with spaces
+# suffix remaining width with spaces
 $ awk 'BEGIN{printf "|%-10s|\n", "mango"}'
 |mango     |
 
-$ # truncate
+# truncate
 $ awk '{printf "%.4s\n", $0}' table.txt
 brow
 blue
 yell
 </code></pre><p>You can also refer to an argument using <code>N$</code> format, where <code>N</code> is the positional number of argument. One advantage with this method is that you can reuse an argument any number of times. You cannot mix this format with the normal way.<pre><code class=language-bash>$ awk 'BEGIN{printf "%1$d + %2$d * %1$d = %3$d\n", 3, 4, 15}'
 3 + 4 * 3 = 15
-$ # remove # if you do not need the prefix
+# remove # if you do not need the prefix
 $ awk 'BEGIN{printf "hex=%1$#x\noct=%1$#o\ndec=%1$d\n", 15}'
 hex=0xf
 oct=017
 dec=15
-</code></pre><p>You can pass variables by specifying a <code>*</code> instead of a number in the formatting string.<pre><code class=language-bash>$ # same as: awk 'BEGIN{pi = 3.14159; printf "%010.3f\n",  pi}'
+</code></pre><p>You can pass variables by specifying a <code>*</code> instead of a number in the formatting string.<pre><code class=language-bash># same as: awk 'BEGIN{pi = 3.14159; printf "%010.3f\n",  pi}'
 $ awk 'BEGIN{d=10; p=3; pi = 3.14159; printf "%0*.*f\n", d, p, pi}'
 000003.142
-</code></pre><blockquote><p><img src=images/warning.svg alt=warning> Passing a variable directly to <code>printf</code> without using a format specifier can result in error depending upon the contents of the variable.</blockquote><pre><code class=language-bash>$ awk 'BEGIN{s="solve: 5 % x = 1"; printf s}'
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Passing a variable directly to <code>printf</code> without using a format specifier can result in an error depending upon the contents of the variable.<pre><code class=language-bash>$ awk 'BEGIN{s="solve: 5 % x = 1"; printf s}'
 awk: cmd. line:1: fatal: not enough arguments to satisfy format string
-    `solve: 5 % x = 1'
-               ^ ran out for this one
-</code></pre><p>So, as a good practice, always use variables with appropriate format instead of passing it directly to <code>printf</code>.<pre><code class=language-bash>$ awk 'BEGIN{s="solve: 5 % x = 1"; printf "%s\n", s}'
+        `solve: 5 % x = 1'
+                   ^ ran out for this one
+</code></pre></blockquote><p>So, as a good practice, always use variables with an appropriate format instead of passing it directly to <code>printf</code>.<pre><code class=language-bash>$ awk 'BEGIN{s="solve: 5 % x = 1"; printf "%s\n", s}'
 solve: 5 % x = 1
-</code></pre><p>If <code>%</code> has to be used literally inside the format specifier, use <code>%%</code>. This is similar to using <code>\\</code> in regexp to represent <code>\</code> literally.<pre><code class=language-bash>$ awk 'BEGIN{printf "n%%d gives the remainder\n"}'
+</code></pre><p>If <code>%</code> has to be used literally inside the format specifier, use <code>%%</code>. This is similar to using <code>\\</code> in regexps to represent <code>\</code> literally.<pre><code class=language-bash>$ awk 'BEGIN{printf "n%%d gives the remainder\n"}'
 n%d gives the remainder
-</code></pre><p>To save the results of the formatting in a variable instead of printing, use <code>sprintf</code> function. Unlike <code>printf</code>, parentheses are always required to use <code>sprintf</code> function.<pre><code class=language-bash>$ awk 'BEGIN{pi = 3.14159; s = sprintf("%010.3f", pi); print s}'
+</code></pre><p>To save the results of the formatting in a variable instead of printing, use the <code>sprintf</code> function. Unlike <code>printf</code>, parentheses are always required to use this function.<pre><code class=language-bash>$ awk 'BEGIN{pi = 3.14159; s = sprintf("%010.3f", pi); print s}'
 000003.142
-</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/gawk/manual/html_node/Printf.html>gawk manual: printf</a> for complete list of formatting options and other details.</blockquote><h2 id=redirecting-print-output><a class=header href=#redirecting-print-output>Redirecting print output</a></h2><p>The results from <code>print</code> and <code>printf</code> functions can be redirected to a shell command or a file instead of <code>stdout</code>. There's nothing special about it, you could have done it normally on <code>awk</code> command as well. The use case arises when you need to redirect only a specific portion or if you need multiple redirections within the same <code>awk</code> command. Here's some examples of redirecting to multiple files.<pre><code class=language-bash>$ seq 6 | awk 'NR%2{print > "odd.txt"; next} {print > "even.txt"}'
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See <a href=https://www.gnu.org/software/gawk/manual/html_node/Printf.html>gawk manual: printf</a> for complete list of formatting options and other details.</blockquote><h2 id=redirecting-print-output><a class=header href=#redirecting-print-output>Redirecting print output</a></h2><p>The results from the <code>print</code> and <code>printf</code> functions can be redirected to a shell command or a file instead of <code>stdout</code>. There's nothing special about it, you could have done it using shell redirections as well. The use case arises when you need to redirect only a specific portion or if you need multiple redirections within the same <code>awk</code> command. Here are some examples of redirecting to multiple files.<pre><code class=language-bash>$ seq 6 | awk 'NR%2{print > "odd.txt"; next} {print > "even.txt"}'
 $ cat odd.txt
 1
 3
@@ -298,26 +291,26 @@ $ cat even.txt
 4
 6
 
-$ # dynamically creating filenames
+# dynamically creating filenames
 $ awk -v OFS='\t' 'NR>1{print $2, $3 > $1".txt"}' marks.txt
-$ # output for one of the departments
+# output for one of the departments
 $ cat ECE.txt
 Raj     53
 Joel    72
 Om      92
-</code></pre><p>Note that the use of <code>></code> doesn't mean that the file will get overwritten everytime. That happens only once if the file already existed prior to executing the <code>awk</code> command. Use <code>>></code> if you wish to append to already existing files.<p>As seen in above examples, the file names are passed as string expressions. To redirect to a shell command, again you need to pass a string expression after <code>|</code> pipe symbol. Here's an example.<pre><code class=language-bash>$ awk '{print $2 | "paste -sd,"}' table.txt
+</code></pre><p>Note that the use of <code>></code> doesn't mean that the file will get overwritten everytime. That happens only once if the file already existed prior to executing the <code>awk</code> command. Use <code>>></code> if you wish to append to already existing files.<p>As seen in the above examples, the filenames are passed as string expressions. To redirect to a shell command, again you need to pass a string expression after the <code>|</code> pipe symbol. Here's an example:<pre><code class=language-bash>$ awk '{print $2 | "paste -sd,"}' table.txt
 bread,cake,banana
-</code></pre><p>And here's some examples of multiple redirections.<pre><code class=language-bash>$ awk '{print $2 | "sort | paste -sd,"}' table.txt
+</code></pre><p>And here are some examples with multiple redirections.<pre><code class=language-bash>$ awk '{print $2 | "sort | paste -sd,"}' table.txt
 banana,bread,cake
 
-$ # sort the output before writing to files
+# sort the output before writing to files
 $ awk -v OFS='\t' 'NR>1{print $2, $3 | "sort > "$1".txt"}' marks.txt
-$ # output for one of the departments
+# output for one of the departments
 $ cat ECE.txt
 Joel    72
 Om      92
 Raj     53
-</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Redirection>gawk manual: Redirecting Output of print and printf</a> for more details and operators on redirections. And see <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Close-Files-And-Pipes>gawk manual: Closing Input and Output Redirections</a> if you have too many redirections.</blockquote><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter covered some of the built-in functions provided by <code>awk</code>. Do check the manual for more of them, for example math and time related functions.<p>Next chapter will cover features related to processing multiple files passed as input to <code>awk</code>.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=images/info.svg alt=info> Exercises will also include functions and features not discussed in this chapter. Refer to <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Functions>gawk manual: Functions</a> for details.</blockquote><p><strong>a)</strong> For the input file <code>scores.csv</code>, sort the rows based on <strong>Physics</strong> values in descending order. Header should be retained as the first line in output.<pre><code class=language-bash>$ awk ##### add your solution here
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Redirection>gawk manual: Redirecting Output of print and printf</a> for more details and operators on redirections. And see <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Close-Files-And-Pipes>gawk manual: Closing Input and Output Redirections</a> if you have too many redirections.</blockquote><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter covered some of the built-in functions provided by <code>awk</code>. Do check the manual for more of them, for example math and time related functions.<p>Next chapter will cover features related to processing multiple files passed as input to <code>awk</code>.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><blockquote><p><img alt=info src=images/info.svg> Exercises will also include functions and features not discussed in this chapter. Refer to <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Functions>gawk manual: Functions</a> for details.</blockquote><p><strong>1)</strong> For the input file <code>scores.csv</code>, sort the rows in descending order based on the values in the Physics column. Header should be retained as the first line in the output.<pre><code class=language-bash>$ awk ##### add your solution here
 Name,Maths,Physics,Chemistry
 Ith,100,100,100
 Cy,97,98,95
@@ -325,7 +318,13 @@ Lin,78,83,80
 Er,56,79,92
 Ort,68,72,66
 Blue,67,46,99
-</code></pre><p><strong>b)</strong> For the input file <code>nums3.txt</code>, calculate the square root of numbers and display in two different formats. First with four digits after fractional point and next in scientific notation, again with four digits after fractional point. Assume input has only single column positive numbers.<pre><code class=language-bash>$ awk ##### add your solution here
+</code></pre><p><strong>2)</strong> For the input file <code>nums3.txt</code>, calculate the square root of numbers and display the results in two different formats as shown below. First, with four digits after the fractional point and then in the scientific notation, again with four digits after the fractional point. Assume that the input has only a single column of positive numbers.<pre><code class=language-bash>$ cat nums3.txt 
+3.14
+4201
+777
+0323012
+
+$ awk ##### add your solution here
 1.7720
 64.8151
 27.8747
@@ -336,32 +335,40 @@ $ awk ##### add your solution here
 6.4815e+01
 2.7875e+01
 5.6834e+02
-</code></pre><p><strong>c)</strong> Transform the given input strings to the corresponding output shown. Assume space as the field separators. From the second field, remove the second <code>:</code> and the number that follows. Modify the last field by multiplying it by the number that was deleted from the second field. The numbers can be positive/negative integers or floating-point numbers (including scientific notation).<pre><code class=language-bash>$ echo 'go x:12:-425 og 6.2' | awk ##### add your solution here
-go x:12 og -2635
+</code></pre><p><strong>3)</strong> For the input file <code>items.txt</code>, assume space as the field separator. From the second field, remove the second <code>:</code> character and the number that follows. Modify the last field by multiplying it by the number that was deleted from the second field.<pre><code class=language-bash>$ cat items.txt
+apple rxg:12:-425 og 6.2
+fig zwt:3.64:12.89e2 ljg 5
+banana ysl:42:3.14 vle 45
 
-$ echo 'rx zwt:3.64:12.89e2 ljg 5' | awk ##### add your solution here
-rx zwt:3.64 ljg 6445
-</code></pre><p><strong>d)</strong> Transform the given input strings to the corresponding output shown. Assume space as the field separators. Replace the second field with sum of the two numbers embedded in it. The numbers can be positive/negative integers or floating-point numbers (but not scientific notation).<pre><code class=language-bash>$ echo 'f2:z3 kt//-42\\3.14//tw 5y6' | awk ##### add your solution here
+$ awk ##### add your solution here
+apple rxg:12 og -2635
+fig zwt:3.64 ljg 6445
+banana ysl:42 vle 141.3
+</code></pre><p><strong>4)</strong> For the input file <code>sum.txt</code>, assume space as the field separator. Replace the second field with the sum of the two numbers embedded in it. The numbers can be positive/negative integers or floating-point numbers but not scientific notation.<pre><code class=language-bash>$ cat sum.txt
+f2:z3 kt//-42\\3.14//tw 5y6
+t5:x7 qr;wq<=>+10{-8764.124}yb u9
+apple:fig 100:32 9j4
+
+$ awk ##### add your solution here
 f2:z3 -38.86 5y6
-
-$ echo 't5:x7 qr;wq<=>+10{-8764.124}yb u9' | awk ##### add your solution here
 t5:x7 -8754.12 u9
-</code></pre><p><strong>e)</strong> For the given input strings, extract portion of the line starting from the matching location specified by shell variable <code>s</code> till the end of the line. If there is no match, do not print that line. The contents of <code>s</code> should be matched literally.<pre><code class=language-bash>$ s='(a^b)'
+apple:fig 132 9j4
+</code></pre><p><strong>5)</strong> For the given input strings, extract portion of the line starting from the matching location specified by the shell variable <code>s</code> till the end of the line. If there is no match, do not print that line. The contents of <code>s</code> should be matched literally.<pre><code class=language-bash>$ s='(a^b)'
 $ echo '3*f + (a^b) - 45' | ##### add your solution here
 (a^b) - 45
 
 $ s='\&/'
-$ # should be no output for this input
+# should be no output for this input
 $ echo 'f\&z\&2.14' | ##### add your solution here
-$ # but this one has a match
+# but this one has a match
 $ echo 'f\&z\&/2.14' | ##### add your solution here
 \&/2.14
-</code></pre><p><strong>f)</strong> Extract all positive integers preceded by <code>-</code> and followed by <code>:</code> or <code>;</code> and display all such matches separated by a newline character.<pre><code class=language-bash>$ s='42 foo-5; baz3; x-83, y-20:-34; f12'
+</code></pre><p><strong>6)</strong> Extract all positive integers preceded by <code>-</code> and followed by <code>:</code> or <code>;</code>. Display the matching portions separated by a newline character.<pre><code class=language-bash>$ s='42 apple-5; fig3; x-83, y-20:-34; f12'
 $ echo "$s" | awk ##### add your solution here
 5
 20
 34
-</code></pre><p><strong>g)</strong> For the input file <code>scores.csv</code>, calculate the average of three marks for each <code>Name</code>. Those with average greater than or equal to <code>80</code> should be saved in <code>pass.csv</code> and the rest in <code>fail.csv</code>. The format is <code>Name</code> and average score (up to two decimal points) separated by a tab character.<pre><code class=language-bash>$ awk ##### add your solution here
+</code></pre><p><strong>7)</strong> For the input file <code>scores.csv</code>, calculate the average score for each row. Those with average greater than or equal to <code>80</code> should be saved in <code>pass.csv</code> and the rest in <code>fail.csv</code>. The output files should have the names followed by a tab character, and finally the average score (two decimal points).<pre><code class=language-bash>$ awk ##### add your solution here
 
 $ cat fail.csv
 Blue    70.67
@@ -371,7 +378,7 @@ $ cat pass.csv
 Lin     80.33
 Cy      96.67
 Ith     100.00
-</code></pre><p><strong>h)</strong> For the input file <code>files.txt</code>, replace lines starting with a space with the output of that line executed as a shell command.<pre><code class=language-bash>$ cat files.txt
+</code></pre><p><strong>8)</strong> For the input file <code>files.txt</code>, replace lines starting with a space with the output of that line executed as a shell command.<pre><code class=language-bash>$ cat files.txt
  sed -n '2p' addr.txt
 -----------
  wc -w sample.txt
@@ -388,15 +395,27 @@ brown
 blue
 yellow
 -----------
-</code></pre><p><strong>i)</strong> For the input file <code>fw.txt</code>, format the last column of numbers in scientific notation with two digits after the decimal point.<pre><code class=language-bash>$ awk ##### add your solution here
+</code></pre><p><strong>9)</strong> For the input file <code>fw.txt</code>, format the last column in scientific notation with two digits after the decimal point.<pre><code class=language-bash>$ awk ##### add your solution here
 1.3  rs   90  1.35e-01
 3.8           6.00e+00
 5.2  ye       8.24e+00
 4.2  kt   32  4.51e+01
-</code></pre><p><strong>j)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>e</code> or <code>u</code> but not both.<blockquote><p><img src=images/info.svg alt=info> Hint — <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Bitwise-Functions>gawk manual: Bit-Manipulation Functions</a>.</blockquote><pre><code class=language-bash>$ awk ##### add your solution here
+</code></pre><p><strong>10)</strong> For the input file <code>addr.txt</code>, display all lines containing <code>e</code> or <code>u</code> but not both.<blockquote><p><img alt=info src=images/info.svg> Hint — <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Bitwise-Functions>gawk manual: Bit-Manipulation Functions</a>.</blockquote><pre><code class=language-bash>$ awk ##### add your solution here
 Hello World
 This game is good
 Today is sunny
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=control-structures.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=multiple-file-input.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=control-structures.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=multiple-file-input.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre><p><strong>11)</strong> For the input file <code>patterns.txt</code>, filter lines containing <code>[5]</code> at the start of a line. The search term should be matched literally.<pre><code class=language-bash>$ awk ##### add your solution here
+[5]*3
+</code></pre><p><strong>12)</strong> For the input file <code>table.txt</code>, uppercase the third field.<pre><code class=language-bash>$ awk ##### add your solution here
+brown bread MAT hair 42
+blue cake MUG shirt -7
+yellow banana WINDOW shoes 3.14
+</code></pre><p><strong>13)</strong> For the input files <code>patterns.txt</code> and <code>sum.txt</code>, match lines containing the literal value stored in the <code>s</code> variable. Assume that the <code>s</code> variable has regexp metacharacters.<pre><code class=language-bash>$ s='[5]'
+##### add your solution here
+(9-2)*[5]
+[5]*3
+
+$ s='\\'
+##### add your solution here
+f2:z3 kt//-42\\3.14//tw 5y6
+</code></pre></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=control-structures.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=multiple-file-input.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=control-structures.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=multiple-file-input.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

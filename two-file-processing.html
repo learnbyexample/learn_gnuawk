@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Two file processing - GNU AWK</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU AWK"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Two file processing - CLI text processing with GNU awk</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide to mastering GNU awk"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="CLI text processing with GNU awk"property=og:title><meta content=website property=og:type><meta content="Example based guide to mastering GNU awk"property=og:description><meta content=https://learnbyexample.github.io/learn_gnuawk/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_gnuawk/master/images/gawk_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,59 +10,60 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=installation-and-documentation.html><strong aria-hidden=true>2.</strong> Installation and Documentation</a><li class="chapter-item expanded"><a href=awk-introduction.html><strong aria-hidden=true>3.</strong> awk introduction</a><li class="chapter-item expanded"><a href=regular-expressions.html><strong aria-hidden=true>4.</strong> Regular Expressions</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>5.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>6.</strong> Record separators</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>7.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=using-shell-variables.html><strong aria-hidden=true>8.</strong> Using shell variables</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>9.</strong> Control Structures</a><li class="chapter-item expanded"><a href=built-in-functions.html><strong aria-hidden=true>10.</strong> Built-in functions</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>11.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>12.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html class=active><strong aria-hidden=true>13.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>14.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=awk-scripts.html><strong aria-hidden=true>15.</strong> awk scripts</a><li class="chapter-item expanded"><a href=gotchas-and-tips.html><strong aria-hidden=true>16.</strong> Gotchas and Tips</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>17.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>18.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_gnuawk>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU AWK</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_gnuawk title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=installation-and-documentation.html><strong aria-hidden=true>2.</strong> Installation and Documentation</a><li class="chapter-item expanded"><a href=awk-introduction.html><strong aria-hidden=true>3.</strong> awk introduction</a><li class="chapter-item expanded"><a href=regular-expressions.html><strong aria-hidden=true>4.</strong> Regular Expressions</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>5.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>6.</strong> Record separators</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>7.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=using-shell-variables.html><strong aria-hidden=true>8.</strong> Using shell variables</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>9.</strong> Control Structures</a><li class="chapter-item expanded"><a href=built-in-functions.html><strong aria-hidden=true>10.</strong> Built-in functions</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>11.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>12.</strong> Processing multiple records</a><li class="chapter-item expanded"><a class=active href=two-file-processing.html><strong aria-hidden=true>13.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>14.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=awk-scripts.html><strong aria-hidden=true>15.</strong> awk scripts</a><li class="chapter-item expanded"><a href=gotchas-and-tips.html><strong aria-hidden=true>16.</strong> Gotchas and Tips</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>17.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>18.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_gnuawk>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>CLI text processing with GNU awk</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_gnuawk> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=two-file-processing><a class=header href=#two-file-processing>Two file processing</a></h1><p>This chapter focuses on solving problems which depend upon contents of two files. These are usually based on comparing records and fields. Sometimes, record number plays a role too. You'll also learn about the <code>getline</code> built-in function.<h2 id=comparing-records><a class=header href=#comparing-records>Comparing records</a></h2><p>Consider the following input files which will be compared line wise to get common lines and unique lines.<pre><code class=language-bash>$ cat color_list1.txt
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=two-file-processing><a class=header href=#two-file-processing>Two file processing</a></h1><p>This chapter focuses on solving problems which depend upon the contents of two or more files. These are usually based on comparing records and fields. Sometimes, record number plays a role too. You'll also learn about the <code>getline</code> built-in function.<blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=comparing-records><a class=header href=#comparing-records>Comparing records</a></h2><p>Consider the following input files which will be compared line wise to get the common and unique lines.<pre><code class=language-bash>$ cat colors_1.txt
 teal
 light blue
 green
 yellow
-$ cat color_list2.txt
+$ cat colors_2.txt
 light blue
 black
 dark green
 yellow
-</code></pre><p>The <em>key</em> features used in the solution below:<ul><li>For two files as input, <code>NR==FNR</code> will be <code>true</code> only when the first file is being processed<li><code>next</code> will skip rest of code and fetch next record<li><code>a[$0]</code> by itself is a valid statement. It will create an uninitialized element in array <code>a</code> with <code>$0</code> as the key (assuming the key doesn't exist yet)<li><code>$0 in a</code> checks if the given string (<code>$0</code> here) exists as a key in array <code>a</code></ul><pre><code class=language-bash>$ # common lines
-$ # same as: grep -Fxf color_list1.txt color_list2.txt
-$ awk 'NR==FNR{a[$0]; next} $0 in a' color_list1.txt color_list2.txt
+</code></pre><p>The <em>key</em> features used in the solution below:<ul><li>For two files as input, <code>NR==FNR</code> will be <code>true</code> only when the first file is being processed<li><code>next</code> will skip rest of the script and fetch the next record<li><code>a[$0]</code> by itself is a valid statement. It will create an uninitialized element in array <code>a</code> with <code>$0</code> as the key (assuming the key doesn't exist yet)<li><code>$0 in a</code> checks if the given string (<code>$0</code> here) exists as a key in the array <code>a</code></ul><pre><code class=language-bash># common lines
+# same as: grep -Fxf colors_1.txt colors_2.txt
+$ awk 'NR==FNR{a[$0]; next} $0 in a' colors_1.txt colors_2.txt
 light blue
 yellow
 
-$ # lines from color_list2.txt not present in color_list1.txt
-$ # same as: grep -vFxf color_list1.txt color_list2.txt
-$ awk 'NR==FNR{a[$0]; next} !($0 in a)' color_list1.txt color_list2.txt
+# lines from colors_2.txt not present in colors_1.txt
+# same as: grep -vFxf colors_1.txt colors_2.txt
+$ awk 'NR==FNR{a[$0]; next} !($0 in a)' colors_1.txt colors_2.txt
 black
 dark green
 
-$ # reversing the order of input files gives
-$ # lines from color_list1.txt not present in color_list2.txt
-$ awk 'NR==FNR{a[$0]; next} !($0 in a)' color_list2.txt color_list1.txt
+# reversing the order of input files gives
+# lines from colors_1.txt not present in colors_2.txt
+$ awk 'NR==FNR{a[$0]; next} !($0 in a)' colors_2.txt colors_1.txt
 teal
 green
-</code></pre><blockquote><p><img src=images/warning.svg alt=warning> Note that the <code>NR==FNR</code> logic will fail if the first file is empty. See <a href=https://unix.stackexchange.com/a/237110/109046>this unix.stackexchange thread</a> for workarounds.</blockquote><h2 id=comparing-fields><a class=header href=#comparing-fields>Comparing fields</a></h2><p>In the previous section, you saw how to compare whole contents of records between two files. This section will focus on comparing only specific field(s). The below sample file will be one of the two file inputs for examples in this section.<pre><code class=language-bash>$ cat marks.txt
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Note that the <code>NR==FNR</code> logic will fail if the first file is empty, since <code>NR</code> wouldn't get a chance to increment. You can set a flag after the first file has been processed to avoid this issue. See <a href=https://unix.stackexchange.com/a/237110/109046>this unix.stackexchange thread</a> for more workarounds.<pre><code class=language-bash># no output
+$ awk 'NR==FNR{a[$0]; next} !($0 in a)' /dev/null greeting.txt
+
+# gives the expected output
+$ awk '!f{a[$0]; next} !($0 in a)' /dev/null f=1 greeting.txt
+Hi there
+Have a nice day
+Good bye
+</code></pre></blockquote><h2 id=comparing-fields><a class=header href=#comparing-fields>Comparing fields</a></h2><p>In the previous section, you saw how to compare the contents of whole records between two files. This section will focus on comparing only specific fields. The below sample file will be one of the two file inputs for examples in this section.<pre><code class=language-bash>$ cat marks.txt
 Dept    Name    Marks
 ECE     Raj     53
 ECE     Joel    72
@@ -74,11 +72,11 @@ CSE     Surya   81
 EEE     Tia     59
 ECE     Om      92
 CSE     Amy     67
-</code></pre><p>To start with, here's a single field comparison. The problem statement is to fetch all records from <code>marks.txt</code> if the first field matches any of the departments listed in <code>dept.txt</code> file.<pre><code class=language-bash>$ cat dept.txt
+</code></pre><p>To start with, here's a single field comparison. The problem statement is to fetch all records from <code>marks.txt</code> if the first field matches any of the departments listed in the <code>dept.txt</code> file.<pre><code class=language-bash>$ cat dept.txt
 CSE
 ECE
 
-$ # note that dept.txt is used to build the array keys first
+# note that dept.txt is used to build the array keys first
 $ awk 'NR==FNR{a[$1]; next} $1 in a' dept.txt marks.txt
 ECE     Raj     53
 ECE     Joel    72
@@ -86,7 +84,7 @@ CSE     Surya   81
 ECE     Om      92
 CSE     Amy     67
 
-$ # if header is needed as well
+# if the header is needed as well
 $ awk 'NR==FNR{a[$1]; next} FNR==1 || $1 in a' dept.txt marks.txt
 Dept    Name    Marks
 ECE     Raj     53
@@ -94,13 +92,13 @@ ECE     Joel    72
 CSE     Surya   81
 ECE     Om      92
 CSE     Amy     67
-</code></pre><p>For multiple field comparison, you need to construct the key robustly. Simply concatenating field values can lead to false matches. For example, field values <code>abc</code> and <code>123</code> will wrongly match <code>ab</code> and <code>c123</code>. To avoid this, you may introduce some string between the field values, say <code>"_"</code> (if you know the field themselves cannot have this character) or <code>FS</code> (safer option). You could also allow <code>awk</code> to bail you out. If you use <code>,</code> symbol (not <code>","</code> as a string) between field values, the value of special variable <code>SUBSEP</code> is inserted. <code>SUBSEP</code> has a default value of the non-printing character <code>\034</code> which is usually not used as part of text files.<pre><code class=language-bash>$ cat dept_name.txt
+</code></pre><p>For multiple field comparison, you need to construct the key robustly. Simply concatenating field values can lead to false matches. For example, field values <code>abc</code> and <code>123</code> will wrongly match <code>ab</code> and <code>c123</code>. To avoid this, you may introduce some string between the field values, say <code>"_"</code> (if you know the field themselves cannot have this character) or <code>FS</code> (safer option). You could also allow <code>awk</code> to bail you out. If you use the <code>,</code> symbol (not <code>","</code> as a string) between the field values, the value of the special variable <code>SUBSEP</code> is inserted. <code>SUBSEP</code> has a default value of the non-printing character <code>\034</code> which is usually not used as part of text files.<pre><code class=language-bash>$ cat dept_name.txt
 EEE Moi
 CSE Amy
 ECE Raj
 
-$ # uses SUBSEP as separator between field values to construct the key
-$ # note the use of parentheses for key testing
+# uses SUBSEP as a separator between the field values to construct the key
+# note the use of parentheses for key testing
 $ awk 'NR==FNR{a[$1,$2]; next} ($1,$2) in a' dept_name.txt marks.txt
 ECE     Raj     53
 EEE     Moi     68
@@ -110,7 +108,7 @@ ECE 70
 EEE 65
 CSE 80
 
-$ # match Dept and minimum marks specified in dept_mark.txt
+# match Dept and minimum marks specified in dept_mark.txt
 $ awk 'NR==FNR{d[$1]=$2; next}
        $1 in d && $3 >= d[$1]' dept_mark.txt marks.txt
 ECE     Joel    72
@@ -126,27 +124,27 @@ $ awk -v OFS='\t' 'NR==FNR{r[$1]=$2; next}
          {$(NF+1) = FNR==1 ? "Role" : r[$2]} 1' role.txt marks.txt
 Dept    Name    Marks   Role
 ECE     Raj     53      class_rep
-ECE     Joel    72
-EEE     Moi     68
-CSE     Surya   81
+ECE     Joel    72      
+EEE     Moi     68      
+CSE     Surya   81      
 EEE     Tia     59      placement_rep
-ECE     Om      92
+ECE     Om      92      
 CSE     Amy     67      sports_rep
-</code></pre><h2 id=getline><a class=header href=#getline>getline</a></h2><p>As the name indicates, <code>getline</code> function allows you to read a line from a file on demand. This is most useful when you need something based on line number. The following example shows how you can replace <code>m</code>th line from a file with <code>n</code>th line from another file. There are many syntax variations with <code>getline</code>, here the line read is saved in a variable.<pre><code class=language-bash>$ # return value handling is not shown here, but should be done ideally
+</code></pre><h2 id=getline><a class=header href=#getline>getline</a></h2><p>As the name indicates, the <code>getline</code> function allows you to read a line from a file on demand. This is easiest to use when you need something based on line numbers. The following example shows how you can replace the <code>m</code>th line from a file with the <code>n</code>th line from another file. There are many syntax variations with <code>getline</code>, here the line read is saved in a variable.<pre><code class=language-bash># return value handling is not shown here, but should be done ideally
 $ awk -v m=3 -v n=2 'BEGIN{while(n-- > 0) getline s < "greeting.txt"}
                      FNR==m{$0=s} 1' table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
 Have a nice day
-</code></pre><p>Here's an example where two files are processed simultaneously. In this case, the return value of <code>getline</code> is also used. It will be <code>1</code> if line was read successfully, <code>0</code> if there's no more input to be read as end of file has already been reached and <code>-1</code> if something went wrong. The <code>ERRNO</code> special variable will have details regarding the issues.<pre><code class=language-bash>$ # print line from greeting.txt if last column of corresponding line
-$ # from table.txt is +ve number
+</code></pre><p>Here's an example where two files are processed simultaneously. In this case, the return value of <code>getline</code> is also used. It will be <code>1</code> if the line was read successfully, <code>0</code> if there's no more input to be read as end of file has already been reached and <code>-1</code> if something went wrong. The <code>ERRNO</code> special variable will have the error details.<pre><code class=language-bash># print line from greeting.txt if the last column of the corresponding line
+# from table.txt is a positive number
 $ awk -v file='table.txt' '(getline line < file)==1{n=split(line, a);
                            if(a[n]>0) print}' greeting.txt
 Hi there
 Good bye
-</code></pre><p>If a file is passed as argument to <code>awk</code> command and cannot be opened, you get an error. For example:<pre><code class=language-bash>$ awk '{print $2}' xyz.txt
-awk: fatal: cannot open file `xyz.txt' for reading: No such file or directory
-</code></pre><p>It is recommended to always check for return value when using <code>getline</code> or perhaps use techniques from previous sections to avoid <code>getline</code> altogether.<pre><code class=language-bash>$ # xyz.txt doesn't exist, but output doesn't show something went wrong
+</code></pre><p>If a file is passed as an argument to the <code>awk</code> command that cannot be opened, you get an error. For example:<pre><code class=language-bash>$ awk '{print $2}' xyz.txt
+awk: fatal: cannot open file 'xyz.txt' for reading: No such file or directory
+</code></pre><p>It is recommended to always check for the return value when using <code>getline</code> or perhaps use techniques from the previous sections to avoid <code>getline</code> altogether.<pre><code class=language-bash># xyz.txt doesn't exist, but output doesn't show something went wrong
 $ awk '{getline line < "xyz.txt"; print $NF, line}' table.txt
 42 
 -7 
@@ -156,16 +154,16 @@ $ awk -v file='xyz.txt' '{ e=(getline line < file);
                            if(e&LT0){print file ": " ERRNO; exit}
                            print $NF, line }' table.txt
 xyz.txt: No such file or directory
-</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Getline>gawk manual: getline</a> for details, especially about corner cases and errors. See also <a href=https://awk.freeshell.org/AllAboutGetline>awk.freeshell: getline caveats</a>.</blockquote><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter discussed a few cases where you need to compare contents of two files. The <code>NR==FNR</code> trick is handy for such cases. The <code>getline</code> function is helpful for line number based comparisons.<p>Next chapter will discuss how to handle duplicate contents.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>a)</strong> Use contents of <code>match_words.txt</code> file to display matching lines from <code>jumbled.txt</code> and <code>sample.txt</code>. The matching criteria is that the second word of lines from these files should match the third word of lines from <code>match_words.txt</code>.<pre><code class=language-bash>$ cat match_words.txt
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Getline>gawk manual: getline</a> for details, especially about corner cases and errors. See also <a href=http://awk.freeshell.org/AllAboutGetline>awk.freeshell: getline caveats</a>.</blockquote><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter discussed a few cases where you need to compare contents between two files. The <code>NR==FNR</code> trick is handy for such cases. You also saw a few examples with the <code>getline</code> function.<p>Next chapter will discuss how to handle duplicate contents.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> Use the contents of <code>match_words.txt</code> file to display matching lines from <code>jumbled.txt</code> and <code>sample.txt</code>. The matching criteria is that the second word of lines from these files should match the third word of lines from <code>match_words.txt</code>.<pre><code class=language-bash>$ cat match_words.txt
 %whole(Hello)--{doubt}==ado==
 just,\joint*,concession<=nice
 
-$ # 'concession' is one of the third words from 'match_words.txt'
-$ # and second word from 'jumbled.txt'
+# 'concession' is one of the third words from 'match_words.txt'
+# and second word from 'jumbled.txt'
 $ awk ##### add your solution here
 wavering:concession/woof\retailer
 No doubt you like it too
-</code></pre><p><strong>b)</strong> Interleave contents of <code>secrets.txt</code> with the contents of a file passed via <code>-v</code> option as shown below.<pre><code class=language-bash>$ awk -v f='table.txt' ##### add your solution here
+</code></pre><p><strong>2)</strong> Interleave the contents of <code>secrets.txt</code> with the contents of a file passed via the <code>-v</code> option as shown below.<pre><code class=language-bash>$ awk -v f='table.txt' ##### add your solution here
 stag area row tick
 brown bread mat hair 42
 ---
@@ -175,7 +173,7 @@ blue cake mug shirt -7
 Bi tac toe - 42
 yellow banana window shoes 3.14
 ---
-</code></pre><p><strong>c)</strong> The file <code>search_terms.txt</code> contains one search string per line (these have no regexp metacharacters). Construct an <code>awk</code> command that reads this file and displays search terms (matched case insensitively) that were found in all of the other file arguments. Note that these terms should be matched with any part of the line, not just whole words.<pre><code class=language-bash>$ cat search_terms.txt
+</code></pre><p><strong>3)</strong> The file <code>search_terms.txt</code> contains one search string per line, and these terms have no regexp metacharacters. Construct an <code>awk</code> command that reads this file and displays the search terms (matched case insensitively) that were found in every file passed as the arguments after <code>search_terms.txt</code>. Note that these terms should be matched anywhere in the line (so, don't use word boundaries).<pre><code class=language-bash>$ cat search_terms.txt
 hello
 row
 you
@@ -186,11 +184,41 @@ $ awk ##### add your solution here
 ##file list## search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt
 at
 row
+
 $ awk ##### add your solution here
 ##file list## search_terms.txt addr.txt sample.txt
 is
 you
 hello
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=processing-multiple-records.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=dealing-with-duplicates.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=processing-multiple-records.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=dealing-with-duplicates.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre><p><strong>4)</strong> Display lines from <code>scores.csv</code> by matching the first field based on a list of names from the <code>names.txt</code> file. Also, change the output field separator to a space character.<pre><code class=language-bash>$ cat names.txt
+Lin
+Cy
+Ith
+
+$ awk ##### add your solution here
+Lin 78 83 80
+Cy 97 98 95
+Ith 100 100 100
+</code></pre><p><strong>5)</strong> What's the default value of the special variable <code>SUBSEP</code>? Where is it commonly used?<p><strong>6)</strong> The <code>result.csv</code> file has three columns — name, subject and mark. The <code>criteria.txt</code> file has two columns — name and subject. Match lines from <code>result.csv</code> based on the two columns from <code>criteria.txt</code> provided the mark column is greater than 80.<pre><code class=language-bash>$ cat result.csv
+Amy,maths,89
+Amy,physics,75
+Joe,maths,79
+John,chemistry,77
+John,physics,91
+Moe,maths,81
+Ravi,physics,84
+Ravi,chemistry,70
+Yui,maths,92
+
+$ cat criteria.txt
+Amy maths
+John chemistry
+John physics
+Ravi chemistry
+Yui maths
+
+$ awk ##### add your solution here
+Amy,maths,89
+John,physics,91
+Yui,maths,92
+</code></pre></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=processing-multiple-records.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=dealing-with-duplicates.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=processing-multiple-records.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=dealing-with-duplicates.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

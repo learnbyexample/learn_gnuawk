@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Gotchas and Tips - GNU AWK</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU AWK"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Gotchas and Tips - CLI text processing with GNU awk</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide to mastering GNU awk"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="CLI text processing with GNU awk"property=og:title><meta content=website property=og:type><meta content="Example based guide to mastering GNU awk"property=og:description><meta content=https://learnbyexample.github.io/learn_gnuawk/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_gnuawk/master/images/gawk_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,48 +10,41 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=installation-and-documentation.html><strong aria-hidden=true>2.</strong> Installation and Documentation</a><li class="chapter-item expanded"><a href=awk-introduction.html><strong aria-hidden=true>3.</strong> awk introduction</a><li class="chapter-item expanded"><a href=regular-expressions.html><strong aria-hidden=true>4.</strong> Regular Expressions</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>5.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>6.</strong> Record separators</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>7.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=using-shell-variables.html><strong aria-hidden=true>8.</strong> Using shell variables</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>9.</strong> Control Structures</a><li class="chapter-item expanded"><a href=built-in-functions.html><strong aria-hidden=true>10.</strong> Built-in functions</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>11.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>12.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>13.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>14.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=awk-scripts.html><strong aria-hidden=true>15.</strong> awk scripts</a><li class="chapter-item expanded"><a href=gotchas-and-tips.html class=active><strong aria-hidden=true>16.</strong> Gotchas and Tips</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>17.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>18.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_gnuawk>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU AWK</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_gnuawk title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=installation-and-documentation.html><strong aria-hidden=true>2.</strong> Installation and Documentation</a><li class="chapter-item expanded"><a href=awk-introduction.html><strong aria-hidden=true>3.</strong> awk introduction</a><li class="chapter-item expanded"><a href=regular-expressions.html><strong aria-hidden=true>4.</strong> Regular Expressions</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>5.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>6.</strong> Record separators</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>7.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=using-shell-variables.html><strong aria-hidden=true>8.</strong> Using shell variables</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>9.</strong> Control Structures</a><li class="chapter-item expanded"><a href=built-in-functions.html><strong aria-hidden=true>10.</strong> Built-in functions</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>11.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>12.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>13.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>14.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=awk-scripts.html><strong aria-hidden=true>15.</strong> awk scripts</a><li class="chapter-item expanded"><a class=active href=gotchas-and-tips.html><strong aria-hidden=true>16.</strong> Gotchas and Tips</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>17.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>18.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_gnuawk>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>CLI text processing with GNU awk</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_gnuawk> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=gotchas-and-tips><a class=header href=#gotchas-and-tips>Gotchas and Tips</a></h1><h2 id=prefixing--for-variables><a class=header href=#prefixing--for-variables>Prefixing $ for variables</a></h2><p>Some scripting languages like <code>bash</code> require a <code>$</code> prefix when you need the value stored in a variable. For example, if you declare <code>name='Joe'</code> you'd need <code>echo "$name"</code> to print the value. This may result in using <code>$</code> prefix and other bashisms in <code>awk</code> as well when you are a beginner. To make it a bit worse, <code>awk</code> has the <code>$N</code> syntax for accessing field contents, which could result in false comprehension that all variables need <code>$</code> prefix to access their values. See also <a href=https://unix.stackexchange.com/q/291126/109046>unix.stackexchange: Why does awk print the whole line when I want it to print a variable?</a>.<pre><code class=language-bash>$ # silently fails, $word becomes $0 because of string to numeric conversion
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=gotchas-and-tips><a class=header href=#gotchas-and-tips>Gotchas and Tips</a></h1><p>This chapter will discuss some of the often made beginner mistakes, corner cases as well as a few tricks to improve performance.<blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=prefixing--for-variables><a class=header href=#prefixing--for-variables>Prefixing $ for variables</a></h2><p>Some scripting languages like <code>bash</code> require a <code>$</code> prefix when you need the value stored in a variable. For example, if you declare <code>name='Joe'</code> you'd need <code>echo "$name"</code> to print the value. This may result in using <code>$</code> prefix and other bashisms in <code>awk</code> as well when you are a beginner. To make it a bit worse, <code>awk</code> has the <code>$N</code> syntax for accessing field contents, which could result in false comprehension that all variables need the <code>$</code> prefix to access their values. See also <a href=https://unix.stackexchange.com/q/291126/109046>unix.stackexchange: Why does awk print the whole line when I want it to print a variable?</a>.<pre><code class=language-bash># silently fails, $word becomes $0 because of string to numeric conversion
 $ awk -v word="cake" '$2==$word' table.txt
-$ # works when the variable is used correctly
+# works when the variable is used correctly
 $ awk -v word="cake" '$2==word' table.txt
 blue cake mug shirt -7
 
-$ # here 'field' gets replaced with '2' and hence $2 is printed
+# here 'field' gets replaced with '2' and hence $2 is printed
 $ awk -v field=2 '{print $field}' table.txt
 bread
 cake
 banana
-</code></pre><h2 id=dos-style-line-endings><a class=header href=#dos-style-line-endings>Dos style line endings</a></h2><p>As mentioned before, line endings differ from one platform to another. On Windows, it is typically a combination of carriage return and the newline character and referred as <strong>dos style</strong> line endings. Since <code>GNU awk</code> allows multicharacter <code>RS</code>, it is easy to handle. See <a href=https://stackoverflow.com/q/45772525/4082052>stackoverflow: Why does my tool output overwrite itself and how do I fix it?</a> for a detailed discussion and various mitigation methods.<pre><code class=language-bash>$ # no issue with unix style line ending
+</code></pre><h2 id=dos-style-line-endings><a class=header href=#dos-style-line-endings>DOS style line endings</a></h2><p>As mentioned before, line endings differ from one platform to another. On Windows, it is typically a combination of carriage return and the newline character and referred as DOS style line endings. Since <code>GNU awk</code> allows multicharacter <code>RS</code>, it is easy to handle. See <a href=https://stackoverflow.com/q/45772525/4082052>stackoverflow: Why does my tool output overwrite itself and how do I fix it?</a> for a detailed discussion and various mitigation methods.<pre><code class=language-bash># no issue with Unix style line ending
 $ printf 'mat dog\n123 789\n' | awk '{print $2, $1}'
 dog mat
 789 123
 
-$ # dos style line ending causes trouble
+# DOS style line ending causes trouble
 $ printf 'mat dog\r\n123 789\r\n' | awk '{print $2, $1}'
  mat
  123
@@ -62,90 +52,91 @@ $ printf 'mat dog\r\n123 789\r\n' | awk '{sub(/$/, ".")} 1'
 .at dog
 .23 789
 
-$ # use \r?\n if you want to handle both unix and dos style with same command
-$ # note that ORS would still be newline character only
+# use \r?\n if you want to handle both Unix and DOS style with the same command
+# and use ORS=RT to preserve the line ending style
 $ printf 'mat dog\r\n123 789\r\n' | awk -v RS='\r\n' '{print $2, $1}'
 dog mat
 789 123
 $ printf 'mat dog\r\n123 789\r\n' | awk -v RS='\r\n' '{sub(/$/, ".")} 1'
 mat dog.
 123 789.
-</code></pre><h2 id=behavior-of--and--when-string-contains-newline><a class=header href=#behavior-of--and--when-string-contains-newline>Behavior of ^ and $ when string contains newline</a></h2><p>In some regular expression implementations, <code>^</code> matches the start of a line and <code>$</code> matches the end of a line (with newline as the line separator). In <code>awk</code>, these anchors always match the start of the entire string and end of the entire string respectively. This comes into play when <code>RS</code> is other than the newline character, or if you have a string value containing newline characters.<pre><code class=language-bash>$ # 'apple\n' doesn't match as there's newline character
+</code></pre><h2 id=behavior-of--and--when-string-contains-newline><a class=header href=#behavior-of--and--when-string-contains-newline>Behavior of ^ and $ when string contains newline</a></h2><p>In some regular expression implementations, <code>^</code> matches the start of a line and <code>$</code> matches the end of a line (with newline as the line separator). In <code>awk</code>, these anchors always match the start of the entire string and end of the entire string respectively. This comes into play when <code>RS</code> is other than the newline character, or if you have a string value containing newline characters.<pre><code class=language-bash># 'apple\n' doesn't match as there's a newline character
 $ printf 'apple\n,mustard,grape,\nmango' | awk -v RS=, '/e$/'
 grape
 
-$ # '\nmango' doesn't match as there's newline character
+# '\nmango' doesn't match as there's a newline character
 $ printf 'apple\n,mustard,grape,\nmango' | awk -v RS=, '/^m/'
 mustard
-</code></pre><h2 id=word-boundary-differences><a class=header href=#word-boundary-differences>Word boundary differences</a></h2><p>The word boundary <code>\y</code> matches both start and end of word locations. Whereas, <code>\<</code> and <code>\></code> match exactly the start and end of word locations respectively. This leads to cases where you have to choose which of these word boundaries to use depending on results desired. Consider <code>I have 12, he has 2!</code> as sample text, shown below as an image with vertical bars marking the word boundaries. The last character <code>!</code> doesn't have end of word boundary as it is not a word character.<p><img src=images/word_boundary.png alt="word boundary"><pre><code class=language-bash>$ # \y matches both start and end of word boundaries
-$ # the first match here used starting boundary of 'I' and 'have'
+</code></pre><h2 id=word-boundary-differences><a class=header href=#word-boundary-differences>Word boundary differences</a></h2><p>The word boundary <code>\y</code> matches both the start and end of word locations. Whereas, <code>\<</code> and <code>\></code> will match exactly the start and end of word locations respectively. This leads to cases where you have to choose which of these word boundaries to use depending on the results desired. Consider <code>I have 12, he has 2!</code> as a sample text, shown below as an image with vertical bars marking the word boundaries. The last character <code>!</code> doesn't have the end of word boundary marker as it is not a word character.<p align=center><img alt="word boundary"src=images/word_boundary.png><pre><code class=language-bash># \y matches both the start and end of word boundaries
+# the first match here used starting boundary of 'I' and 'have'
 $ echo 'I have 12, he has 2!' | awk '{gsub(/\y..\y/, "[&]")} 1'
 [I ]have [12][, ][he] has[ 2]!
 
-$ # \< and \> only match the start and end word boundaries respectively
+# \< and \> only matches the start and end word boundaries respectively
 $ echo 'I have 12, he has 2!' | awk '{gsub(/\<..\>/, "[&]")} 1'
 I have [12], [he] has 2!
-</code></pre><p>Here's another example to show the difference between the two types of word boundaries.<pre><code class=language-bash>$ # add something to both start/end of word
+</code></pre><p>Here's another example to show the difference between the two types of word boundaries.<pre><code class=language-bash># add something to both the start/end of word
 $ echo 'hi log_42 12b' | awk '{gsub(/\y/, ":")} 1'
 :hi: :log_42: :12b:
 
-$ # add something only at start of word
+# add something only at the start of word
 $ echo 'hi log_42 12b' | awk '{gsub(/\&LT/, ":")} 1'
 :hi :log_42 :12b
 
-$ # add something only at end of word
+# add something only at the end of word
 $ echo 'hi log_42 12b' | awk '{gsub(/\>/, ":")} 1'
 hi: log_42: 12b:
-</code></pre><h2 id=relying-on-default-initial-value><a class=header href=#relying-on-default-initial-value>Relying on default initial value</a></h2><p>Uninitialized variables are useful, but sometimes they don't translate well if you are converting a command from single file input to multiple files. You have to workout which ones would need a reset at the beginning of each file being processed.<pre><code class=language-bash>$ # step 1 - works for single file
+</code></pre><h2 id=relying-on-the-default-initial-value><a class=header href=#relying-on-the-default-initial-value>Relying on the default initial value</a></h2><p>Uninitialized variables are useful, but sometimes they don't translate well if you are converting a command from single file input to multiple files. You have to workout which ones would need a reset at the beginning of each file being processed.<pre><code class=language-bash># step 1: works for single file
 $ awk '{sum += $NF} END{print sum}' table.txt
 38.14
 
-$ # step 2 - prepare code to work for multiple file
+# step 2: prepare code to work for multiple file
 $ awk '{sum += $NF} ENDFILE{print FILENAME ":" sum}' table.txt
 table.txt:38.14
 
-$ # step 3 - check with multiple file input
-$ # oops, default numerical value '0' for sum works only once
+# step 3: check with multiple file input
+# oops, default numerical value '0' for sum works only once
 $ awk '{sum += $NF} ENDFILE{print FILENAME ":" sum}' table.txt marks.txt
 table.txt:38.14
 marks.txt:530.14
 
-$ # step 4 - correctly initialize variables
+# step 4: correctly initialize variables
 $ awk '{sum += $NF} ENDFILE{print FILENAME ":" sum; sum=0}' table.txt marks.txt
 table.txt:38.14
 marks.txt:492
-</code></pre><h2 id=code-in-replacement-section><a class=header href=#code-in-replacement-section>Code in replacement section</a></h2><p>The replacement section in substitution functions can accept any expression, converted to string whenever necessary. What happens if the regexp doesn't match the input string but the expression can change the value of a variable, such as increment/decrement operators? Well, the expression is still executed, which may or may not be what you need.<pre><code class=language-bash>$ # no match for second line, but 'c' was still modified
+</code></pre><h2 id=code-in-the-replacement-section><a class=header href=#code-in-the-replacement-section>Code in the replacement section</a></h2><p>The replacement section in the substitution functions can accept any expression, which are converted to string whenever necessary. What happens if the regexp doesn't match the input string but the expression can change the value of a variable, such as increment/decrement operators? Well, the expression is still executed, which may or may not be what you need.<pre><code class=language-bash># no match for the second line, but 'c' was still modified
 $ awk '{sub(/^(br|ye)/, ++c ") &")} 1' table.txt
 1) brown bread mat hair 42
 blue cake mug shirt -7
 3) yellow banana window shoes 3.14
 
-$ # check for matching line first before applying substitution
-$ # that may help to simplify the regexp for substitution
-$ # or, you could save the regexp in a variable to avoid duplication
+# check for a match before applying the substitution
+# this may also help to simplify the regexp for substitution
+# or, you could save the regexp in a variable to avoid duplication
+# can also use: awk '/^(br|ye)/{$0 = ++c ") " $0} 1' table.txt
 $ awk '/^(br|ye)/{sub(/^/, ++c ") ")} 1' table.txt
 1) brown bread mat hair 42
 blue cake mug shirt -7
 2) yellow banana window shoes 3.14
-</code></pre><p>Also, the expression is executed only once per function call, not for every match.<pre><code class=language-bash>$ # first line has two matches but 'c' is modified only once
+</code></pre><p>Another important point to note is that the expression is executed only once per function call, not for every match.<pre><code class=language-bash># the first line has two matches but 'c' is modified only once
 $ awk '{gsub(/\&LTb/, ++c ") &")} 1' table.txt
 1) brown 1) bread mat hair 42
 2) blue cake mug shirt -7
 yellow 3) banana window shoes 3.14
-</code></pre><h2 id=forcing-numeric-context><a class=header href=#forcing-numeric-context>Forcing numeric context</a></h2><p>Use unary operator <code>+</code> to force numeric conversion. A variable might have numeric operations but still not get assigned a number if there's no input to read. So, when printing a variable that should be a number, use unary <code>+</code> to ensure it prints <code>0</code> instead of empty string.<pre><code class=language-bash>$ # numbers present in last column, no issues
+</code></pre><h2 id=forcing-numeric-context><a class=header href=#forcing-numeric-context>Forcing numeric context</a></h2><p>You can use the unary operator <code>+</code> to force numeric conversion. A variable might have numeric operations but still not get assigned a number if there's no input to read. So, when printing a variable that should be a number, use unary <code>+</code> to ensure it prints <code>0</code> instead of an empty string.<pre><code class=language-bash># numbers present in the last column, so no issues
 $ awk '{sum += $NF} END{print sum}' table.txt
 38.14
-$ # strings in first column, gets treated as 0
+# strings in the first column, gets treated as 0
 $ awk '{sum += $1} END{print sum}' table.txt
 0
 
-$ # no input at all, empty string is printed
+# no input at all, an empty string is printed
 $ awk '{sum += $1} END{print sum}' /dev/null
 
-$ # forced conversion to number, so that 0 is printed
+# forced conversion to number, 0 is printed
 $ awk '{sum += $1} END{print +sum}' /dev/null
 0
-</code></pre><p>The <code>-N</code> option (or <code>--use-lc-numeric</code>) is useful to work with floating-point numbers based on the current locale.<pre><code class=language-bash>$ # my locale uses . for decimal point
+</code></pre><h2 id=locale-based-numbers><a class=header href=#locale-based-numbers>Locale based numbers</a></h2><p>The <code>-N</code> option (or <code>--use-lc-numeric</code>) is useful to work with floating-point numbers based on the current locale.<pre><code class=language-bash># my locale uses . for the decimal point
 $ echo '3.14' | awk '{$0++} 1'
 4.14
 
@@ -153,70 +144,68 @@ $ echo '3,14' | awk '{$0++} 1'
 4
 $ echo '3,14' | LC_NUMERIC=de_DE awk -N '{$0++} 1'
 4,14
-</code></pre><h2 id=forcing-string-context><a class=header href=#forcing-string-context>Forcing string context</a></h2><p>Concatenate empty string to force string comparison.<pre><code class=language-bash>$ # parentheses around first argument to print used for clarity
-$ # fields get compared as numbers here
+</code></pre><h2 id=forcing-string-context><a class=header href=#forcing-string-context>Forcing string context</a></h2><p>Concatenate an empty string to force string comparison.<pre><code class=language-bash># parentheses around the first argument to print used for clarity
+# fields get compared as numbers here
 $ echo '5 5.0' | awk '{print ($1==$2 ? "same" : "different"), "number"}'
 same number
 
-$ # fields get compared as strings here
+# fields get compared as strings here
 $ echo '5 5.0' | awk '{print ($1""==$2 ? "same" : "different"), "string"}'
 different string
-</code></pre><h2 id=negative-nf><a class=header href=#negative-nf>Negative NF</a></h2><p>Manipulating <code>NF</code> sometimes leads to a negative value. Fortunately, <code>awk</code> throws an error instead of behaving like uninitialized variable.<pre><code class=language-bash>$ # file with different number of fields
+</code></pre><h2 id=negative-nf><a class=header href=#negative-nf>Negative NF</a></h2><p>Manipulating <code>NF</code> sometimes leads to a negative value. Fortunately, <code>awk</code> throws an error instead of failing silently.<pre><code class=language-bash># example file with different number of fields
 $ cat varying.txt
 parrot
 good cool awesome
 blue sky
 12 34 56 78 90
 
-$ # delete last two fields
+# delete the last two fields
 $ awk '{NF -= 2} 1' varying.txt
 awk: cmd. line:1: (FILENAME=varying.txt FNR=1) fatal: NF set to negative value
 
-$ # add a condition to check number of fields
-$ # assuming that lines with less than 3 fields should be preserved
+# add a condition to check the number of fields
+# assumes that lines with less than 3 fields shouldn't be modified
 $ awk 'NF>2{NF -= 2} 1' varying.txt
 parrot
 good
 blue sky
 12 34 56
-</code></pre><p>Here's another example, which needs to access third field from the end.<pre><code class=language-bash>$ awk '{print $(NF-2)}' varying.txt
+</code></pre><p>Here's another example. Goal is to access the third field from the end.<pre><code class=language-bash>$ awk '{print $(NF-2)}' varying.txt
 awk: cmd. line:1: (FILENAME=varying.txt FNR=1) fatal: attempt to access field -1
 
-$ # print only if there are minimum 3 fields
+# print only if there are minimum 3 fields
 $ awk 'NF>2{print $(NF-2)}' varying.txt
 good
 56
-</code></pre><h2 id=faster-execution><a class=header href=#faster-execution>Faster execution</a></h2><p>Changing locale to ASCII (assuming current locale is not ASCII and the input file has only ASCII characters) can give significant speed boost. Using <code>mawk</code> is another way to speed up execution, provided you are not using <code>GNU awk</code> specific features. Among other feature differences, <code>mawk</code> doesn't support <code>{}</code> form of quantifiers, see <a href=https://unix.stackexchange.com/q/506119/109046>unix.stackexchange: How to specify regex quantifiers with mawk?</a> for details. See also <a href=https://en.wikipedia.org/wiki/AWK_programming_language#Versions_and_implementations>wikipedia: awk Versions and implementations</a>.<pre><code class=language-bash>$ # time shown is best result from multiple runs
-$ # speed benefit will vary depending on computing resources, input, etc
-$ # /usr/share/dict/words contains dictionary words, one word per line
-$ time awk '/^([a-d][r-z]){3}$/' /usr/share/dict/words > f1
+</code></pre><h2 id=faster-execution><a class=header href=#faster-execution>Faster execution</a></h2><p>Changing the locale to ASCII (assuming that the default is not ASCII) can give a significant speed boost. Using <code>mawk</code> is another way to speed up the execution, provided you are not using <code>GNU awk</code> specific features. There are many feature differences, for example, <code>mawk</code> doesn't support the <code>{}</code> form of quantifiers (see <a href=https://unix.stackexchange.com/q/506119/109046>unix.stackexchange: How to specify regex quantifiers with mawk?</a> for details). See also <a href=https://en.wikipedia.org/wiki/AWK_programming_language#Versions_and_implementations>wikipedia: awk Versions and implementations</a>.<pre><code class=language-bash># time shown is the best result from multiple runs
+# speed benefit will vary depending on computing resources, input, etc
+# words.txt contains dictionary words, one word per line
+$ time awk '/^([a-d][r-z]){3}$/' words.txt > f1
 real    0m0.029s
 
-$ time LC_ALL=C awk '/^([a-d][r-z]){3}$/' /usr/share/dict/words > f2
-real    0m0.022s
+$ time LC_ALL=C awk '/^([a-d][r-z]){3}$/' words.txt > f2
+real    0m0.017s
 
-$ time mawk '/^[a-d][r-z][a-d][r-z][a-d][r-z]$/' /usr/share/dict/words > f3
+$ time mawk '/^[a-d][r-z][a-d][r-z][a-d][r-z]$/' words.txt > f3
 real    0m0.009s
 
-$ # check that the results are same
+# check that the results are the same
 $ diff -s f1 f2
 Files f1 and f2 are identical
 $ diff -s f2 f3
 Files f2 and f3 are identical
-$ # clean up temporary files
+# clean up temporary files
 $ rm f[123]
-</code></pre><p>Here's another example.<pre><code class=language-bash>$ # count words containing exactly 3 lowercase 'a'
-$ time awk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
-1102
-real    0m0.034s
+</code></pre><p>Here's another example.<pre><code class=language-bash># count words containing exactly 3 lowercase 'a' characters
+$ time awk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
+1019
+real    0m0.032s
 
-$ time LC_ALL=C awk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
-1102
-real    0m0.023s
+$ time LC_ALL=C awk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
+1019
+real    0m0.021s
 
-$ time mawk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
-1102
+$ time mawk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
+1019
 real    0m0.014s
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=awk-scripts.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=further-reading.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=awk-scripts.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=further-reading.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See also <a href=https://github.com/ezrosent/frawk>frawk</a>, an efficient awk-like language implemented in Rust. And <a href=https://github.com/koraa/huniq>huniq</a>, a faster alternative for removing line based duplicates.</blockquote></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=awk-scripts.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=further-reading.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=awk-scripts.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=further-reading.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

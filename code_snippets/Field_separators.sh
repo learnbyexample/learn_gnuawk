@@ -66,7 +66,7 @@ echo '   a   b   c   ' | awk -F' ' '{print NF}'
 
 echo '   a   b   c   ' | awk -F'[ ]' '{print NF}'
 
-echo 'RECONSTRUCTED' | awk -F'[aeiou]+' -v IGNORECASE=1 '{print $1}'
+echo 'RECONSTRUCTED' | awk -F'[aeiou]+' -v IGNORECASE=1 '{print $NF}'
 
 echo 'RECONSTRUCTED' | awk -F'e' -v IGNORECASE=1 '{print $1}'
 
@@ -92,6 +92,12 @@ echo 'Sample123string42with777numbers' | awk -F'[0-9]+' -v OFS=, '1'
 
 echo 'Sample123string42with777numbers' | awk -F'[0-9]+' -v OFS=, '{$1=$1} 1'
 
+echo -v{,O}FS=:
+
+echo 'goal:amazing:whistle:kwality' | awk -v{,O}FS=: '{$2 = 42} 1'
+
+echo 'goal:amazing:whistle:kwality' | awk '{$2 = 42} 1' {,O}FS=:
+
 ## Manipulating NF
 
 echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=, '{NF=2} 1'
@@ -108,7 +114,13 @@ s='Sample123string42with777numbers'
 
 echo "$s" | awk -v FPAT='[0-9]+' '{print $2}'
 
-echo "$s" | awk -v FPAT='[a-zA-Z]+' -v OFS=, '{$1=$1} 1'
+s='coat Bin food tar12 best Apple fig_42'
+
+echo "$s" | awk -v FPAT='\\<[a-z0-9]+\\>' -v OFS=, '{$1=$1} 1'
+
+s='items: "apple" and "mango"'
+
+echo "$s" | awk -v FPAT='"[^"]+"' '{print $1}'
 
 s='eagle,"fox,42",bee,frog'
 

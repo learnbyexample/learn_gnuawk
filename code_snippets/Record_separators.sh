@@ -1,8 +1,8 @@
 ## Input record separator
 
-printf 'this,is\na,sample' | awk -v RS=, '{print NR ")", $0}'
+printf 'this,is\na,sample,text' | awk -v RS=, '{print NR ")", $0}'
 
-s='   a\t\tb:1000\n\n\n\n123 7777:x  y \n \n z  '
+s='   a\t\tb:1000\n\n\t \n\n123 7777:x  y \n \n z  :apple banana cherry'
 
 printf '%b' "$s" | awk -v RS=: -v OFS=, '{$1=$1} 1'
 
@@ -18,7 +18,7 @@ awk -v IGNORECASE=1 -v RS='[e]' 'NR==1' report.log
 
 ## Output record separator
 
-printf 'foo\0bar\0' | awk -v RS='\0' -v ORS='.\n' '1'
+printf 'apple\0banana\0cherry\0' | awk -v RS='\0' -v ORS='.\n' '1'
 
 cat msg.txt
 
@@ -44,11 +44,11 @@ echo 'Sample123string42with777numbers' | awk -v RS='[0-9]+' '{print NR, RT}'
 
 ## Paragraph mode
 
-cat programming_quotes.txt
+cat para.txt
 
-awk -v RS= -v ORS='\n\n' '/you/' programming_quotes.txt
+awk -v RS= -v ORS='\n\n' '/do/' para.txt
 
-awk -v RS= '/you/{print s $0; s="\n"}' programming_quotes.txt
+awk -v RS= '/do/{print s $0; s="\n"}' para.txt
 
 s='\n\n\na\nb\n\n12\n34\n\nhi\nhello\n'
 
@@ -66,7 +66,7 @@ s='a:b\nc:d\n\n1\n2\n3'
 
 printf '%b' "$s" | awk -F: -v RS= -v ORS='\n---\n' '{$1=$1} 1'
 
-printf '%b' "$s" | awk -F':+' -v RS= -v ORS='\n---\n' '{$1=$1} 1'
+printf '%b' "$s" | awk -F'[:]' -v RS= -v ORS='\n---\n' '{$1=$1} 1'
 
 printf '%b' "$s" | awk -F: -v RS='\n\n+' -v ORS='\n---\n' '{$1=$1} 1'
 

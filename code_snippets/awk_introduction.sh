@@ -10,6 +10,8 @@ printf 'gate\napple\nwhat\nkite\n' | awk '$0 ~ /at/{print $0}'
 
 printf 'gate\napple\nwhat\nkite\n' | awk '$0 !~ /e/{print $0}'
 
+## Idiomatic use of 1
+
 printf 'gate\napple\nwhat\nkite\n' | awk '1'
 
 ## Substitution

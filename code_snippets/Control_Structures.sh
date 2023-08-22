@@ -28,7 +28,7 @@ echo 'titillate' | awk '{do{print} while(gsub(/til/, ""))}'
 
 ## next
 
-awk '/\<par/{print "%% " $0; next} {print /s/ ? "X" : "Y"}' word_anchors.txt
+awk '/\<par/{print "%% " $0; next} {print /s/ ? "X" : "Y"}' anchors.txt
 
 ## exit
 
@@ -36,7 +36,7 @@ seq 3542 4623452 | awk 'NR==2452{print; exit}'
 
 echo $?
 
-awk '/^br/{print "Invalid input"; exit 1}' table.txt
+awk '/^br/{print "invalid data"; exit 1}' table.txt
 
 echo $?
 

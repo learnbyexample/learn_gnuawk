@@ -2,3 +2,4 @@ rose lily jasmine tulip
 pink blue white yellow
 car,mat,ball,basket
 green,brown,black,purple
+apple,banana,cherry

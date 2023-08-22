@@ -1,10 +1,10 @@
 ## Processing consecutive records
 
-awk 'p ~ /as/ && /not/{print p ORS $0} {p=$0}' programming_quotes.txt
+awk 'p ~ /he/ && /you/{print p ORS $0} {p=$0}' para.txt
 
-awk 'p ~ /as/ && /not/{print p} {p=$0}' programming_quotes.txt
+awk 'p ~ /he/ && /you/{print p} {p=$0}' para.txt
 
-awk 'p ~ /as/ && /not/; {p=$0}' programming_quotes.txt
+awk 'p ~ /he/ && /you/; {p=$0}' para.txt
 
 ## Context matching
 

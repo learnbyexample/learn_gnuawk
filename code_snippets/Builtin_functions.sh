@@ -74,17 +74,17 @@ echo 'abcdefghij' | awk -v FS= '{print $3, $5}'
 
 ## match
 
-s='051 035 154 12 26 98234'
+s='051 035 154 12 26 98234 3'
 
 echo "$s" | awk 'match($0, /[0-9]{4,}/){print substr($0, RSTART, RLENGTH)}'
 
 echo "$s" | awk 'match($0, /0*[1-9][0-9]{2,}/, m){print m[0]}'
 
-echo 'foo=42, baz=314' | awk 'match($0, /baz=([0-9]+)/, m){print m[0]}'
+echo 'apple=42, fig=314' | awk 'match($0, /fig=([0-9]+)/, m){print m[0]}'
 
-echo 'foo=42, baz=314' | awk 'match($0, /baz=([0-9]+)/, m){print m[1]}'
+echo 'apple=42, fig=314' | awk 'match($0, /fig=([0-9]+)/, m){print m[1]}'
 
-s='42 foo-5, baz3; x-83, y-20: f12'
+s='42 apple-5, fig3; x-83, y-20: f12'
 
 echo "$s" | awk '{ while( match($0, /([0-9]+),/, m) ){print m[1];
                  $0=substr($0, RSTART+RLENGTH)} }'

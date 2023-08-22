@@ -6,7 +6,7 @@ awk -v word="cake" '$2==word' table.txt
 
 awk -v field=2 '{print $field}' table.txt
 
-## Dos style line endings
+## DOS style line endings
 
 printf 'mat dog\n123 789\n' | awk '{print $2, $1}'
 
@@ -36,7 +36,7 @@ echo 'hi log_42 12b' | awk '{gsub(/\</, ":")} 1'
 
 echo 'hi log_42 12b' | awk '{gsub(/\>/, ":")} 1'
 
-## Relying on default initial value
+## Relying on the default initial value
 
 awk '{sum += $NF} END{print sum}' table.txt
 
@@ -46,7 +46,7 @@ awk '{sum += $NF} ENDFILE{print FILENAME ":" sum}' table.txt marks.txt
 
 awk '{sum += $NF} ENDFILE{print FILENAME ":" sum; sum=0}' table.txt marks.txt
 
-## Code in replacement section
+## Code in the replacement section
 
 awk '{sub(/^(br|ye)/, ++c ") &")} 1' table.txt
 
@@ -63,6 +63,8 @@ awk '{sum += $1} END{print sum}' table.txt
 awk '{sum += $1} END{print sum}' /dev/null
 
 awk '{sum += $1} END{print +sum}' /dev/null
+
+## Locale based numbers
 
 echo '3.14' | awk '{$0++} 1'
 
@@ -90,11 +92,11 @@ awk 'NF>2{print $(NF-2)}' varying.txt
 
 ## Faster execution
 
-time awk '/^([a-d][r-z]){3}$/' /usr/share/dict/words > f1
+time awk '/^([a-d][r-z]){3}$/' words.txt > f1
 
-time LC_ALL=C awk '/^([a-d][r-z]){3}$/' /usr/share/dict/words > f2
+time LC_ALL=C awk '/^([a-d][r-z]){3}$/' words.txt > f2
 
-time mawk '/^[a-d][r-z][a-d][r-z][a-d][r-z]$/' /usr/share/dict/words > f3
+time mawk '/^[a-d][r-z][a-d][r-z][a-d][r-z]$/' words.txt > f3
 
 diff -s f1 f2
 
@@ -102,9 +104,9 @@ diff -s f2 f3
 
 rm f[123]
 
-time awk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
+time awk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
 
-time LC_ALL=C awk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
+time LC_ALL=C awk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
 
-time mawk -F'a' 'NF==4{cnt++} END{print +cnt}' /usr/share/dict/words
+time mawk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
 

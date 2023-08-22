@@ -1,14 +1,18 @@
 ## Comparing records
 
-cat color_list1.txt
+cat colors_1.txt
 
-cat color_list2.txt
+cat colors_2.txt
 
-awk 'NR==FNR{a[$0]; next} $0 in a' color_list1.txt color_list2.txt
+awk 'NR==FNR{a[$0]; next} $0 in a' colors_1.txt colors_2.txt
 
-awk 'NR==FNR{a[$0]; next} !($0 in a)' color_list1.txt color_list2.txt
+awk 'NR==FNR{a[$0]; next} !($0 in a)' colors_1.txt colors_2.txt
 
-awk 'NR==FNR{a[$0]; next} !($0 in a)' color_list2.txt color_list1.txt
+awk 'NR==FNR{a[$0]; next} !($0 in a)' colors_2.txt colors_1.txt
+
+awk 'NR==FNR{a[$0]; next} !($0 in a)' /dev/null greeting.txt
+
+awk '!f{a[$0]; next} !($0 in a)' /dev/null f=1 greeting.txt
 
 ## Comparing fields
 

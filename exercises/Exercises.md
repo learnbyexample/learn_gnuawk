@@ -1,12 +1,12 @@
 # Exercises
 
->![info](../images/info.svg) Exercise related files are available from [exercises folder of learn_gnuawk repo](https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises). For solutions, see [Exercise_solutions.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercise_solutions.md).
+>![info](../images/info.svg) For solutions, see [Exercise_solutions.md](https://github.com/learnbyexample/learn_gnuawk/blob/master/exercises/Exercise_solutions.md).
 
 <br>
 
 # awk introduction
 
-**a)** For the input file `addr.txt`, display all lines containing `is`.
+**1)** For the input file `addr.txt`, display all lines containing `is`.
 
 ```bash
 $ cat addr.txt
@@ -22,7 +22,7 @@ This game is good
 Today is sunny
 ```
 
-**b)** For the input file `addr.txt`, display first field of lines *not* containing `y`. Consider space as the field separator for this file.
+**2)** For the input file `addr.txt`, display the first field of lines *not* containing `y`. Consider space as the field separator for this file.
 
 ```bash
 $ awk ##### add your solution here
@@ -31,7 +31,7 @@ This
 12345
 ```
 
-**c)** For the input file `addr.txt`, display all lines containing no more than 2 fields.
+**3)** For the input file `addr.txt`, display all lines containing no more than 2 fields.
 
 ```bash
 $ awk ##### add your solution here
@@ -39,14 +39,14 @@ Hello World
 12345
 ```
 
-**d)** For the input file `addr.txt`, display all lines containing `is` in the second field.
+**4)** For the input file `addr.txt`, display all lines containing `is` in the second field.
 
 ```bash
 $ awk ##### add your solution here
 Today is sunny
 ```
 
-**e)** For each line of the input file `addr.txt`, replace first occurrence of `o` with `0`.
+**5)** For each line of the input file `addr.txt`, replace the first occurrence of `o` with `0`.
 
 ```bash
 $ awk ##### add your solution here
@@ -58,7 +58,7 @@ T0day is sunny
 Y0u are funny
 ```
 
-**f)** For the input file `table.txt`, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.
+**6)** For the input file `table.txt`, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.
 
 ```bash
 $ cat table.txt
@@ -70,7 +70,7 @@ $ awk ##### add your solution here
 -923.16
 ```
 
-**g)** Append `.` to all the input lines for the given `stdin` data.
+**7)** Append `.` to all the input lines for the given stdin data.
 
 ```bash
 $ printf 'last\nappend\nstop\ntail\n' | awk ##### add your solution here
@@ -80,53 +80,72 @@ stop.
 tail.
 ```
 
+**8)** Replace all occurrences of `0xA0` with `0x50` and `0xFF` with `0x7F` for the given input file.
+
+```bash
+$ cat hex.txt
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+
+$ awk ##### add your solution here
+start address: 0x50, func1 address: 0x50
+end address: 0x7F, func2 address: 0xB0
+```
+
 <br>
 
 # Regular Expressions
 
-**a)** For the given input, print all lines that start with `den` or end with `ly`.
+**1)** For the input file `patterns.txt`, display all lines that start with `den` or end with `ly`.
 
 ```bash
-$ lines='lovely\n1 dentist\n2 lonely\neden\nfly away\ndent\n'
-$ printf '%b' "$lines" | awk ##### add your solution here
-lovely
+$ awk ##### add your solution here
 2 lonely
 dent
+lovely
 ```
 
-**b)** Replace all occurrences of `42` with `[42]` unless it is at the edge of a word. Note that **word** in these exercises have same meaning as defined in regular expressions.
+**2)** For the input file `patterns.txt`, replace all occurrences of `42` with `[42]` unless it is at the edge of a word. Display only the modified lines.
 
 ```bash
-$ echo 'hi42bye nice421423 bad42 cool_42a 42c' | awk ##### add your solution here
-hi[42]bye nice[42]1[42]3 bad42 cool_[42]a 42c
+$ awk ##### add your solution here
+Hi[42]Bye nice1[42]3 bad42
+eqn2 = pressure*3+42/5-1[42]56
+cool_[42]a 42fake
+_[42]_
 ```
 
-**c)** Add `[]` around words starting with `s` and containing `e` and `t` in any order.
+**3)** For the input file `patterns.txt`, add `[]` around words starting with `s` and containing `e` and `t` in any order. Display only the modified lines.
 
 ```bash
-$ words='sequoia subtle exhibit asset sets tests site'
-$ echo "$words" | awk ##### add your solution here
-sequoia [subtle] exhibit asset [sets] tests [site]
+$ awk ##### add your solution here
+[sets] tests Sauerkraut
+[site] cite kite bite [store_2]
+[subtle] sequoia
+a [set]
 ```
 
-**d)** Replace the space character that occurs after a word ending with `a` or `r` with a newline character.
+**4)** For the input file `patterns.txt`, replace the space character that occurs after a word ending with `a` or `r` with a newline character, only if the line also contains an uppercase letter. Display only the modified lines. For example, `A car park` should get converted to `A car` and `park` separated by a newline. But `car far tar` shouldn't be matched as there's no uppercase letter in this line.
 
 ```bash
-$ echo 'area not a _a2_ roar took 22' | awk ##### add your solution here
-area
-not a
-_a2_ roar
-took 22
+$ awk ##### add your solution here
+par
+car
+tar
+far
+Cart
+Not a
+pip DOWN
 ```
 
-**e)** Replace all occurrences of `[4]|*` with `2` for the given input.
+**5)** For the input file `patterns.txt`, replace all occurrences of `*[5]` with `2`. Display only the modified lines.
 
 ```bash
-$ echo '2.3/[4]|*6 foo 5.3-[4]|*9' | awk ##### add your solution here
-2.3/26 foo 5.3-29
+$ awk ##### add your solution here
+(9-2)2
 ```
 
-**f)** `awk '/\<[a-z](on|no)[a-z]\>/'` is same as `awk '/\<[a-z][on]{2}[a-z]\>/'`. True or False? Sample input shown below might help to understand the differences, if any.
+**6)** `awk '/\<[a-z](on|no)[a-z]\>/'` is same as `awk '/\<[a-z][on]{2}[a-z]\>/'`. True or False? Sample input shown below might help to understand the differences, if any.
 
 ```bash
 $ printf 'known\nmood\nknow\npony\ninns\n'
@@ -137,75 +156,79 @@ pony
 inns
 ```
 
-**g)** Print all lines that start with `hand` and ends with `s` or `y` or `le` or no further character. For example, `handed` shouldn't be printed even though it starts with `hand`.
+**7)** For the input file `patterns.txt`, display all lines starting with `hand` and ending immediately with `s` or `y` or `le` or no further characters. For example, `handed` shouldn't be matched even though it starts with `hand`.
 
 ```bash
-$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\n'
-$ printf '%b' "$lines" | awk ##### add your solution here
-hand
+$ awk ##### add your solution here
+handle
 handy
 hands
-handle
+hand
 ```
 
-**h)** Replace `42//5` or `42/5` with `8` for the given input.
+**8)** For the input file `patterns.txt`, replace `42//5` or `42/5` with `8`. Display only the modified lines.
 
 ```bash
-$ echo 'a+42//5-c pressure*3+42/5-14256' | awk ##### add your solution here
-a+8-c pressure*3+8-14256
+$ awk ##### add your solution here
+eqn3 = r*42-5/3+42///5-83+a
+eqn1 = a+8-c
+eqn2 = pressure*3+8-14256
 ```
 
-**i)** For the given quantifiers, what would be the equivalent form using `{m,n}` representation?
+**9)** For the given quantifiers, what would be the equivalent form using the `{m,n}` representation?
 
 * `?` is same as
 * `*` is same as
 * `+` is same as
 
-**j)** True or False? `(a*|b*)` is same as `(a|b)*` 
+**10)** True or False? `(a*|b*)` is same as `(a|b)*` 
 
-**k)** For the given input, construct two different regexps to get the outputs as shown below.
+**11)** For the input file `patterns.txt`, construct two different regexps to get the outputs as shown below. Display only the modified lines.
 
 ```bash
-$ # delete from '(' till next ')'
-$ echo 'a/b(division) + c%d() - (a#(b)2(' | awk ##### add your solution here
-a/b + c%d - 2(
+# delete from '(' till the next ')'
+$ awk ##### add your solution here
+a/b + c%d
+*[5]
+def factorial
+12- *4)
+Hi there. Nice day
 
-$ # delete from '(' till next ')' but not if there is '(' in between
-$ echo 'a/b(division) + c%d() - (a#(b)2(' | awk ##### add your solution here
-a/b + c%d - (a#2(
+# delete from '(' till the next ')' but not if there is '(' in between
+$ awk ##### add your solution here
+a/b + c%d
+*[5]
+def factorial
+12- (e+*4)
+Hi there. Nice day(a
 ```
 
-**l)** For the input file `anchors.txt`, convert **markdown** anchors to corresponding **hyperlinks**.
+**12)** For the input file `anchors.txt`, convert markdown anchors to corresponding hyperlinks as shown below.
 
 ```bash
 $ cat anchors.txt
 # <a name="regular-expressions"></a>Regular Expressions
 ## <a name="subexpression-calls"></a>Subexpression calls
+## <a name="the-dot-meta-character"></a>The dot meta character
 
 $ awk ##### add your solution here
 [Regular Expressions](#regular-expressions)
 [Subexpression calls](#subexpression-calls)
+[The dot meta character](#the-dot-meta-character)
 ```
 
-**m)** Display all lines that satisfies **both** of these conditions:
+**13)** Display lines from `sample.txt` that satisfy both of these conditions:
 
-* `professor` matched irrespective of case
-* `quip` or `this` matched case sensitively
-
-Input is a file downloaded from internet as shown below.
+* `to` or `he` matched irrespective of case
+* `World` or `No` matched case sensitively
 
 ```bash
-$ wget https://www.gutenberg.org/files/345/345.txt -O dracula.txt
-
 $ awk ##### add your solution here
-equipment of a professor of the healing craft. When we were shown in,
-should be. I could see that the Professor had carried out in this room,
-"Not up to this moment, Professor," she said impulsively, "but up to
-and sprang at us. But by this time the Professor had gained his feet,
-this time the Professor had to ask her questions, and to ask them pretty
+Hello World
+No doubt you like it too
 ```
 
-**n)** Given sample strings have fields separated by `,` and field values cannot be empty. Replace the third field with `42`.
+**14)** Given sample strings have fields separated by `,` and field values cannot be empty. Replace the third field with `42`.
 
 ```bash
 $ echo 'lion,ant,road,neon' | awk ##### add your solution here
@@ -215,17 +238,15 @@ $ echo '_;3%,.,=-=,:' | awk ##### add your solution here
 _;3%,.,42,:
 ```
 
-**o)** For the given strings, replace last but third `so` with `X`. Only print the lines which are changed by the substitution.
+**15)** For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar` and replace the last but second `ar` with `X`.
 
 ```bash
-$ printf 'so and so also sow and soup' | awk ##### add your solution here
-so and X also sow and soup
-
-$ printf 'sososososososo\nso and so\n' | awk ##### add your solution here
-sososoXsososo
+$ awk ##### add your solution here
+par car tX far Cart
+pXt cart mart
 ```
 
-**p)** Surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them. Can you do it with single substitution?
+**16)** Surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them.
 
 ```bash
 $ words='tiger imp goat eagle ant important'
@@ -233,11 +254,97 @@ $ echo "$words" | awk ##### add your solution here
 (tiger) () (goat) (eagle) () (important)
 ```
 
+**17)** For the input file `patterns.txt`, display lines containing `car` but not as a whole word. For example, `scared-cat` and `car care` should match but not `far car park`.
+
+```bash
+$ awk ##### add your solution here
+scar
+care
+a huge discarded pile of books
+scare
+part cart mart
+```
+
+**18)** Will the pattern `^a\w+([0-9]+:fig)?` match the same characters for the input `apple42:banana314` and `apple42:fig100`? If not, why not?
+
+**19)** For the input file `patterns.txt`, display lines starting with `4` or `-` or `u` or `sub` or `care`.
+
+```bash
+$ awk ##### add your solution here
+care
+4*5]
+-handy
+subtle sequoia
+unhand
+```
+
+**20)** Replace sequences made up of words separated by `:` or `.` by the first word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.
+
+```bash
+$ ip='wow:Good:2_two.five: hi-2 bye kite.777:water.'
+$ echo "$ip" | awk ##### add your solution here
+wow hi-2 bye kite
+```
+
+**21)** Replace sequences made up of words separated by `:` or `.` by the last word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.
+
+```bash
+$ ip='wow:Good:2_two.five: hi-2 bye kite.777:water.'
+$ echo "$ip" | awk ##### add your solution here
+five hi-2 bye water
+```
+
+**22)** Replace all whole words with `X` unless it is preceded by a `(` character.
+
+```bash
+$ s='guava (apple) berry) apple (mango) (grape'
+$ echo "$s" | awk ##### add your solution here
+X (apple) X) X (mango) (grape
+```
+
+**23)** Surround whole words with `[]` only if they are followed by `:` or `,` or `-`.
+
+```bash
+$ ip='Poke,on=-=so_good:ink.to/is(vast)ever2-sit'
+$ echo "$ip" | awk ##### add your solution here
+[Poke],on=-=[so_good]:ink.to/is(vast)[ever2]-sit
+```
+
+**24)** The `fields.txt` file has fields separated by the `:` character. Delete `:` and the last field if there is a digit character anywhere before the last field.
+
+```bash
+$ cat fields.txt
+42:cat
+twelve:a2b
+we:be:he:0:a:b:bother
+apple:banana-42:cherry:
+dragon:unicorn:centaur
+
+$ awk ##### add your solution here
+42
+twelve:a2b
+we:be:he:0:a:b
+apple:banana-42:cherry
+dragon:unicorn:centaur
+```
+
+**25)** Can you use a character other than `/` as the regexp delimiter? If not, are there ways to construct a regexp that do not require the `/` character to be escaped for literal matching?
+
+**26)** For the input file `patterns.txt`, surround all hexadecimal sequences with a minimum of four characters with `[]`. Match `0x` as an optional prefix, but shouldn't be counted for determining the length. Match the characters case insensitively, and the sequences shouldn't be surrounded by other word characters. Display only the modified lines.
+
+```bash
+$ awk ##### add your solution here
+"should not match [0XdeadBEEF]"
+Hi42Bye nice1423 [bad42]
+took 0xbad 22 [0x0ff1ce]
+eqn2 = pressure*3+42/5-[14256]
+```
+
 <br>
 
 # Field separators
 
-**a)** Extract only the contents between `()` or `)(` from each input line. Assume that `()` characters will be present only once every line.
+**1)** For the input file `brackets.txt`, extract only the contents between `()` or `)(` from each input line. Assume that `()` characters will be present only once every line.
 
 ```bash
 $ cat brackets.txt
@@ -251,7 +358,7 @@ almond-pista
 yoyo
 ```
 
-**b)** For the input file `scores.csv`, extract `Name` and `Physics` fields in the format shown below.
+**2)** For the input file `scores.csv`, extract `Name` and `Physics` fields in the format shown below.
 
 ```bash
 $ cat scores.csv
@@ -273,7 +380,7 @@ Ort:72
 Ith:100
 ```
 
-**c)** For the input file `scores.csv`, display names of those who've scored above `70` in Maths.
+**3)** For the input file `scores.csv`, display names of those who've scored above `70` in Maths.
 
 ```bash
 $ awk ##### add your solution here
@@ -282,7 +389,7 @@ Cy
 Ith
 ```
 
-**d)** Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with `gsub` and one without substitution functions?
+**4)** Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with `gsub` and one without substitution functions?
 
 ```bash
 $ echo 'hi there' | awk ##### add your solution here
@@ -292,27 +399,31 @@ $ echo 'u-no;co%."(do_12:as' | awk ##### add your solution here
 12
 ```
 
-**e)** Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions or string concatenation.
+**5)** For the input file `quoted.txt`, extract the first and third sequence of characters surrounded by double quotes and display them in the format shown below. Solution shouldn't use substitution functions.
 
 ```bash
-$ echo '1 "grape" and "mango" and "guava"' | awk ##### add your solution here
-"grape","guava"
+$ cat quoted.txt
+1 "grape" and "mango" and "guava"
+("a 1""b""c-2""d")
 
-$ echo '("a 1""b""c-2""d")' | awk ##### add your solution here
+$ awk ##### add your solution here
+"grape","guava"
 "a 1","c-2"
 ```
 
-**f)** Construct a solution that works for both the given sample inputs and the corresponding output shown. Solution shouldn't use substitution functions. Can you do it without explicitly using `print` function as well?
+**6)** For the input file `varying_fields.txt`, construct a solution to get the output shown below. Solution shouldn't use substitution functions.
 
 ```bash
-$ echo 'hi,bye,there,was,here,to' | awk ##### add your solution here
-hi,bye,to
+$ cat varying_fields.txt
+hi,bye,there,was,here,to
+1,2,3,4,5
 
-$ echo '1,2,3,4,5' | awk ##### add your solution here
+$ awk ##### add your solution here
+hi,bye,to
 1,2,5
 ```
 
-**g)** Transform the given input file `fw.txt` to get the output as shown below. If a field is empty (i.e. contains only space characters), replace it with `NA`.
+**7)** Transform the given input file `fw.txt` to get the output as shown below. If a field is empty (i.e. contains only space characters), replace it with `NA`.
 
 ```bash
 $ cat fw.txt
@@ -328,7 +439,7 @@ $ awk ##### add your solution here
 4.2,kt,45.1
 ```
 
-**h)** Display only the third and fifth characters from each line input line as shown below.
+**8)** Display only the third and fifth characters from each input line as shown below.
 
 ```bash
 $ printf 'restore\ncat one\ncricket' | awk ##### add your solution here
@@ -337,11 +448,72 @@ to
 ik
 ```
 
+**9)** The `fields.txt` file has fields separated by the `:` character. Delete `:` and the last field if there is a digit character anywhere before the last field. Solution shouldn't use substitution functions.
+
+```bash
+$ cat fields.txt
+42:cat
+twelve:a2b
+we:be:he:0:a:b:bother
+apple:banana-42:cherry:
+dragon:unicorn:centaur
+
+$ awk ##### add your solution here
+42
+twelve:a2b
+we:be:he:0:a:b
+apple:banana-42:cherry
+dragon:unicorn:centaur
+```
+
+**10)** Retain only the first three fields for the given sample string that uses `^` as the input field separator. Use `,` as the output field separator.
+
+```bash
+$ echo 'sit^eat^very^eerie^near' | awk ##### add your solution here
+sit,eat,very
+```
+
+**11)** The sample string shown below uses `cat` as the field separator (irrespective of case). Use space as the output field separator and add `42` as the last field.
+
+```bash
+$ s='applecatfigCaT12345cAtbanana'
+$ echo "$s" | awk ##### add your solution here
+apple fig 12345 banana 42
+```
+
+**12)** For the input file `sample.txt`, filter lines containing 6 or more lowercase vowels.
+
+```bash
+$ awk ##### add your solution here
+No doubt you like it too
+Much ado about nothing
+```
+
+**13)** The input file `concat.txt` has contents of various files preceded by a line starting with `###`. Replace such sequence of characters with an incrementing integer value (starting with `1`) in the format shown below.
+
+```bash
+$ awk ##### add your solution here
+1) addr.txt
+How are you
+This game is good
+Today is sunny
+2) broken.txt
+top
+1234567890
+bottom
+3) sample.txt
+Just do-it
+Believe it
+4) mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+```
+
 <br>
 
 # Record separators
 
-**a)** The input file `jumbled.txt` consists of words separated by various delimiters. Display all words that contain `an` or `at` or `in` or `it`, one per line.
+**1)** The input file `jumbled.txt` consists of words separated by various delimiters. Display all words that contain `an` or `at` or `in` or `it`, one per line.
 
 ```bash
 $ cat jumbled.txt
@@ -358,25 +530,25 @@ intuition
 titanic
 ```
 
-**b)** Emulate `paste -sd,` with `awk`.
+**2)** Emulate `paste -sd,` with `awk`.
 
 ```bash
-$ # this command joins all input lines with ',' character
+# this command joins all input lines with the ',' character
 $ paste -sd, addr.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
-$ # make sure there's no ',' at end of the line
-$ # and that there's a newline character at the end of the line
+# make sure there's no ',' at end of the line
+# and that there's a newline character at the end of the line
 $ awk ##### add your solution here
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 
-$ # if there's only one line in input, again make sure there's no trailing ','
-$ printf 'foo' | paste -sd,
-foo
-$ printf 'foo' | awk ##### add your solution here
-foo
+# if there's only one line in input, again make sure there's no trailing ','
+$ printf 'fig' | paste -sd,
+fig
+$ printf 'fig' | awk ##### add your solution here
+fig
 ```
 
-**c)** For the input file `scores.csv`, add another column named `GP` which is calculated out of `100` by giving `50%` weightage to `Maths` and `25%` each for `Physics` and `Chemistry`.
+**3)** For the input file `scores.csv`, add another column named **GP** which is calculated out of 100 by giving 50% weightage to Maths and 25% each for Physics and Chemistry.
 
 ```bash
 $ awk ##### add your solution here
@@ -389,7 +561,7 @@ Ort,68,72,66,68.5
 Ith,100,100,100,100
 ```
 
-**d)** For the input file `sample.txt`, extract all paragraphs containing `do` and exactly two lines.
+**4)** For the input file `sample.txt`, extract paragraphs containing `do` and exactly two lines.
 
 ```bash
 $ cat sample.txt
@@ -408,7 +580,7 @@ No doubt you like it too
 Much ado about nothing
 He he he
 
-$ # note that there's no extra empty line at the end of the output
+# note that there's no extra empty line at the end of the output
 $ awk ##### add your solution here
 Just do-it
 Believe it
@@ -417,10 +589,10 @@ Much ado about nothing
 He he he
 ```
 
-**e)** For the input file `sample.txt`, change all paragraphs into single line by joining lines using `.` and a space character as the separator. And add a final `.` to each paragraph.
+**5)** For the input file `sample.txt`, change each paragraph to a single line by joining lines using `.` and a space character as the separator. Also, add a final `.` to each paragraph.
 
 ```bash
-$ # note that there's no extra empty line at the end of the output
+# note that there's no extra empty line at the end of the output
 $ awk ##### add your solution here
 Hello World.
 
@@ -433,7 +605,7 @@ Today is sunny. Not a bit funny. No doubt you like it too.
 Much ado about nothing. He he he.
 ```
 
-**f)** The various input/output separators can be changed dynamically and comes into effect during the next input/output operation. For the input file `mixed_fs.txt`, retain only first two fields from each input line. The field separators should be space for first two lines and `,` for the rest of the lines.
+**6)** The various input/output separators can be changed dynamically and comes into effect during the next input/output operation. For the input file `mixed_fs.txt`, retain only the first two fields from each input line. The field separators should be space for the first two lines and `,` for the rest of the lines.
 
 ```bash
 $ cat mixed_fs.txt
@@ -441,33 +613,40 @@ rose lily jasmine tulip
 pink blue white yellow
 car,mat,ball,basket
 green,brown,black,purple
+apple,banana,cherry
 
 $ awk ##### add your solution here
 rose lily
 pink blue
 car,mat
 green,brown
+apple,banana
 ```
 
-**g)** For the input file `table.txt`, get the outputs shown below. All of them feature line number as part of the solution.
+**7)** For the input file `table.txt`, print other than the second line.
 
 ```bash
-$ # print other than second line
 $ awk ##### add your solution here
 brown bread mat hair 42
 yellow banana window shoes 3.14
+```
 
-$ # print line number of lines containing 'air' or 'win'
+**8)** For the `table.txt` file, print only the line number for lines containing `air` or `win`.
+
+```bash
 $ awk ##### add your solution here
 1
 3
+```
 
-$ # calculate the sum of numbers in last column, except second line
+**9)** For the input file `table.txt`, calculate the sum of numbers in the last column, excluding the second line.
+
+```bash
 $ awk ##### add your solution here
 45.14
 ```
 
-**h)** Print second and fourth line for every block of five lines.
+**10)** Print the second and fourth line for every block of five lines.
 
 ```bash
 $ seq 15 | awk ##### add your solution here
@@ -479,7 +658,7 @@ $ seq 15 | awk ##### add your solution here
 14
 ```
 
-**i)** For the input file `odd.txt`, surround all whole words with `{}` that start and end with the same word character. This is a contrived exercise to make you use `RT`. In real world, you can use `sed -E 's/\b(\w|(\w)\w*\2)\b/{&}/g' odd.txt` to solve this.
+**11)** For the input file `odd.txt`, surround all whole words with `{}` that start and end with the same word character. This is a contrived exercise to make you use the `RT` variable (`sed -E 's/\b(\w)(\w*\1)?\b/{&}/g' odd.txt` would be a simpler solution).
 
 ```bash
 $ cat odd.txt
@@ -491,11 +670,61 @@ $ awk ##### add your solution here
 {RoaR} to {wow}-
 ```
 
+**12)** Print only the second field of the third line, if any, from these input files: `addr.txt`, `sample.txt` and `copyright.txt`. Consider space as the field separator.
+
+```bash
+$ awk ##### add your solution here
+game
+day
+bla
+```
+
+**13)** The input file `ip.txt` has varying amount of empty lines between the records, change them to be always two empty lines. Also, remove the empty lines at the start and end of the file.
+
+```bash
+$ awk ##### add your solution here
+hello
+
+
+world
+
+
+apple
+banana
+cherry
+
+
+tea coffee
+chocolate
+```
+
+**14)** The sample string shown below uses `cat` as the record separator (irrespective of case). Display only the even numbered records separated by a single empty line.
+
+```bash
+$ s='applecatfigCaT12345cAtbananaCATguava:caT:mangocat3'
+$ echo "$s" | awk ##### add your solution here
+fig
+
+banana
+
+:mango
+```
+
+**15)** Input has the ASCII NUL character as the record separator. Change it to dot and newline characters as shown below.
+
+```bash
+$ printf 'apple\npie\0banana\ncherry\0' | awk ##### add your solution here
+apple
+pie.
+banana
+cherry.
+```
+
 <br>
 
 # In-place file editing
 
-**a)** For the input file `copyright.txt`, replace `copyright: 2018` with `copyright: 2020` and write back the changes to `copyright.txt` itself. The original contents should get saved to `copyright.txt.orig`
+**1)** For the input file `copyright.txt`, replace `copyright: 2018` with `copyright: 2020` and write back the changes to `copyright.txt` itself. The original contents should get saved to `copyright.txt.orig`
 
 ```bash
 $ cat copyright.txt
@@ -517,7 +746,7 @@ bla bla bla
 copyright: 2018
 ```
 
-**b)** For the input files `nums1.txt` and `nums2.txt`, retain only second and third lines and write back the changes to their respective files. No need to create backups.
+**2)** For the input files `nums1.txt` and `nums2.txt`, retain only the second and third lines and write back the changes to their respective files. No need to create backups.
 
 ```bash
 $ cat nums1.txt
@@ -544,19 +773,19 @@ $ cat nums2.txt
 
 # Using shell variables
 
-**a)** Use contents of `s` variable to display all matching lines from the input file `sample.txt`. Assume that the `s` variable doesn't have any regexp metacharacters and construct a solution such that only whole words are matched.
+**1)** Use contents of the `s` variable to display all matching lines from the input file `sample.txt`. Assume that the `s` variable doesn't have any regexp metacharacters and construct a solution such that only whole words are matched.
 
 ```bash
 $ s='do'
-$ ##### add your solution here
+##### add your solution here
 Just do-it
 ```
 
-**b)** Replace all occurrences of `o` for the input file `addr.txt` with literal contents of `s` variable. Assume that the `s` variable has regexp metacharacters.
+**2)** Replace all occurrences of `o` for the input file `addr.txt` with the literal contents of the `s` variable. Assume that the `s` variable has regexp metacharacters.
 
 ```bash
 $ s='\&/'
-$ ##### add your solution here
+##### add your solution here
 Hell\&/ W\&/rld
 H\&/w are y\&/u
 This game is g\&/\&/d
@@ -569,7 +798,7 @@ Y\&/u are funny
 
 # Control Structures
 
-**a)** The input file `nums.txt` contains single column of numbers. Change positive numbers to negative and vice versa. Can you do it with using only `sub` function and without explicit use of `if-else` or ternary operator?
+**1)** The input file `nums.txt` contains a single column of numbers. Change positive numbers to negative and vice versa. Solution should use the `sub` function and shouldn't explicitly use the `if-else` control structure or the ternary operator.
 
 ```bash
 $ cat nums.txt
@@ -587,7 +816,7 @@ $ awk ##### add your solution here
 75
 ```
 
-**b)** For the input file `table.txt`, change the field separator from space to `,` character. Also, any field not containing digit characters should be surrounded by double quotes.
+**2)** For the input file `table.txt`, change the field separator from space to the `,` character. Also, any field not containing digit characters should be surrounded by double quotes.
 
 ```bash
 $ awk ##### add your solution here
@@ -596,7 +825,7 @@ $ awk ##### add your solution here
 "yellow","banana","window","shoes",3.14
 ```
 
-**c)** For each input line of the file `secrets.txt`, remove all characters except the last character of each field. Assume space as the input field separator.
+**3)** For each input line of the file `secrets.txt`, remove all characters except the last character of each field. Assume space as the input field separator.
 
 ```bash
 $ cat secrets.txt
@@ -610,30 +839,31 @@ field
 ice-2
 ```
 
-**d)** Emulate `q` and `Q` commands of `sed` as shown below.
+**4)** For the input file `sample.txt`, emulate the `q` and `Q` commands of `sed` as shown below.
 
 ```bash
-$ # sed '/are/q' sample.txt will print until (and including) line contains 'are'
+# sed '/are/q' sample.txt will print till the line containing 'are'
 $ awk ##### add your solution here
 Hello World
 
 Good day
 How are you
 
-$ # sed '/are/Q' sample.txt will print until (but excluding) line contains 'are'
+# sed '/are/Q' sample.txt is similar to the 'q' command,
+# but the matching line won't be part of the output
 $ awk ##### add your solution here
 Hello World
 
 Good day
 ```
 
-**e)** For the input file `addr.txt`:
+**5)** For the input file `addr.txt`:
 
-* if line contains `e`
+* if a line contains `e`
     * delete all occurrences of `e`
     * surround all consecutive repeated characters with `{}`
-    * assume that input will not have more than two consecutive repeats
-* if line doesn't contain `e` but contains `u`
+    * assume that the input will not have more than two consecutive repeats
+* if a line doesn't contain `e` but contains `u`
     * surround all lowercase vowels in that line with `[]`
 
 ```bash
@@ -646,13 +876,21 @@ T[o]d[a]y [i]s s[u]nny
 You ar fu{nn}y
 ```
 
+**6)** The goal is to print `found you` if the input file contains `you` and `not found` otherwise. However, both the `print` statements are executed in the `awk` code shown below. Change it to work as expected.
+
+```bash
+$ awk '/you/{print "found you"; exit} END{print "not found"}' addr.txt
+found you
+not found
+```
+
 <br>
 
 # Built-in functions
 
 >![info](../images/info.svg) Exercises will also include functions and features not discussed in this chapter. Refer to [gawk manual: Functions](https://www.gnu.org/software/gawk/manual/gawk.html#Functions) for details.
 
-**a)** For the input file `scores.csv`, sort the rows based on **Physics** values in descending order. Header should be retained as the first line in output.
+**1)** For the input file `scores.csv`, sort the rows in descending order based on the values in the Physics column. Header should be retained as the first line in the output.
 
 ```bash
 $ awk ##### add your solution here
@@ -665,9 +903,15 @@ Ort,68,72,66
 Blue,67,46,99
 ```
 
-**b)** For the input file `nums3.txt`, calculate the square root of numbers and display in two different formats. First with four digits after fractional point and next in scientific notation, again with four digits after fractional point. Assume input has only single column positive numbers.
+**2)** For the input file `nums3.txt`, calculate the square root of numbers and display the results in two different formats as shown below. First, with four digits after the fractional point and then in the scientific notation, again with four digits after the fractional point. Assume that the input has only a single column of positive numbers.
 
 ```bash
+$ cat nums3.txt 
+3.14
+4201
+777
+0323012
+
 $ awk ##### add your solution here
 1.7720
 64.8151
@@ -681,27 +925,35 @@ $ awk ##### add your solution here
 5.6834e+02
 ```
 
-**c)** Transform the given input strings to the corresponding output shown. Assume space as the field separators. From the second field, remove the second `:` and the number that follows. Modify the last field by multiplying it by the number that was deleted from the second field. The numbers can be positive/negative integers or floating-point numbers (including scientific notation).
+**3)** For the input file `items.txt`, assume space as the field separator. From the second field, remove the second `:` character and the number that follows. Modify the last field by multiplying it by the number that was deleted from the second field.
 
 ```bash
-$ echo 'go x:12:-425 og 6.2' | awk ##### add your solution here
-go x:12 og -2635
+$ cat items.txt
+apple rxg:12:-425 og 6.2
+fig zwt:3.64:12.89e2 ljg 5
+banana ysl:42:3.14 vle 45
 
-$ echo 'rx zwt:3.64:12.89e2 ljg 5' | awk ##### add your solution here
-rx zwt:3.64 ljg 6445
+$ awk ##### add your solution here
+apple rxg:12 og -2635
+fig zwt:3.64 ljg 6445
+banana ysl:42 vle 141.3
 ```
 
-**d)** Transform the given input strings to the corresponding output shown. Assume space as the field separators. Replace the second field with sum of the two numbers embedded in it. The numbers can be positive/negative integers or floating-point numbers (but not scientific notation).
+**4)** For the input file `sum.txt`, assume space as the field separator. Replace the second field with the sum of the two numbers embedded in it. The numbers can be positive/negative integers or floating-point numbers but not scientific notation.
 
 ```bash
-$ echo 'f2:z3 kt//-42\\3.14//tw 5y6' | awk ##### add your solution here
+$ cat sum.txt
+f2:z3 kt//-42\\3.14//tw 5y6
+t5:x7 qr;wq<=>+10{-8764.124}yb u9
+apple:fig 100:32 9j4
+
+$ awk ##### add your solution here
 f2:z3 -38.86 5y6
-
-$ echo 't5:x7 qr;wq<=>+10{-8764.124}yb u9' | awk ##### add your solution here
 t5:x7 -8754.12 u9
+apple:fig 132 9j4
 ```
 
-**e)** For the given input strings, extract portion of the line starting from the matching location specified by shell variable `s` till the end of the line. If there is no match, do not print that line. The contents of `s` should be matched literally.
+**5)** For the given input strings, extract portion of the line starting from the matching location specified by the shell variable `s` till the end of the line. If there is no match, do not print that line. The contents of `s` should be matched literally.
 
 ```bash
 $ s='(a^b)'
@@ -709,24 +961,24 @@ $ echo '3*f + (a^b) - 45' | ##### add your solution here
 (a^b) - 45
 
 $ s='\&/'
-$ # should be no output for this input
+# should be no output for this input
 $ echo 'f\&z\&2.14' | ##### add your solution here
-$ # but this one has a match
+# but this one has a match
 $ echo 'f\&z\&/2.14' | ##### add your solution here
 \&/2.14
 ```
 
-**f)** Extract all positive integers preceded by `-` and followed by `:` or `;` and display all such matches separated by a newline character.
+**6)** Extract all positive integers preceded by `-` and followed by `:` or `;`. Display the matching portions separated by a newline character.
 
 ```bash
-$ s='42 foo-5; baz3; x-83, y-20:-34; f12'
+$ s='42 apple-5; fig3; x-83, y-20:-34; f12'
 $ echo "$s" | awk ##### add your solution here
 5
 20
 34
 ```
 
-**g)** For the input file `scores.csv`, calculate the average of three marks for each `Name`. Those with average greater than or equal to `80` should be saved in `pass.csv` and the rest in `fail.csv`. The format is `Name` and average score (up to two decimal points) separated by a tab character.
+**7)** For the input file `scores.csv`, calculate the average score for each row. Those with average greater than or equal to `80` should be saved in `pass.csv` and the rest in `fail.csv`. The output files should have the names followed by a tab character, and finally the average score (two decimal points).
 
 ```bash
 $ awk ##### add your solution here
@@ -741,7 +993,7 @@ Cy      96.67
 Ith     100.00
 ```
 
-**h)** For the input file `files.txt`, replace lines starting with a space with the output of that line executed as a shell command.
+**8)** For the input file `files.txt`, replace lines starting with a space with the output of that line executed as a shell command.
 
 ```bash
 $ cat files.txt
@@ -763,7 +1015,7 @@ yellow
 -----------
 ```
 
-**i)** For the input file `fw.txt`, format the last column of numbers in scientific notation with two digits after the decimal point.
+**9)** For the input file `fw.txt`, format the last column in scientific notation with two digits after the decimal point.
 
 ```bash
 $ awk ##### add your solution here
@@ -773,7 +1025,7 @@ $ awk ##### add your solution here
 4.2  kt   32  4.51e+01
 ```
 
-**j)** For the input file `addr.txt`, display all lines containing `e` or `u` but not both.
+**10)** For the input file `addr.txt`, display all lines containing `e` or `u` but not both.
 
 >![info](../images/info.svg) Hint — [gawk manual: Bit-Manipulation Functions](https://www.gnu.org/software/gawk/manual/gawk.html#Bitwise-Functions).
 
@@ -784,11 +1036,40 @@ This game is good
 Today is sunny
 ```
 
+**11)** For the input file `patterns.txt`, filter lines containing `[5]` at the start of a line. The search term should be matched literally.
+
+```bash
+$ awk ##### add your solution here
+[5]*3
+```
+
+**12)** For the input file `table.txt`, uppercase the third field.
+
+```bash
+$ awk ##### add your solution here
+brown bread MAT hair 42
+blue cake MUG shirt -7
+yellow banana WINDOW shoes 3.14
+```
+
+**13)** For the input files `patterns.txt` and `sum.txt`, match lines containing the literal value stored in the `s` variable. Assume that the `s` variable has regexp metacharacters.
+
+```bash
+$ s='[5]'
+##### add your solution here
+(9-2)*[5]
+[5]*3
+
+$ s='\\'
+##### add your solution here
+f2:z3 kt//-42\\3.14//tw 5y6
+```
+
 <br>
 
 # Multiple file input
 
-**a)** Print the last field of first two lines for the input files `table.txt`, `scores.csv` and `fw.txt`. The field separators for these files are space, comma and fixed width respectively. To make the output more informative, print filenames and a separator as shown in the output below. Assume input files will have at least two lines.
+**1)** Print the last field of the first two lines for the input files `table.txt`, `scores.csv` and `fw.txt`. The field separators for these files are space, comma and fixed width respectively. To make the output more informative, print filenames and a separator as shown in the output below. Assume that the input files will have at least two lines.
 
 ```bash
 $ awk ##### add your solution here
@@ -806,7 +1087,7 @@ Chemistry
 ----------
 ```
 
-**b)** For the given list of input files, display all filenames that contain `at` or `fun` in the third field. Assume space as the field separator.
+**2)** For the input files `sample.txt`, `secrets.txt`, `addr.txt` and `table.txt`, display only the names of files that contain `at` or `fun` in the third field. Assume space as the field separator.
 
 ```bash
 $ awk ##### add your solution here sample.txt secrets.txt addr.txt table.txt
@@ -819,7 +1100,7 @@ table.txt
 
 # Processing multiple records
 
-**a)** For the input file `sample.txt`, print a matching line containing `do` only if the previous line is empty and the line before that contains `you`.
+**1)** For the input file `sample.txt`, print lines containing `do` only if the previous line is empty and the line before that contains `you`.
 
 ```bash
 $ awk ##### add your solution here
@@ -827,7 +1108,7 @@ Just do-it
 Much ado about nothing
 ```
 
-**b)** Print only the second matching line respectively for the search terms `do` and `not` for the input file `sample.txt`. Match these terms case insensitively.
+**2)** For the input file `sample.txt`, match lines containing `do` or `not` case insensitively. Each of these terms occur multiple times in the file. The goal is to print only the second occurrences of these terms (independent of each other).
 
 ```bash
 $ awk ##### add your solution here
@@ -835,7 +1116,7 @@ No doubt you like it too
 Much ado about nothing
 ```
 
-**c)** For the input file `sample.txt`, print the matching lines containing `are` or `bit` as well as `n` lines around the matching lines. The value for `n` is passed to the `awk` command via the `-v` option.
+**3)** For the input file `sample.txt`, print the matching lines containing `are` or `bit` as well as `n` lines around the matching lines. The value for `n` is passed to the `awk` command via the `-v` option.
 
 ```bash
 $ awk -v n=1 ##### add your solution here
@@ -846,7 +1127,7 @@ Today is sunny
 Not a bit funny
 No doubt you like it too
 
-$ # note that first and last line are empty for this case
+# note that the first and last line are empty for this case
 $ awk -v n=2 ##### add your solution here
 
 Good day
@@ -860,7 +1141,7 @@ No doubt you like it too
 
 ```
 
-**d)** For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. The first `awk` command shown below doesn't work because it is matching till end of file if second marker isn't found. Assume that the input file cannot have two `top` markers without a `bottom` marker appearing in between and vice-versa.
+**4)** For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. The first `awk` command shown below doesn't work because it is matching till the end of file as the second marker isn't found. Assume that the input file cannot have two `top` markers without a `bottom` marker appearing in between and vice-versa.
 
 ```bash
 $ cat broken.txt
@@ -876,7 +1157,7 @@ Hi there
 Have a nice day
 Good bye
 
-$ # wrong output
+# wrong output
 $ awk '/bottom/{f=0} f; /top/{f=1}' broken.txt
 3.14
 1234567890
@@ -884,13 +1165,13 @@ Hi there
 Have a nice day
 Good bye
 
-$ # expected output
-$ ##### add your solution here
+# expected output
+##### add your solution here
 3.14
 1234567890
 ```
 
-**e)** For the input file `concat.txt`, extract contents from a line starting with ``### `` until but not including the next such line. The block to be extracted is indicated by variable `n` passed via the `-v` option.
+**5)** For the input file `concat.txt`, extract contents from a line starting with ``### `` until but not including the next such line. The block to be extracted is indicated by the variable `n` passed via the `-v` option.
 
 ```bash
 $ cat concat.txt
@@ -914,13 +1195,14 @@ $ awk -v n=2 ##### add your solution here
 top
 1234567890
 bottom
+
 $ awk -v n=4 ##### add your solution here
 ### mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
 ```
 
-**f)** For the input file `ruby.md`, replace all occurrences of `ruby` (irrespective of case) with `Ruby`. But, do not replace any matches between ` ```ruby ` and ` ``` ` lines (`ruby` in these markers shouldn't be replaced either).
+**6)** For the input file `ruby.md`, replace all occurrences of `ruby` (irrespective of case) with `Ruby`. But, do not replace any matches between ` ```ruby ` and ` ``` ` lines (`ruby` in these markers shouldn't be replaced either). Save the output in `out.md`.
 
 ```bash
 $ awk ##### add your solution here ruby.md > out.md
@@ -928,25 +1210,69 @@ $ diff -sq out.md expected.md
 Files out.md and expected.md are identical
 ```
 
+**7)** For the input file `lines.txt`, delete the line that comes after a whole line containing `---`. Assume that such lines won't occur consecutively.
+
+```bash
+$ cat lines.txt
+Go There
+come on
+go there
+---
+2 apples and 5 mangoes
+come on!
+---
+2 Apples
+COME ON
+
+$ awk ##### add your solution here
+Go There
+come on
+go there
+---
+come on!
+---
+COME ON
+```
+
+**8)** For the input file `result.csv`, use `---` to separate entries with the same name in the first column. Assume that the lines with the same first column value will always be next to each other.
+
+```bash
+$ awk ##### add your solution here
+Amy,maths,89
+Amy,physics,75
+---
+Joe,maths,79
+---
+John,chemistry,77
+John,physics,91
+---
+Moe,maths,81
+---
+Ravi,physics,84
+Ravi,chemistry,70
+---
+Yui,maths,92
+```
+
 <br>
 
 # Two file processing
 
-**a)** Use contents of `match_words.txt` file to display matching lines from `jumbled.txt` and `sample.txt`. The matching criteria is that the second word of lines from these files should match the third word of lines from `match_words.txt`.
+**1)** Use the contents of `match_words.txt` file to display matching lines from `jumbled.txt` and `sample.txt`. The matching criteria is that the second word of lines from these files should match the third word of lines from `match_words.txt`.
 
 ```bash
 $ cat match_words.txt
 %whole(Hello)--{doubt}==ado==
 just,\joint*,concession<=nice
 
-$ # 'concession' is one of the third words from 'match_words.txt'
-$ # and second word from 'jumbled.txt'
+# 'concession' is one of the third words from 'match_words.txt'
+# and second word from 'jumbled.txt'
 $ awk ##### add your solution here
 wavering:concession/woof\retailer
 No doubt you like it too
 ```
 
-**b)** Interleave contents of `secrets.txt` with the contents of a file passed via `-v` option as shown below.
+**2)** Interleave the contents of `secrets.txt` with the contents of a file passed via the `-v` option as shown below.
 
 ```bash
 $ awk -v f='table.txt' ##### add your solution here
@@ -961,7 +1287,7 @@ yellow banana window shoes 3.14
 ---
 ```
 
-**c)** The file `search_terms.txt` contains one search string per line (these have no regexp metacharacters). Construct an `awk` command that reads this file and displays search terms (matched case insensitively) that were found in all of the other file arguments. Note that these terms should be matched with any part of the line, not just whole words.
+**3)** The file `search_terms.txt` contains one search string per line, and these terms have no regexp metacharacters. Construct an `awk` command that reads this file and displays the search terms (matched case insensitively) that were found in every file passed as the arguments after `search_terms.txt`. Note that these terms should be matched anywhere in the line (so, don't use word boundaries).
 
 ```bash
 $ cat search_terms.txt
@@ -975,6 +1301,7 @@ $ awk ##### add your solution here
 ##file list## search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt
 at
 row
+
 $ awk ##### add your solution here
 ##file list## search_terms.txt addr.txt sample.txt
 is
@@ -982,11 +1309,54 @@ you
 hello
 ```
 
+**4)** Display lines from `scores.csv` by matching the first field based on a list of names from the `names.txt` file. Also, change the output field separator to a space character.
+
+```bash
+$ cat names.txt
+Lin
+Cy
+Ith
+
+$ awk ##### add your solution here
+Lin 78 83 80
+Cy 97 98 95
+Ith 100 100 100
+```
+
+**5)** What's the default value of the special variable `SUBSEP`? Where is it commonly used?
+
+**6)** The `result.csv` file has three columns — name, subject and mark. The `criteria.txt` file has two columns — name and subject. Match lines from `result.csv` based on the two columns from `criteria.txt` provided the mark column is greater than 80.
+
+```bash
+$ cat result.csv
+Amy,maths,89
+Amy,physics,75
+Joe,maths,79
+John,chemistry,77
+John,physics,91
+Moe,maths,81
+Ravi,physics,84
+Ravi,chemistry,70
+Yui,maths,92
+
+$ cat criteria.txt
+Amy maths
+John chemistry
+John physics
+Ravi chemistry
+Yui maths
+
+$ awk ##### add your solution here
+Amy,maths,89
+John,physics,91
+Yui,maths,92
+```
+
 <br>
 
 # Dealing with duplicates
 
-**a)** Retain only first copy of a line for the input file `lines.txt`. Case should be ignored while comparing lines. For example `hi there` and `HI TheRE` will be considered as duplicates.
+**1)** Retain only the first copy of a line for the input file `lines.txt`. Case should be ignored while comparing the lines. For example, `hi there` and `HI TheRE` should be considered as duplicates.
 
 ```bash
 $ cat lines.txt
@@ -1009,7 +1379,7 @@ come on!
 2 Apples
 ```
 
-**b)** Retain only first copy of a line for the input file `lines.txt`. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, `hehe haha` and `haha hehe` will be considered as duplicates.
+**2)** Retain only the first copy of a line for the input file `twos.txt`. Assume space as the field separator with exactly two fields per line. Compare the lines irrespective of the order of the fields. For example, `hehe haha` and `haha hehe` should be considered as duplicates.
 
 ```bash
 $ cat twos.txt
@@ -1033,7 +1403,7 @@ hehe bebe
 tru eblue
 ```
 
-**c)** For the input file `twos.txt`, create a file `uniq.txt` with all the unique lines and `dupl.txt` with all the duplicate lines. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, `hehe haha` and `haha hehe` will be considered as duplicates.
+**3)** For the input file `twos.txt`, create a file `uniq.txt` with all the unique lines and `dupl.txt` with all the duplicate lines. Assume space as the field separator with exactly two fields per line. Compare the lines irrespective of the order of the fields. For example, `hehe haha` and `haha hehe` should be considered as duplicates.
 
 ```bash
 $ awk ##### add your solution here
@@ -1042,6 +1412,7 @@ $ cat uniq.txt
 true blue
 hehe bebe
 tru eblue
+
 $ cat dupl.txt 
 hehe haha
 door floor
@@ -1056,7 +1427,7 @@ haha hehe
 
 # awk scripts
 
-**a)** Before explaining the problem statement, here's an example of markdown headers and their converted link version. Note the use of `-1` for the second occurrence of `Summary` header. Also note that this sample doesn't simulate all the rules.
+**1)** Before explaining the problem statement, here's an example of markdown headers and their converted link version. Note the use of `-1` for the second occurrence of the `Summary` header. Also note that this sample doesn't illustrate every rule explained below.
 
 ```bash
 # Field separators
@@ -1070,21 +1441,21 @@ haha hehe
     * [Summary](#summary-1)
 ```
 
-For the input file `gawk.md`, construct table of content links as per the details described below.
+For the input file `gawk.md`, construct a Table of Content section as per the details described below:
 
 * Identify all header lines
     * there are two types of header lines, one starting with ``# `` and the other starting with ``## ``
     * lines starting with `#` inside code blocks defined by ` ```bash ` and ` ``` ` markers should be ignored
 * The headers lines should then be converted as per the following rules:
-    * content is defined as portion of the header ignoring the initial `#` or `##` characters and a space character
-    * initial `##` should be replaced with four spaces and a `*`
-    * else, initial `#` should be replaced with `*`
-    * create a copy of the content, change it to all lowercase, replace all space characters with `-` character and then place it within `(#` and `)`
-        * if there are multiple headers with same content, append `-1`, `-2`, etc respectively for the second header, third header, etc
-    * surround the original content with `[]` and then append the string obtained from previous step
+    * content is defined as the portion of the header ignoring the initial `#` or `##` characters and the space character
+    * `##` should be replaced with four spaces and a `*` character
+    * else, `#` should be replaced with `*` character
+    * create a copy of the content, change it to all lowercase, replace all space characters with the `-` character and then enclose it within `(#` and `)`
+        * if there are multiple headers with the same content, append `-1`, `-2`, etc respectively for the second header, third header, etc
+    * surround the original content with `[]` and then append the string obtained from the previous step
 * Note that the output should have only the converted headers, all other input lines should not be present
 
-As the input file `gawk.md` is too long, only the commands to verify your solution is shown.
+The script file should be named as `toc.awk` and save the output in `out.md`.
 
 ```bash
 $ awk -f toc.awk gawk.md > out.md
@@ -1092,7 +1463,7 @@ $ diff -sq out.md toc_expected.md
 Files out.md and toc_expected.md are identical
 ```
 
-**b)** For the input file `odd.txt`, surround first two whole words of each line with `{}` that start and end with the same word character. Assume that input file will not require case insensitive comparison. This is a contrived exercise that needs around 10 instructions and makes you recall various features presented in this book.
+**2)** For the input file `odd.txt`, surround the first two whole words of each line with `{}` that start and end with the same word character. Assume that the input file will not require case insensitive comparison. This is a contrived exercise that needs around 10 instructions and makes you use various features presented in this book.
 
 ```bash
 $ cat odd.txt

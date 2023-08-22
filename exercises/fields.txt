@@ -1,0 +1,5 @@
+42:cat
+twelve:a2b
+we:be:he:0:a:b:bother
+apple:banana-42:cherry:
+dragon:unicorn:centaur

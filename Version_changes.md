@@ -1,5 +1,19 @@
 <br>
 
+### 2.0
+
+* Command version updated to **GNU awk 5.2.2**
+* Many more exercises added, and you can practice some of them using this [interactive TUI app](https://github.com/learnbyexample/TUI-apps/blob/main/AwkExercises)
+* Long sections split into smaller ones
+* In general, many of the examples, exercises, solutions, descriptions and external links were updated/corrected
+* Updated Acknowledgements section
+* Code snippets related to info/warning sections will now appear as a single block
+* Book title changed to **CLI text processing with GNU awk**
+* New cover image
+* Images centered for EPUB format
+
+<br>
+
 ### 1.4
 
 * Added example for `NF` value when input line doesn't contain the input field separator or if it is empty.

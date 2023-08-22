@@ -20,13 +20,13 @@ ip="$s" awk 'BEGIN{print ENVIRON["ip"]}'
 
 r='\Bpar\B'
 
-awk -v rgx="$r" '$0 ~ rgx' word_anchors.txt
+awk -v rgx="$r" '$0 ~ rgx' anchors.txt
 
 r='\\Bpar\\B'
 
-awk -v rgx="$r" '$0 ~ rgx' word_anchors.txt
+awk -v rgx="$r" '$0 ~ rgx' anchors.txt
 
 r='\Bpar\B'
 
-rgx="$r" awk '$0 ~ ENVIRON["rgx"]' word_anchors.txt
+rgx="$r" awk '$0 ~ ENVIRON["rgx"]' anchors.txt
 

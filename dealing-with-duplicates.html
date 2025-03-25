@@ -48,7 +48,7 @@ $ awk '{print +a[$0] "\t" $0; a[$0]++}' purchases.txt
 0       soap
 2       tea
 
-# only those entries with zero in first column will be retained
+# only those entries with zero in the first column will be retained
 $ awk '!a[$0]++' purchases.txt
 coffee
 tea
@@ -87,7 +87,7 @@ white,sky,bread,111
 # print only the third occurrence of duplicates based on the last field
 $ awk -F, '++seen[$NF]==3' duplicates.txt
 light red,purse,rose,333
-</code></pre><p>Next, printing only the last copy of duplicates. Since the count isn't known, the <code>tac</code> command comes in handy again.<pre><code class=language-bash># reverse the input line-wise, retain first copy and then reverse again
+</code></pre><p>Next, printing only the last copy of duplicates. Since the count isn't known, the <code>tac</code> command comes in handy again.<pre><code class=language-bash># reverse the input line-wise, retain the first copy and then reverse again
 $ tac duplicates.txt | awk -F, '!seen[$NF]++' | tac
 brown,toy,bread,42
 dark red,sky,rose,555
@@ -150,12 +150,12 @@ hehe bebe
 tru eblue
 </code></pre><p><strong>3)</strong> For the input file <code>twos.txt</code>, create a file <code>uniq.txt</code> with all the unique lines and <code>dupl.txt</code> with all the duplicate lines. Assume space as the field separator with exactly two fields per line. Compare the lines irrespective of the order of the fields. For example, <code>hehe haha</code> and <code>haha hehe</code> should be considered as duplicates.<pre><code class=language-bash>$ awk ##### add your solution here
 
-$ cat uniq.txt 
+$ cat uniq.txt
 true blue
 hehe bebe
 tru eblue
 
-$ cat dupl.txt 
+$ cat dupl.txt
 hehe haha
 door floor
 haha hehe

@@ -114,7 +114,7 @@ hand
 eqn3 = r*42-5/3+42///5-83+a
 eqn1 = a+8-c
 eqn2 = pressure*3+8-14256
-</code></pre><p><strong>9)</strong> For the given quantifiers, what would be the equivalent form using the <code>{m,n}</code> representation?<ul><li><code>?</code> is same as <code>{,1}</code><li><code>*</code> is same as <code>{0,}</code><li><code>+</code> is same as <code>{1,}</code></ul><p><strong>10)</strong> True or False? <code>(a*|b*)</code> is same as <code>(a|b)*</code><p>False. Because <code>(a*|b*)</code> will match only sequences like <code>a</code>, <code>aaa</code>, <code>bb</code>, <code>bbbbbbbb</code>. But <code>(a|b)*</code> can match a mixed sequence like <code>ababbba</code> too.<p><strong>11)</strong> For the input file <code>patterns.txt</code>, construct two different regexps to get the outputs as shown below. Display only the modified lines.<pre><code class=language-bash># delete from '(' till the next ')'
+</code></pre><p><strong>9)</strong> For the given quantifiers, what would be the equivalent form using the <code>{m,n}</code> representation?<ul><li><code>?</code> is same as <code>{,1}</code><li><code>*</code> is same as <code>{0,}</code><li><code>+</code> is same as <code>{1,}</code></ul><p><strong>10)</strong> <code>(a*|b*)</code> is same as <code>(a|b)*</code> — True or False?<p>False. Because <code>(a*|b*)</code> will match only sequences like <code>a</code>, <code>aaa</code>, <code>bb</code>, <code>bbbbbbbb</code>. But <code>(a|b)*</code> can match a mixed sequence like <code>ababbba</code> too.<p><strong>11)</strong> For the input file <code>patterns.txt</code>, construct two different regexps to get the outputs as shown below. Display only the modified lines.<pre><code class=language-bash># delete from '(' till the next ')'
 $ awk 'gsub(/\([^)]*)/, "")' patterns.txt
 a/b + c%d
 *[5]
@@ -146,7 +146,8 @@ lion,ant,42,neon
 
 $ echo '_;3%,.,=-=,:' | awk '{print gensub(/[^,]+/, "42", 3)}'
 _;3%,.,42,:
-</code></pre><p><strong>15)</strong> For the input file <code>patterns.txt</code>, filter lines containing three or more occurrences of <code>ar</code> and replace the last but second <code>ar</code> with <code>X</code>.<pre><code class=language-bash>$ awk 'BEGIN{r = @/(.*)ar((.*ar){2})/} $0~r{print gensub(r, "\\1X\\2", 1)}' patterns.txt
+</code></pre><p><strong>15)</strong> For the input file <code>patterns.txt</code>, filter lines containing three or more occurrences of <code>ar</code>. For such lines, replace the third from last occurrence of <code>ar</code> with <code>X</code>.<pre><code class=language-bash># can also use: awk -F'ar' 'NF>3{print gensub(FS, "X", NF-3)}' patterns.txt
+$ awk 'BEGIN{r = @/(.*)ar((.*ar){2})/} $0~r{print gensub(r, "\\1X\\2", 1)}' patterns.txt
 par car tX far Cart
 pXt cart mart
 </code></pre><p><strong>16)</strong> Surround all whole words with <code>()</code>. Additionally, if the whole word is <code>imp</code> or <code>ant</code>, delete them.<pre><code class=language-bash>$ words='tiger imp goat eagle ant important'
@@ -200,7 +201,7 @@ $ printf '/home/joe/1\n/home/john/1\n' | awk '$0 ~ "/home/joe/"'
 /home/joe/1
 
 # however, you'll need \\ to represent a single \
-$ echo '\learn\by\example' | awk '{gsub("\\\\", "/")} 1'
+$ printf '%s\n' '\learn\by\example' | awk '{gsub("\\\\", "/")} 1'
 /learn/by/example
 </code></pre><p><strong>26)</strong> For the input file <code>patterns.txt</code>, surround all hexadecimal sequences with a minimum of four characters with <code>[]</code>. Match <code>0x</code> as an optional prefix, but shouldn't be counted for determining the length. Match the characters case insensitively, and the sequences shouldn't be surrounded by other word characters. Display only the modified lines.<pre><code class=language-bash># can also use: awk 'gsub(/\<(0[xX])?[[:xdigit:]]{4,}\>/, "[&]")' patterns.txt
 $ awk -v IGNORECASE=1 'gsub(/\<(0x)?[0-9a-f]{4,}\>/, "[&]")' patterns.txt
@@ -310,6 +311,26 @@ Believe it
 4) mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
+</code></pre><p><strong>14)</strong> The <code>newline.csv</code> file has fields with embedded newline characters. Display only the first and last fields as shown below.<pre><code class=language-bash>$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+
+$ awk -k -v OFS=, '{print $1, $NF}' newline.csv
+apple,good
+fig,nice
+</code></pre><p><strong>15)</strong> The <code>newline.csv</code> file has fields with embedded newline characters, but no fields with escaped double quotes. Change the embedded newline characters to <code>:</code> without removing the double quotes around such fields.<pre><code class=language-bash>$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+
+$ awk -k '{gsub(/\n/, ":")} 1' newline.csv
+apple,"1:2:3",good
+fig,guava,"32:54",nice
 </code></pre><br><h1 id=record-separators><a class=header href=#record-separators>Record separators</a></h1><p><strong>1)</strong> The input file <code>jumbled.txt</code> consists of words separated by various delimiters. Display all words that contain <code>an</code> or <code>at</code> or <code>in</code> or <code>it</code>, one per line.<pre><code class=language-bash>$ cat jumbled.txt
 overcoats;furrowing-typeface%pewter##hobby
 wavering:concession/woof\retailer
@@ -327,7 +348,7 @@ $ paste -sd, addr.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 # make sure there's no ',' at end of the line
 # and that there's a newline character at the end of the line
-$ awk -v ORS= 'NR>1{print ","} 1; END{print "\n"}' addr.txt 
+$ awk -v ORS= 'NR>1{print ","} 1; END{print "\n"}' addr.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 
 # if there's only one line in input, again make sure there's no trailing ','
@@ -489,12 +510,14 @@ This game is g\&/\&/d
 T\&/day is sunny
 12345
 Y\&/u are funny
-</code></pre><br><h1 id=control-structures><a class=header href=#control-structures>Control Structures</a></h1><p><strong>1)</strong> The input file <code>nums.txt</code> contains a single column of numbers. Change positive numbers to negative and vice versa. Solution should use the <code>sub</code> function and shouldn't explicitly use the <code>if-else</code> control structure or the ternary operator.<pre><code class=language-bash>$ cat nums.txt
+</code></pre><br><h1 id=control-structures><a class=header href=#control-structures>Control Structures</a></h1><p><strong>1)</strong> The input file <code>nums.txt</code> contains a single column of numbers. If the number starts with a <code>-</code> sign, remove it and vice versa. Solution should use the <code>sub</code> function and shouldn't explicitly use the <code>if-else</code> control structure or the ternary operator.<pre><code class=language-bash>$ cat nums.txt
 42
 -2
 10101
 -3.14
 -75
+2.3e4
+0
 
 # same as: awk '{$0 ~ /^-/ ? sub(/^-/, "") : sub(/^/, "-")} 1' nums.txt
 $ awk '!sub(/^-/, ""){sub(/^/, "-")} 1' nums.txt
@@ -503,6 +526,8 @@ $ awk '!sub(/^-/, ""){sub(/^/, "-")} 1' nums.txt
 -10101
 3.14
 75
+-2.3e4
+-0
 </code></pre><p><strong>2)</strong> For the input file <code>table.txt</code>, change the field separator from space to the <code>,</code> character. Also, any field not containing digit characters should be surrounded by double quotes.<pre><code class=language-bash>$ awk -v q='"' -v OFS=, '{for(i=1; i<=NF; i++) if($i !~ /[0-9]/) $i = q $i q} 1' table.txt
 "brown","bread","mat","hair",42
 "blue","cake","mug","shirt",-7
@@ -558,7 +583,7 @@ Lin,78,83,80
 Er,56,79,92
 Ort,68,72,66
 Blue,67,46,99
-</code></pre><p><strong>2)</strong> For the input file <code>nums3.txt</code>, calculate the square root of numbers and display the results in two different formats as shown below. First, with four digits after the fractional point and then in the scientific notation, again with four digits after the fractional point. Assume that the input has only a single column of positive numbers.<pre><code class=language-bash>$ cat nums3.txt 
+</code></pre><p><strong>2)</strong> For the input file <code>nums3.txt</code>, calculate the square root of numbers and display the results in two different formats as shown below. First, with four digits after the fractional point and then in the scientific notation, again with four digits after the fractional point. Assume that the input has only a single column of positive numbers.<pre><code class=language-bash>$ cat nums3.txt
 3.14
 4201
 777
@@ -599,9 +624,9 @@ $ echo '3*f + (a^b) - 45' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($
 
 $ s='\&/'
 # should be no output for this input
-$ echo 'f\&z\&2.14' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($0, n)}'
+$ printf '%s\n' 'f\&z\&2.14' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($0, n)}'
 # but this one has a match
-$ echo 'f\&z\&/2.14' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($0, n)}'
+$ printf '%s\n' 'f\&z\&/2.14' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($0, n)}'
 \&/2.14
 </code></pre><p><strong>6)</strong> Extract all positive integers preceded by <code>-</code> and followed by <code>:</code> or <code>;</code>. Display the matching portions separated by a newline character.<pre><code class=language-bash>$ s='42 apple-5; fig3; x-83, y-20:-34; f12'
 # can also use: awk -v RS='-[0-9]+[;:]' 'RT{print substr(RT, 2, length(RT)-2)}'
@@ -676,7 +701,7 @@ Chemistry
 0.134563
 6
 ----------
-</code></pre><p><strong>2)</strong> For the input files <code>sample.txt</code>, <code>secrets.txt</code>, <code>addr.txt</code> and <code>table.txt</code>, display only the names of files that contain <code>at</code> or <code>fun</code> in the third field. Assume space as the field separator.<pre><code class=language-bash>$ awk '$3 ~ /fun|at/{print FILENAME; nextfile}' sample.txt secrets.txt addr.txt table.txt
+</code></pre><p><strong>2)</strong> For the input files <code>sample.txt</code>, <code>secrets.txt</code>, <code>addr.txt</code> and <code>table.txt</code>, display only the names of files that contain <code>in</code> or <code>at</code> or <code>fun</code> in the third field. Assume space as the field separator. The output should not show a matching filename more than once.<pre><code class=language-bash>$ awk '$3 ~ /fun|at|in/{print FILENAME; nextfile}' sample.txt secrets.txt addr.txt table.txt
 secrets.txt
 addr.txt
 table.txt
@@ -708,7 +733,7 @@ Today is sunny
 Not a bit funny
 No doubt you like it too
 
-</code></pre><p><strong>4)</strong> For the input file <code>broken.txt</code>, print all lines between the markers <code>top</code> and <code>bottom</code>. The first <code>awk</code> command shown below doesn't work because it is matching till the end of file as the second marker isn't found. Assume that the input file cannot have two <code>top</code> markers without a <code>bottom</code> marker appearing in between and vice-versa.<pre><code class=language-bash>$ cat broken.txt
+</code></pre><p><strong>4)</strong> The input file <code>broken.txt</code> starts with a line containing <code>top</code> followed by some content before a line containing <code>bottom</code> is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the <code>bottom</code> marker. The first <code>awk</code> command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.<pre><code class=language-bash>$ cat broken.txt
 top
 3.14
 bottom
@@ -760,7 +785,7 @@ $ awk -v n=4 '/^### /{c++} c==n' concat.txt
 pink blue white yellow
 car,mat,ball,basket
 </code></pre><p><strong>6)</strong> For the input file <code>ruby.md</code>, replace all occurrences of <code>ruby</code> (irrespective of case) with <code>Ruby</code>. But, do not replace any matches between <code>```ruby</code> and <code>```</code> lines (<code>ruby</code> in these markers shouldn't be replaced either). Save the output in <code>out.md</code>.<pre><code class=language-bash>$ awk -v IGNORECASE=1 '/```ruby/{f=1} !f{gsub(/ruby/, "Ruby")} /```$/{f=0} 1' ruby.md > out.md
-$ diff -sq out.md expected.md 
+$ diff -sq out.md expected.md
 Files out.md and expected.md are identical
 </code></pre><p><strong>7)</strong> For the input file <code>lines.txt</code>, delete the line that comes after a whole line containing <code>---</code>. Assume that such lines won't occur consecutively.<pre><code class=language-bash>$ cat lines.txt
 Go There
@@ -908,12 +933,12 @@ tru eblue
 </code></pre><p><strong>3)</strong> For the input file <code>twos.txt</code>, create a file <code>uniq.txt</code> with all the unique lines and <code>dupl.txt</code> with all the duplicate lines. Assume space as the field separator with exactly two fields per line. Compare the lines irrespective of the order of the fields. For example, <code>hehe haha</code> and <code>haha hehe</code> should be considered as duplicates.<pre><code class=language-bash>$ awk 'NR==FNR{c[$1,$2]++; next} {if((c[$1,$2] + c[$2,$1]) == 1) print > "uniq.txt";
        else print > "dupl.txt"}' twos.txt twos.txt
 
-$ cat uniq.txt 
+$ cat uniq.txt
 true blue
 hehe bebe
 tru eblue
 
-$ cat dupl.txt 
+$ cat dupl.txt
 hehe haha
 door floor
 haha hehe
@@ -930,7 +955,7 @@ haha hehe
     * [Summary](#summary)
 * [Gotchas and Tips](#gotchas-and-tips)
     * [Summary](#summary-1)
-</code></pre><p>For the input file <code>gawk.md</code>, construct a Table of Content section as per the details described below:<ul><li>Identify all header lines <ul><li>there are two types of header lines, one starting with <code># </code> and the other starting with <code>## </code><li>lines starting with <code>#</code> inside code blocks defined by <code>```bash</code> and <code>```</code> markers should be ignored</ul><li>The headers lines should then be converted as per the following rules: <ul><li>content is defined as the portion of the header ignoring the initial <code>#</code> or <code>##</code> characters and the space character<li><code>##</code> should be replaced with four spaces and a <code>*</code> character<li>else, <code>#</code> should be replaced with <code>*</code> character<li>create a copy of the content, change it to all lowercase, replace all space characters with the <code>-</code> character and then enclose it within <code>(#</code> and <code>)</code> <ul><li>if there are multiple headers with the same content, append <code>-1</code>, <code>-2</code>, etc respectively for the second header, third header, etc</ul><li>surround the original content with <code>[]</code> and then append the string obtained from the previous step</ul><li>Note that the output should have only the converted headers, all other input lines should not be present</ul><p>The script file should be named as <code>toc.awk</code> and save the output in <code>out.md</code>.<pre><code class=language-bash>$ cat toc.awk 
+</code></pre><p>For the input file <code>gawk.md</code>, construct a Table of Content section as per the details described below:<ul><li>Identify all header lines <ul><li>there are two types of header lines, one starting with <code># </code> and the other starting with <code>## </code><li>lines starting with <code>#</code> inside code blocks defined by <code>```bash</code> and <code>```</code> markers should be ignored</ul><li>The headers lines should then be converted as per the following rules: <ul><li>content is defined as the portion of the header ignoring the initial <code>#</code> or <code>##</code> characters and the space character<li><code>##</code> should be replaced with four spaces and a <code>*</code> character<li>else, <code>#</code> should be replaced with <code>*</code> character<li>create a copy of the content, change it to all lowercase, replace all space characters with the <code>-</code> character and then enclose it within <code>(#</code> and <code>)</code> <ul><li>if there are multiple headers with the same content, append <code>-1</code>, <code>-2</code>, etc respectively for the second header, third header, etc</ul><li>surround the original content with <code>[]</code> and then append the string obtained from the previous step</ul><li>Note that the output should have only the converted headers, all other input lines should not be present</ul><p>The script file should be named as <code>toc.awk</code> and save the output in <code>out.md</code>.<pre><code class=language-bash>$ cat toc.awk
 /^```bash$/ {
     f = 1
 }
@@ -956,7 +981,7 @@ Files out.md and toc_expected.md are identical
 -oreo-not:a _a2_ roar<=>took%22
 RoaR to wow-
 
-$ cat same.awk 
+$ cat same.awk
 {
     c = 0
     n = split($0, a, /\W+/, seps)

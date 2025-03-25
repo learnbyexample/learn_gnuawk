@@ -110,7 +110,7 @@ $ printf '\nhello\napple,banana\n' | awk -F, '{print NF}'
 0
 1
 2
-</code></pre><p>You can also directly set the special <code>FS</code> variable to change the input field separator. This can be done from the command line using <code>-v</code> option or within the code blocks.<pre><code class=language-bash>$ echo 'goal:amazing:whistle:kwality' | awk -v FS=: '{print $2}'
+</code></pre><p>You can also directly set the special <code>FS</code> variable to change the input field separator. This can be done from the command line using the <code>-v</code> option or within the code blocks.<pre><code class=language-bash>$ echo 'goal:amazing:whistle:kwality' | awk -v FS=: '{print $2}'
 amazing
 
 # field separator can be multiple characters too
@@ -131,7 +131,7 @@ $ echo 'Sample123string42with777numbers' | awk -F'[a-zA-Z]+' '{print $2}'
 123
 
 # note the use of \\W to indicate \W
-$ echo 'load;err_msg--\ant,r2..not' | awk -F'\\W+' '{print $3}'
+$ printf '%s\n' 'load;err_msg--\ant,r2..not' | awk -F'\\W+' '{print $3}'
 ant
 
 # same as: awk -F'\\.' '{print $2}'
@@ -143,7 +143,7 @@ bye
 $ printf 'cool\nnice car\n' | awk -F'[aeiou]' '{print NF-1}'
 2
 3
-</code></pre><blockquote><p><img alt=warning src=images/warning.svg> The default value of <code>FS</code> is a single space character. So, if you set the input field separator to a single space, then it will be the same as if you are using the default split discussed in the previous section. If you want to override this behavior, you can use space inside a character class.<pre><code class=language-bash># same as: awk '{print NF}'
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> The default value of <code>FS</code> is a single space character. So, if you set the input field separator to a single space, then it will be the same as if you are using the default split discussed in the previous section. If you want to override this behavior, put the space inside a character class.<pre><code class=language-bash># same as: awk '{print NF}'
 $ echo '   a   b   c   ' | awk -F' ' '{print NF}'
 3
 
@@ -200,7 +200,6 @@ goal:42:whistle:kwality
 </code></pre><p>However, this is not commonly used and doesn't save too many characters to be preferred over explicit assignment.</blockquote><h2 id=manipulating-nf><a class=header href=#manipulating-nf>Manipulating NF</a></h2><p>Changing the value of <code>NF</code> will rebuild <code>$0</code> as well. Here are some examples:<pre><code class=language-bash># reducing fields
 $ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=, '{NF=2} 1'
 goal,amazing
-
 # increasing fields
 $ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$(NF+1)="sea"} 1'
 goal:amazing:whistle:kwality:sea
@@ -208,9 +207,9 @@ goal:amazing:whistle:kwality:sea
 # empty fields will be created as needed
 $ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{$8="go"} 1'
 goal:amazing:whistle:kwality::::go
-</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Assigning <code>NF</code> to <code>0</code> will delete all the fields. However, a negative value will result in an error.</blockquote><pre><code class=language-bash>$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{NF=-1} 1'
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Assigning <code>NF</code> to <code>0</code> will delete all the fields. However, a negative value will result in an error.<pre><code class=language-bash>$ echo 'goal:amazing:whistle:kwality' | awk -F: -v OFS=: '{NF=-1} 1'
 awk: cmd. line:1: (FILENAME=- FNR=1) fatal: NF set to negative value
-</code></pre><h2 id=fpat><a class=header href=#fpat>FPAT</a></h2><p>The <code>FS</code> variable allows you to define the input field <em>separator</em>. In contrast, <code>FPAT</code> (field pattern) allows you to define what should the fields be made up of.<pre><code class=language-bash>$ s='Sample123string42with777numbers'
+</code></pre></blockquote><h2 id=fpat><a class=header href=#fpat>FPAT</a></h2><p>The <code>FS</code> variable allows you to define the input field <em>separator</em>. In contrast, <code>FPAT</code> (field pattern) allows you to define what should the fields be made up of.<pre><code class=language-bash>$ s='Sample123string42with777numbers'
 # one or more consecutive digits
 $ echo "$s" | awk -v FPAT='[0-9]+' '{print $2}'
 42
@@ -224,22 +223,44 @@ $ s='items: "apple" and "mango"'
 # get the first double quoted item
 $ echo "$s" | awk -v FPAT='"[^"]+"' '{print $1}'
 "apple"
-</code></pre><p><code>FPAT</code> is often used for CSV input where fields can contain embedded delimiter characters. For example, a field content <code>"fox,42"</code> when <code>,</code> is the delimiter.<pre><code class=language-bash>$ s='eagle,"fox,42",bee,frog'
-
-# simply using , as separator isn't sufficient
-$ echo "$s" | awk -F, '{print $2}'
-"fox
-</code></pre><p>For such simpler CSV input, <code>FPAT</code> helps to define fields as starting and ending with double quotes or containing non-comma characters.<pre><code class=language-bash># * is used instead of + to allow empty fields
-$ echo "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
-"fox,42"
-</code></pre><blockquote><p><img alt=warning src=images/warning.svg> The above will not work for all kinds of CSV files, for example if fields contain escaped double quotes, newline characters, etc. See <a href=https://stackoverflow.com/q/45420535/4082052>stackoverflow: What's the most robust way to efficiently parse CSV using awk?</a> and <a href=https://github.com/dbro/csvquote>csvquote</a> for such cases. You could also use other programming languages such as Perl, Python, Ruby, etc which come with standard CSV parsing libraries or have easy access to third party solutions. There are also specialized command line tools such as <a href=https://github.com/BurntSushi/xsv>xsv</a>.</blockquote><blockquote><p><img alt=info src=images/info.svg> A proper CSV support is planned for a future version. You can also check out <a href=https://github.com/ezrosent/frawk>frawk</a>, which is mostly similar to the <code>awk</code> command but also supports CSV parsing. <a href=https://github.com/benhoyt/goawk>goawk</a> is another implementation with CSV support.</blockquote><p>If <code>IGNORECASE</code> is set, it will affect field matching as well. Unlike <code>FS</code>, there is no different behavior for a single character pattern.<pre><code class=language-bash># count number of 'e' in the input string
+</code></pre><p>If <code>IGNORECASE</code> is set, it will affect field matching as well. Unlike <code>FS</code>, there is no different behavior for a single character pattern.<pre><code class=language-bash># count the number of character 'e'
 $ echo 'Read Eat Sleep' | awk -v FPAT='e' '{print NF}'
 3
 $ echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='e' '{print NF}'
 4
 $ echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='[e]' '{print NF}'
 4
-</code></pre><h2 id=fieldwidths><a class=header href=#fieldwidths>FIELDWIDTHS</a></h2><p><code>FIELDWIDTHS</code> is another feature where you get to define field contents. As indicated by the name, you have to specify the number of characters for each field. This method is useful to process fixed width data.<pre><code class=language-bash>$ cat items.txt
+</code></pre><h2 id=csv-processing-with-fpat><a class=header href=#csv-processing-with-fpat>CSV processing with FPAT</a></h2><p><code>FPAT</code> can be effective to process CSV (Comma Separated Values) input even when the fields contain embedded delimiter characters. First, consider the issue shown below:<pre><code class=language-bash>$ s='eagle,"fox,42",bee,frog'
+
+# simply using , as separator isn't sufficient
+$ echo "$s" | awk -F, '{print $2}'
+"fox
+</code></pre><p>For such cases, <code>FPAT</code> helps to define fields as starting and ending with double quotes or containing non-comma characters.<pre><code class=language-bash># * is used instead of + to allow empty fields
+$ echo "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
+"fox,42"
+</code></pre><h2 id=csv-processing-with---csv><a class=header href=#csv-processing-with---csv>CSV processing with <code>--csv</code></a></h2><p>The solution presented in the last section will not work for all kinds of CSV files — for example, if the fields contain escaped double quotes, newline characters, etc.<pre><code class=language-bash>$ s='"toy,eagle\"s","fox,42",bee,frog'
+
+# the FPAT solution won't work if there are escaped quotes
+$ printf '%b' "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
+s"
+</code></pre><p><code>GNU awk</code> now has a native support for handing CSV files, which is activated with the <code>--csv</code> (or <code>-k</code>) option. You cannot customize the field separator with this feature. Also, the quotes around a field will not be retained. See <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Working-With-Comma-Separated-Value-Files>gawk manual: Working With Comma Separated Value Files</a> for more details.<pre><code class=language-bash># --csv or -k can be used instead
+# however, you cannot customize the field separator
+$ printf '%b' "$s" | awk -k '{print $2}'
+fox,42
+# and quotes around a field will be lost
+$  printf '%b' "$s" | awk -k -v OFS=: '{$1=$1} 1'
+toy,eagle\"s:fox,42:bee:frog
+</code></pre><p>Here's an example with embedded newline characters:<pre><code class=language-bash>$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+$ awk -k 'NR==1{print $2}' newline.csv
+1
+2
+3
+</code></pre><p>See <a href=https://stackoverflow.com/q/45420535/4082052>stackoverflow: What's the most robust way to efficiently parse CSV using awk?</a> and <a href=https://github.com/dbro/csvquote>csvquote</a> for alternate solutions. You could also use other programming languages such as Perl, Python, Ruby, etc which come with standard CSV parsing libraries or have easy access to third party solutions. There are also specialized command line tools such as <a href=https://github.com/BurntSushi/xsv>xsv</a>.<p>You can also check out <a href=https://github.com/ezrosent/frawk>frawk</a>, which is mostly similar to the <code>awk</code> command but also supports CSV parsing. <a href=https://github.com/benhoyt/goawk>goawk</a> is another implementation with CSV support.<h2 id=fieldwidths><a class=header href=#fieldwidths>FIELDWIDTHS</a></h2><p><code>FIELDWIDTHS</code> is another feature where you get to define field contents. As indicated by the name, you have to specify the number of characters for each field. This method is useful to process fixed width data.<pre><code class=language-bash>$ cat items.txt
 apple   fig banana
 50      10  200
 
@@ -368,4 +389,24 @@ Believe it
 4) mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
+</code></pre><p><strong>14)</strong> The <code>newline.csv</code> file has fields with embedded newline characters. Display only the first and last fields as shown below.<pre><code class=language-bash>$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+
+$ awk ##### add your solution here
+apple,good
+fig,nice
+</code></pre><p><strong>15)</strong> The <code>newline.csv</code> file has fields with embedded newline characters, but no fields with escaped double quotes. Change the embedded newline characters to <code>:</code> without removing the double quotes around such fields.<pre><code class=language-bash>$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+
+$ awk ##### add your solution here
+apple,"1:2:3",good
+fig,guava,"32:54",nice
 </code></pre></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=regular-expressions.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=record-separators.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=regular-expressions.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=record-separators.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

@@ -54,7 +54,7 @@ bye
 # when passed as an environment variable
 $ ip="$s" awk 'BEGIN{print ENVIRON["ip"]}'
 hi\nbye
-</code></pre><p>Here's another example when a regexp is passed to an <code>awk</code> command.<pre><code class=language-bash># when passed via -v option
+</code></pre><p>Here's another example when a regexp is passed to an <code>awk</code> command.<pre><code class=language-bash># when passed via the -v option
 $ r='\Bpar\B'
 $ awk -v rgx="$r" '$0 ~ rgx' anchors.txt
 awk: warning: escape sequence '\B' treated as plain 'B'
@@ -68,7 +68,7 @@ $ r='\Bpar\B'
 $ rgx="$r" awk '$0 ~ ENVIRON["rgx"]' anchors.txt
 apparent effort
 two spare computers
-</code></pre><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This short chapter revisited the <code>-v</code> command line option and introduced the <code>ENVIRON</code> special array. These are particularly useful when the <code>awk</code> command is part of a shell script. Arrays will be discussed in more detail in the later chapters.<p>The next chapter will cover control structures.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> Use contents of the <code>s</code> variable to display all matching lines from the input file <code>sample.txt</code>. Assume that the <code>s</code> variable doesn't have any regexp metacharacters and construct a solution such that only whole words are matched.<pre><code class=language-bash>$ s='do'
+</code></pre><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This short chapter revisited the <code>-v</code> command line option and introduced the <code>ENVIRON</code> special array. These are particularly useful when the <code>awk</code> command is part of a shell script. Arrays will be discussed in more detail later. The next chapter will cover control structures.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> Use contents of the <code>s</code> variable to display all matching lines from the input file <code>sample.txt</code>. Assume that the <code>s</code> variable doesn't have any regexp metacharacters and construct a solution such that only whole words are matched.<pre><code class=language-bash>$ s='do'
 ##### add your solution here
 Just do-it
 </code></pre><p><strong>2)</strong> Replace all occurrences of <code>o</code> for the input file <code>addr.txt</code> with the literal contents of the <code>s</code> variable. Assume that the <code>s</code> variable has regexp metacharacters.<pre><code class=language-bash>$ s='\&/'

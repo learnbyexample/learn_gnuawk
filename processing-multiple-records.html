@@ -81,7 +81,7 @@ $ awk '!n && /toy|flower/{n=2} n && n--{print NR, $0}' context.txt
 3     flower
 6     flower
 7     sky
-</code></pre><p>Once you've understood the above examples, the rest of the examples in this section should be easier to comprehend. They are all variations of the logic used above and re-arranged to solve the use case being discussed.<p><strong>Case 2:</strong> Print <code>n</code> records after match. This is similar to previous case, except that the matching record isn't printed.<pre><code class=language-bash># print 1 line after the matching line
+</code></pre><p>Once you've understood the above examples, the rest of the examples in this section should be easier to comprehend. They are all variations of the logic used above and re-arranged to solve the use case being discussed.<p><strong>Case 2:</strong> Print <code>n</code> records after match. This is similar to the previous case, except that the matching record isn't printed.<pre><code class=language-bash># print 1 line after the matching line
 # for overlapping cases, n gets re-assigned before reaching 0
 $ awk 'n && n--; /language/{n=1}' context.txt
     english
@@ -124,7 +124,7 @@ $ awk 'NR>2 && /toy|flower/{print p2} {p2=p1; p1=$0}' context.txt
 blue
     sand stone
 
-# else, use an array to save previous records
+# else, use an array to save the previous records
 $ awk -v n=4 'NR>n && /age/{print a[NR-n]} {a[NR]=$0}' context.txt
 light blue
     english
@@ -316,7 +316,7 @@ Today is sunny
 Not a bit funny
 No doubt you like it too
 
-</code></pre><p><strong>4)</strong> For the input file <code>broken.txt</code>, print all lines between the markers <code>top</code> and <code>bottom</code>. The first <code>awk</code> command shown below doesn't work because it is matching till the end of file as the second marker isn't found. Assume that the input file cannot have two <code>top</code> markers without a <code>bottom</code> marker appearing in between and vice-versa.<pre><code class=language-bash>$ cat broken.txt
+</code></pre><p><strong>4)</strong> The input file <code>broken.txt</code> starts with a line containing <code>top</code> followed by some content before a line containing <code>bottom</code> is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the <code>bottom</code> marker. The first <code>awk</code> command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.<pre><code class=language-bash>$ cat broken.txt
 top
 3.14
 bottom
@@ -368,7 +368,7 @@ $ awk -v n=4 ##### add your solution here
 pink blue white yellow
 car,mat,ball,basket
 </code></pre><p><strong>6)</strong> For the input file <code>ruby.md</code>, replace all occurrences of <code>ruby</code> (irrespective of case) with <code>Ruby</code>. But, do not replace any matches between <code>```ruby</code> and <code>```</code> lines (<code>ruby</code> in these markers shouldn't be replaced either). Save the output in <code>out.md</code>.<pre><code class=language-bash>$ awk ##### add your solution here ruby.md > out.md
-$ diff -sq out.md expected.md 
+$ diff -sq out.md expected.md
 Files out.md and expected.md are identical
 </code></pre><p><strong>7)</strong> For the input file <code>lines.txt</code>, delete the line that comes after a whole line containing <code>---</code>. Assume that such lines won't occur consecutively.<pre><code class=language-bash>$ cat lines.txt
 Go There

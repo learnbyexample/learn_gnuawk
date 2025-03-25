@@ -86,11 +86,11 @@ $ echo 'hi log_42 12b' | awk '{gsub(/\&LT/, ":")} 1'
 # add something only at the end of word
 $ echo 'hi log_42 12b' | awk '{gsub(/\>/, ":")} 1'
 hi: log_42: 12b:
-</code></pre><h2 id=relying-on-the-default-initial-value><a class=header href=#relying-on-the-default-initial-value>Relying on the default initial value</a></h2><p>Uninitialized variables are useful, but sometimes they don't translate well if you are converting a command from single file input to multiple files. You have to workout which ones would need a reset at the beginning of each file being processed.<pre><code class=language-bash># step 1: works for single file
+</code></pre><h2 id=relying-on-the-default-initial-value><a class=header href=#relying-on-the-default-initial-value>Relying on the default initial value</a></h2><p>Uninitialized variables are useful, but sometimes they don't translate well if you are converting a command from a single file input to multiple files. You have to workout which ones would need a reset at the beginning of each file being processed.<pre><code class=language-bash># step 1: works for a single file
 $ awk '{sum += $NF} END{print sum}' table.txt
 38.14
 
-# step 2: prepare code to work for multiple file
+# step 2: prepare code to work for multiple files
 $ awk '{sum += $NF} ENDFILE{print FILENAME ":" sum}' table.txt
 table.txt:38.14
 
@@ -181,10 +181,10 @@ good
 # speed benefit will vary depending on computing resources, input, etc
 # words.txt contains dictionary words, one word per line
 $ time awk '/^([a-d][r-z]){3}$/' words.txt > f1
-real    0m0.029s
+real    0m0.027s
 
 $ time LC_ALL=C awk '/^([a-d][r-z]){3}$/' words.txt > f2
-real    0m0.017s
+real    0m0.015s
 
 $ time mawk '/^[a-d][r-z][a-d][r-z][a-d][r-z]$/' words.txt > f3
 real    0m0.009s
@@ -199,13 +199,13 @@ $ rm f[123]
 </code></pre><p>Here's another example.<pre><code class=language-bash># count words containing exactly 3 lowercase 'a' characters
 $ time awk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
 1019
-real    0m0.032s
+real    0m0.030s
 
 $ time LC_ALL=C awk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
 1019
-real    0m0.021s
+real    0m0.020s
 
 $ time mawk -F'a' 'NF==4{cnt++} END{print +cnt}' words.txt
 1019
-real    0m0.014s
+real    0m0.013s
 </code></pre><blockquote><p><img alt=info src=images/info.svg> See also <a href=https://github.com/ezrosent/frawk>frawk</a>, an efficient awk-like language implemented in Rust. And <a href=https://github.com/koraa/huniq>huniq</a>, a faster alternative for removing line based duplicates.</blockquote></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=awk-scripts.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=further-reading.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=awk-scripts.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=further-reading.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

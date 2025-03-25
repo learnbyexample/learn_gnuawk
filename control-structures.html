@@ -46,13 +46,13 @@ $ seq 6 | awk '{ORS = NR%3 ? "-" : RS} 1'
 1-2-3
 4-5-6
 
-# note that parentheses is necessary for print in this case
+# note that parentheses are necessary for print in this case
 $ awk '/^b/{print; print($NF>0 ? "------" : "======")}' table.txt
 brown bread mat hair 42
 ------
 blue cake mug shirt -7
 ======
-</code></pre><blockquote><p><img alt=info src=images/info.svg> See also <a href=https://stackoverflow.com/a/29784278>stackoverflow: finding min and max value of a column</a> and <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Switch-Statement>gawk manual: switch</a>.</blockquote><h2 id=loops><a class=header href=#loops>loops</a></h2><p><code>for</code> loops are handy when you are working with arrays. Also for processing input fields, since <code>$N</code> syntax allows passing an expression instead of just fixed values.<pre><code class=language-bash>$ awk 'BEGIN{for(i=2; i&LT7; i+=2) print i}'
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See also <a href=https://stackoverflow.com/a/29784278>stackoverflow: finding min and max value of a column</a> and <a href=https://www.gnu.org/software/gawk/manual/gawk.html#Switch-Statement>gawk manual: switch</a>.</blockquote><h2 id=loops><a class=header href=#loops>Loops</a></h2><p><code>for</code> loops are handy when you are working with arrays. Also for processing input fields, since <code>$N</code> syntax allows passing an expression instead of just fixed values.<pre><code class=language-bash>$ awk 'BEGIN{for(i=2; i&LT7; i+=2) print i}'
 2
 4
 6
@@ -94,7 +94,7 @@ $ echo 'titillate' | awk '{do{print} while(gsub(/til/, ""))}'
 titillate
 tilate
 ate
-</code></pre><h2 id=next><a class=header href=#next>next</a></h2><p><code>next</code> is similar to the <code>continue</code> statement but it acts on the default loop that goes through the input records. It doesn't affect <code>BEGIN</code> or <code>END</code> blocks as they are outside the record looping. When <code>next</code> is executed, rest of the statements will be skipped and next input record will be fetched for processing.<pre><code class=language-bash>$ awk '/\&LTpar/{print "%% " $0; next} {print /s/ ? "X" : "Y"}' anchors.txt
+</code></pre><h2 id=next><a class=header href=#next>next</a></h2><p><code>next</code> is similar to the <code>continue</code> statement but it acts on the default loop that goes through the input records. It doesn't affect the <code>BEGIN</code> or <code>END</code> blocks as they are outside the record looping. When <code>next</code> is executed, rest of the statements will be skipped and the next input record will be fetched for processing.<pre><code class=language-bash>$ awk '/\&LTpar/{print "%% " $0; next} {print /s/ ? "X" : "Y"}' anchors.txt
 %% sub par
 X
 Y
@@ -121,12 +121,14 @@ $ awk 'BEGIN{print "hi"; exit; print "hello"}
        END{print "bye"}' table.txt
 hi
 bye
-</code></pre><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter covered some of the control flow structures provided by <code>awk</code>. These features makes <code>awk</code> flexible and easier to use compared to <code>sed</code>.<p>Next chapter will discuss some of the built-in functions.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> The input file <code>nums.txt</code> contains a single column of numbers. Change positive numbers to negative and vice versa. Solution should use the <code>sub</code> function and shouldn't explicitly use the <code>if-else</code> control structure or the ternary operator.<pre><code class=language-bash>$ cat nums.txt
+</code></pre><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter covered some of the control flow structures provided by <code>awk</code>. These features makes <code>awk</code> flexible and easier to use compared to <code>sed</code>.<p>Next chapter will discuss some of the built-in functions.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> The input file <code>nums.txt</code> contains a single column of numbers. If the number starts with a <code>-</code> sign, remove it and vice versa. Solution should use the <code>sub</code> function and shouldn't explicitly use the <code>if-else</code> control structure or the ternary operator.<pre><code class=language-bash>$ cat nums.txt
 42
 -2
 10101
 -3.14
 -75
+2.3e4
+0
 
 $ awk ##### add your solution here
 -42
@@ -134,6 +136,8 @@ $ awk ##### add your solution here
 -10101
 3.14
 75
+-2.3e4
+-0
 </code></pre><p><strong>2)</strong> For the input file <code>table.txt</code>, change the field separator from space to the <code>,</code> character. Also, any field not containing digit characters should be surrounded by double quotes.<pre><code class=language-bash>$ awk ##### add your solution here
 "brown","bread","mat","hair",42
 "blue","cake","mug","shirt",-7

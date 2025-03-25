@@ -84,7 +84,7 @@ $ seq 6 | awk '{ORS = NR%3 ? "-" : "\n"} 1'
 1-2-3
 4-5-6
 </code></pre><blockquote><p><img alt=info src=images/info.svg> If the last line of input didn't end with the input record separator, it might get added in the output if <code>print</code> is used, as <code>ORS</code> gets appended.<pre><code class=language-bash># here last line of the input doesn't end with a newline character
-# but gets added via ORS when 'print' is used
+# but gets added via ORS when $0 is printed
 $ printf '1\n2' | awk '1; END{print 3}'
 1
 2
@@ -100,7 +100,7 @@ with
 $ printf 'load;err_msg--ant,r2..not' | awk -v RS='\\W+' '/an/'
 ant
 </code></pre><p>First record will be empty if <code>RS</code> matches from the start of input file. However, if <code>RS</code> matches until the very last character of the input file, there won't be an empty record as the last record. This is different from how <code>FS</code> behaves if it matches until the last character.<pre><code class=language-bash># first record is empty and the last record is a newline character
-# change 'echo' command to 'printf' and see what changes
+# change the 'echo' command to 'printf' and see what changes
 $ echo '123string42with777' | awk -v RS='[0-9]+' '{print NR ") [" $0 "]"}'
 1) []
 2) [string]

@@ -66,7 +66,7 @@ f1.txt
 f2.txt
 f3.txt
 greeting.txt
-</code></pre><p>Similar to manipulating <code>NF</code> and modifying <code>$N</code> field contents, you can change the values of <code>ARGC</code> and <code>ARGV</code> to control how the arguments should be processed.<p>However, not all arguments are necessarily filenames. <code>awk</code> allows assigning variable values without <code>-v</code> option if it is done in the place where you usually provide file arguments. For example:<pre><code class=language-bash>$ awk 'BEGIN{for(i=0; i&LTARGC; i++) print ARGV[i]}' table.txt n=5 greeting.txt
+</code></pre><p>Similar to manipulating <code>NF</code> and modifying <code>$N</code> field contents, you can change the values of <code>ARGC</code> and <code>ARGV</code> to control how the arguments should be processed.<p>However, not all arguments are necessarily filenames. <code>awk</code> allows assigning variable values without the <code>-v</code> option if it is done in the place where you usually provide file arguments. For example:<pre><code class=language-bash>$ awk 'BEGIN{for(i=0; i&LTARGC; i++) print ARGV[i]}' table.txt n=5 greeting.txt
 awk
 table.txt
 n=5
@@ -88,7 +88,7 @@ blue,cake
 yellow,banana
 Harry Potter,Mistborn
 Matilda,Castle Hangnail
-</code></pre><blockquote><p><img alt=info src=images/info.svg> See <a href=https://stackoverflow.com/a/64427745/4082052>stackoverflow: extract positions 2-7 from a fasta sequence</a> for a practical example of changing field/record separators between the files being processed.</blockquote><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter introduced few more special blocks and variables are that handy for processing multiple file inputs. These will show up in examples in the coming chapters as well.<p>Next chapter will discuss use cases where you need to take decisions based on multiple input records.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> Print the last field of the first two lines for the input files <code>table.txt</code>, <code>scores.csv</code> and <code>fw.txt</code>. The field separators for these files are space, comma and fixed width respectively. To make the output more informative, print filenames and a separator as shown in the output below. Assume that the input files will have at least two lines.<pre><code class=language-bash>$ awk ##### add your solution here
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See <a href=https://stackoverflow.com/a/64427745/4082052>stackoverflow: extract positions 2-7 from a fasta sequence</a> for a practical example of changing field/record separators between the files being processed.</blockquote><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter introduced a few more special blocks and variables that are handy for processing multiple file inputs. These will show up in examples in the coming chapters as well.<p>Next chapter will discuss use cases where you need to take decisions based on multiple input records.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnuawk/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> Print the last field of the first two lines for the input files <code>table.txt</code>, <code>scores.csv</code> and <code>fw.txt</code>. The field separators for these files are space, comma and fixed width respectively. To make the output more informative, print filenames and a separator as shown in the output below. Assume that the input files will have at least two lines.<pre><code class=language-bash>$ awk ##### add your solution here
 >table.txt<
 42
 -7
@@ -101,7 +101,7 @@ Chemistry
 0.134563
 6
 ----------
-</code></pre><p><strong>2)</strong> For the input files <code>sample.txt</code>, <code>secrets.txt</code>, <code>addr.txt</code> and <code>table.txt</code>, display only the names of files that contain <code>at</code> or <code>fun</code> in the third field. Assume space as the field separator.<pre><code class=language-bash>$ awk ##### add your solution here sample.txt secrets.txt addr.txt table.txt
+</code></pre><p><strong>2)</strong> For the input files <code>sample.txt</code>, <code>secrets.txt</code>, <code>addr.txt</code> and <code>table.txt</code>, display only the names of files that contain <code>in</code> or <code>at</code> or <code>fun</code> in the third field. Assume space as the field separator. The output should not show a matching filename more than once.<pre><code class=language-bash>$ awk ##### add your solution here sample.txt secrets.txt addr.txt table.txt
 secrets.txt
 addr.txt
 table.txt

@@ -1,5 +1,14 @@
 <br>
 
+### 2.5
+
+* Command version updated to **GNU awk 5.3.1**
+* Added details for the `--csv` option and the `\u` escape sequence
+* Corrected typos, updated exercises, descriptions and external links
+* Updated Acknowledgements section
+
+<br>
+
 ### 2.0
 
 * Command version updated to **GNU awk 5.2.2**

@@ -8,7 +8,7 @@ seq 6 | awk '{ORS = NR%3 ? "-" : RS} 1'
 
 awk '/^b/{print; print($NF>0 ? "------" : "======")}' table.txt
 
-## loops
+## Loops
 
 awk 'BEGIN{for(i=2; i<7; i+=2) print i}'
 

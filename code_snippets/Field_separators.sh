@@ -56,7 +56,7 @@ echo 'Sample123string42with777numbers' | awk -F'[0-9]+' '{print $2}'
 
 echo 'Sample123string42with777numbers' | awk -F'[a-zA-Z]+' '{print $2}'
 
-echo 'load;err_msg--\ant,r2..not' | awk -F'\\W+' '{print $3}'
+printf '%s\n' 'load;err_msg--\ant,r2..not' | awk -F'\\W+' '{print $3}'
 
 echo 'hi.bye.hello' | awk -F. '{print $2}'
 
@@ -122,17 +122,33 @@ s='items: "apple" and "mango"'
 
 echo "$s" | awk -v FPAT='"[^"]+"' '{print $1}'
 
+echo 'Read Eat Sleep' | awk -v FPAT='e' '{print NF}'
+
+echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='e' '{print NF}'
+
+echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='[e]' '{print NF}'
+
+## CSV processing with FPAT
+
 s='eagle,"fox,42",bee,frog'
 
 echo "$s" | awk -F, '{print $2}'
 
 echo "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
 
-echo 'Read Eat Sleep' | awk -v FPAT='e' '{print NF}'
+## CSV processing with `--csv`
 
-echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='e' '{print NF}'
+s='"toy,eagle\"s","fox,42",bee,frog'
 
-echo 'Read Eat Sleep' | awk -v IGNORECASE=1 -v FPAT='[e]' '{print NF}'
+printf '%b' "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
+
+printf '%b' "$s" | awk -k '{print $2}'
+
+ printf '%b' "$s" | awk -k -v OFS=: '{$1=$1} 1'
+
+cat newline.csv
+
+awk -k 'NR==1{print $2}' newline.csv
 
 ## FIELDWIDTHS
 

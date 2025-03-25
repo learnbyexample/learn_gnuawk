@@ -181,7 +181,7 @@ eqn2 = pressure*3+8-14256
 * `*` is same as
 * `+` is same as
 
-**10)** True or False? `(a*|b*)` is same as `(a|b)*` 
+**10)** `(a*|b*)` is same as `(a|b)*` — True or False?
 
 **11)** For the input file `patterns.txt`, construct two different regexps to get the outputs as shown below. Display only the modified lines.
 
@@ -238,7 +238,7 @@ $ echo '_;3%,.,=-=,:' | awk ##### add your solution here
 _;3%,.,42,:
 ```
 
-**15)** For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar` and replace the last but second `ar` with `X`.
+**15)** For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar`. For such lines, replace the third from last occurrence of `ar` with `X`.
 
 ```bash
 $ awk ##### add your solution here
@@ -507,6 +507,36 @@ Believe it
 4) mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
+```
+
+**14)** The `newline.csv` file has fields with embedded newline characters. Display only the first and last fields as shown below.
+
+```bash
+$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+
+$ awk ##### add your solution here
+apple,good
+fig,nice
+```
+
+**15)** The `newline.csv` file has fields with embedded newline characters, but no fields with escaped double quotes. Change the embedded newline characters to `:` without removing the double quotes around such fields.
+
+```bash
+$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+
+$ awk ##### add your solution here
+apple,"1:2:3",good
+fig,guava,"32:54",nice
 ```
 
 <br>
@@ -798,7 +828,7 @@ Y\&/u are funny
 
 # Control Structures
 
-**1)** The input file `nums.txt` contains a single column of numbers. Change positive numbers to negative and vice versa. Solution should use the `sub` function and shouldn't explicitly use the `if-else` control structure or the ternary operator.
+**1)** The input file `nums.txt` contains a single column of numbers. If the number starts with a `-` sign, remove it and vice versa. Solution should use the `sub` function and shouldn't explicitly use the `if-else` control structure or the ternary operator.
 
 ```bash
 $ cat nums.txt
@@ -807,6 +837,8 @@ $ cat nums.txt
 10101
 -3.14
 -75
+2.3e4
+0
 
 $ awk ##### add your solution here
 -42
@@ -814,6 +846,8 @@ $ awk ##### add your solution here
 -10101
 3.14
 75
+-2.3e4
+-0
 ```
 
 **2)** For the input file `table.txt`, change the field separator from space to the `,` character. Also, any field not containing digit characters should be surrounded by double quotes.
@@ -906,7 +940,7 @@ Blue,67,46,99
 **2)** For the input file `nums3.txt`, calculate the square root of numbers and display the results in two different formats as shown below. First, with four digits after the fractional point and then in the scientific notation, again with four digits after the fractional point. Assume that the input has only a single column of positive numbers.
 
 ```bash
-$ cat nums3.txt 
+$ cat nums3.txt
 3.14
 4201
 777
@@ -962,9 +996,9 @@ $ echo '3*f + (a^b) - 45' | ##### add your solution here
 
 $ s='\&/'
 # should be no output for this input
-$ echo 'f\&z\&2.14' | ##### add your solution here
+$ printf '%s\n' 'f\&z\&2.14' | ##### add your solution here
 # but this one has a match
-$ echo 'f\&z\&/2.14' | ##### add your solution here
+$ printf '%s\n' 'f\&z\&/2.14' | ##### add your solution here
 \&/2.14
 ```
 
@@ -1087,7 +1121,7 @@ Chemistry
 ----------
 ```
 
-**2)** For the input files `sample.txt`, `secrets.txt`, `addr.txt` and `table.txt`, display only the names of files that contain `at` or `fun` in the third field. Assume space as the field separator.
+**2)** For the input files `sample.txt`, `secrets.txt`, `addr.txt` and `table.txt`, display only the names of files that contain `in` or `at` or `fun` in the third field. Assume space as the field separator. The output should not show a matching filename more than once.
 
 ```bash
 $ awk ##### add your solution here sample.txt secrets.txt addr.txt table.txt
@@ -1141,7 +1175,7 @@ No doubt you like it too
 
 ```
 
-**4)** For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. The first `awk` command shown below doesn't work because it is matching till the end of file as the second marker isn't found. Assume that the input file cannot have two `top` markers without a `bottom` marker appearing in between and vice-versa.
+**4)** The input file `broken.txt` starts with a line containing `top` followed by some content before a line containing `bottom` is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the `bottom` marker. The first `awk` command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.
 
 ```bash
 $ cat broken.txt
@@ -1206,7 +1240,7 @@ car,mat,ball,basket
 
 ```bash
 $ awk ##### add your solution here ruby.md > out.md
-$ diff -sq out.md expected.md 
+$ diff -sq out.md expected.md
 Files out.md and expected.md are identical
 ```
 
@@ -1408,12 +1442,12 @@ tru eblue
 ```bash
 $ awk ##### add your solution here
 
-$ cat uniq.txt 
+$ cat uniq.txt
 true blue
 hehe bebe
 tru eblue
 
-$ cat dupl.txt 
+$ cat dupl.txt
 hehe haha
 door floor
 haha hehe

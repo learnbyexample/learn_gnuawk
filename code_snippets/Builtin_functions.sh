@@ -105,11 +105,11 @@ awk 'index($0, "a+b")==1' eqns.txt
 
 awk -v s="a+b" 'index($0, s)==length()-length(s)+1' eqns.txt
 
-echo 'a\b\c\d' | awk -v s='a\b' 'index($0, s)'
+printf '%s\n' 'a\b\c\d' | awk -v s='a\b' 'index($0, s)'
 
-echo 'a\b\c\d' | awk -v s='a\\b' 'index($0, s)'
+printf '%s\n' 'a\b\c\d' | awk -v s='a\\b' 'index($0, s)'
 
-echo 'a\b\c\d' | s='a\b' awk 'index($0, ENVIRON["s"])'
+printf '%s\n' 'a\b\c\d' | s='a\b' awk 'index($0, ENVIRON["s"])'
 
 ## system
 

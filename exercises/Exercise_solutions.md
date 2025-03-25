@@ -182,7 +182,7 @@ eqn2 = pressure*3+8-14256
 * `*` is same as `{0,}`
 * `+` is same as `{1,}`
 
-**10)** True or False? `(a*|b*)` is same as `(a|b)*` 
+**10)** `(a*|b*)` is same as `(a|b)*` — True or False?
 
 False. Because `(a*|b*)` will match only sequences like `a`, `aaa`, `bb`, `bbbbbbbb`. But `(a|b)*` can match a mixed sequence like `ababbba` too.
 
@@ -241,9 +241,10 @@ $ echo '_;3%,.,=-=,:' | awk '{print gensub(/[^,]+/, "42", 3)}'
 _;3%,.,42,:
 ```
 
-**15)** For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar` and replace the last but second `ar` with `X`.
+**15)** For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar`. For such lines, replace the third from last occurrence of `ar` with `X`.
 
 ```bash
+# can also use: awk -F'ar' 'NF>3{print gensub(FS, "X", NF-3)}' patterns.txt
 $ awk 'BEGIN{r = @/(.*)ar((.*ar){2})/} $0~r{print gensub(r, "\\1X\\2", 1)}' patterns.txt
 par car tX far Cart
 pXt cart mart
@@ -352,7 +353,7 @@ $ printf '/home/joe/1\n/home/john/1\n' | awk '$0 ~ "/home/joe/"'
 /home/joe/1
 
 # however, you'll need \\ to represent a single \
-$ echo '\learn\by\example' | awk '{gsub("\\\\", "/")} 1'
+$ printf '%s\n' '\learn\by\example' | awk '{gsub("\\\\", "/")} 1'
 /learn/by/example
 ```
 
@@ -540,6 +541,36 @@ pink blue white yellow
 car,mat,ball,basket
 ```
 
+**14)** The `newline.csv` file has fields with embedded newline characters. Display only the first and last fields as shown below.
+
+```bash
+$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+
+$ awk -k -v OFS=, '{print $1, $NF}' newline.csv
+apple,good
+fig,nice
+```
+
+**15)** The `newline.csv` file has fields with embedded newline characters, but no fields with escaped double quotes. Change the embedded newline characters to `:` without removing the double quotes around such fields.
+
+```bash
+$ cat newline.csv
+apple,"1
+2
+3",good
+fig,guava,"32
+54",nice
+
+$ awk -k '{gsub(/\n/, ":")} 1' newline.csv
+apple,"1:2:3",good
+fig,guava,"32:54",nice
+```
+
 <br>
 
 # Record separators
@@ -569,7 +600,7 @@ $ paste -sd, addr.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 # make sure there's no ',' at end of the line
 # and that there's a newline character at the end of the line
-$ awk -v ORS= 'NR>1{print ","} 1; END{print "\n"}' addr.txt 
+$ awk -v ORS= 'NR>1{print ","} 1; END{print "\n"}' addr.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 
 # if there's only one line in input, again make sure there's no trailing ','
@@ -830,7 +861,7 @@ Y\&/u are funny
 
 # Control Structures
 
-**1)** The input file `nums.txt` contains a single column of numbers. Change positive numbers to negative and vice versa. Solution should use the `sub` function and shouldn't explicitly use the `if-else` control structure or the ternary operator.
+**1)** The input file `nums.txt` contains a single column of numbers. If the number starts with a `-` sign, remove it and vice versa. Solution should use the `sub` function and shouldn't explicitly use the `if-else` control structure or the ternary operator.
 
 ```bash
 $ cat nums.txt
@@ -839,6 +870,8 @@ $ cat nums.txt
 10101
 -3.14
 -75
+2.3e4
+0
 
 # same as: awk '{$0 ~ /^-/ ? sub(/^-/, "") : sub(/^/, "-")} 1' nums.txt
 $ awk '!sub(/^-/, ""){sub(/^/, "-")} 1' nums.txt
@@ -847,6 +880,8 @@ $ awk '!sub(/^-/, ""){sub(/^/, "-")} 1' nums.txt
 -10101
 3.14
 75
+-2.3e4
+-0
 ```
 
 **2)** For the input file `table.txt`, change the field separator from space to the `,` character. Also, any field not containing digit characters should be surrounded by double quotes.
@@ -955,7 +990,7 @@ Blue,67,46,99
 **2)** For the input file `nums3.txt`, calculate the square root of numbers and display the results in two different formats as shown below. First, with four digits after the fractional point and then in the scientific notation, again with four digits after the fractional point. Assume that the input has only a single column of positive numbers.
 
 ```bash
-$ cat nums3.txt 
+$ cat nums3.txt
 3.14
 4201
 777
@@ -1011,9 +1046,9 @@ $ echo '3*f + (a^b) - 45' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($
 
 $ s='\&/'
 # should be no output for this input
-$ echo 'f\&z\&2.14' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($0, n)}'
+$ printf '%s\n' 'f\&z\&2.14' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($0, n)}'
 # but this one has a match
-$ echo 'f\&z\&/2.14' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($0, n)}'
+$ printf '%s\n' 'f\&z\&/2.14' | s="$s" awk 'n=index($0, ENVIRON["s"]){print substr($0, n)}'
 \&/2.14
 ```
 
@@ -1141,10 +1176,10 @@ Chemistry
 ----------
 ```
 
-**2)** For the input files `sample.txt`, `secrets.txt`, `addr.txt` and `table.txt`, display only the names of files that contain `at` or `fun` in the third field. Assume space as the field separator.
+**2)** For the input files `sample.txt`, `secrets.txt`, `addr.txt` and `table.txt`, display only the names of files that contain `in` or `at` or `fun` in the third field. Assume space as the field separator. The output should not show a matching filename more than once.
 
 ```bash
-$ awk '$3 ~ /fun|at/{print FILENAME; nextfile}' sample.txt secrets.txt addr.txt table.txt
+$ awk '$3 ~ /fun|at|in/{print FILENAME; nextfile}' sample.txt secrets.txt addr.txt table.txt
 secrets.txt
 addr.txt
 table.txt
@@ -1197,7 +1232,7 @@ No doubt you like it too
 
 ```
 
-**4)** For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. The first `awk` command shown below doesn't work because it is matching till the end of file as the second marker isn't found. Assume that the input file cannot have two `top` markers without a `bottom` marker appearing in between and vice-versa.
+**4)** The input file `broken.txt` starts with a line containing `top` followed by some content before a line containing `bottom` is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the `bottom` marker. The first `awk` command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.
 
 ```bash
 $ cat broken.txt
@@ -1262,7 +1297,7 @@ car,mat,ball,basket
 
 ```bash
 $ awk -v IGNORECASE=1 '/```ruby/{f=1} !f{gsub(/ruby/, "Ruby")} /```$/{f=0} 1' ruby.md > out.md
-$ diff -sq out.md expected.md 
+$ diff -sq out.md expected.md
 Files out.md and expected.md are identical
 ```
 
@@ -1472,12 +1507,12 @@ tru eblue
 $ awk 'NR==FNR{c[$1,$2]++; next} {if((c[$1,$2] + c[$2,$1]) == 1) print > "uniq.txt";
        else print > "dupl.txt"}' twos.txt twos.txt
 
-$ cat uniq.txt 
+$ cat uniq.txt
 true blue
 hehe bebe
 tru eblue
 
-$ cat dupl.txt 
+$ cat dupl.txt
 hehe haha
 door floor
 haha hehe
@@ -1522,7 +1557,7 @@ For the input file `gawk.md`, construct a Table of Content section as per the de
 The script file should be named as `toc.awk` and save the output in `out.md`.
 
 ```bash
-$ cat toc.awk 
+$ cat toc.awk
 /^```bash$/ {
     f = 1
 }
@@ -1553,7 +1588,7 @@ $ cat odd.txt
 -oreo-not:a _a2_ roar<=>took%22
 RoaR to wow-
 
-$ cat same.awk 
+$ cat same.awk
 {
     c = 0
     n = split($0, a, /\W+/, seps)

@@ -1,6 +1,6 @@
 # CLI text processing with GNU awk
 
-Example based guide to mastering GNU awk. Visit https://youtu.be/KIa_EaYwGDI for a short video about the book.
+Learn GNU awk with hundreds of examples and exercises. Visit https://youtu.be/KIa_EaYwGDI for a short video about the book.
 
 <p align="center"><img src="./images/gawk_ls.png" alt="CLI text processing with GNU awk ebook cover image" /></p>
 
@@ -20,15 +20,14 @@ See [Version_changes.md](./Version_changes.md) to keep track of changes made to 
     * https://learnbyexample.gumroad.com/l/gnu_awk
     * https://leanpub.com/gnu_awk
 * You can also get the book as part of these bundles:
-    * **All books bundle** bundle from https://learnbyexample.gumroad.com/l/all-books
-        * Includes all my programming books
-    * **Magical one-liners** bundle from https://learnbyexample.gumroad.com/l/oneliners or https://leanpub.com/b/oneliners
-    * **Awesome Regex** bundle from https://learnbyexample.gumroad.com/l/regex or https://leanpub.com/b/regex
+    * **All books bundle** bundle from https://leanpub.com/b/learnbyexample-all-books or https://learnbyexample.gumroad.com/l/all-books
+    * **Magical one-liners** bundle from https://leanpub.com/b/oneliners or https://learnbyexample.gumroad.com/l/oneliners
+    * **Awesome Regex** bundle from https://leanpub.com/b/regex or https://learnbyexample.gumroad.com/l/regex
 * See https://learnbyexample.github.io/books/ for a list of other books
 
 For a preview of the book, see [sample chapters](./sample_chapters/gnu_awk_sample.pdf).
 
-The book can also be [viewed as a single markdown file in this repo](./gnu_awk.md). See my blogpost on [generating pdfs from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
+The book can also be [viewed as a single markdown file in this repo](./gnu_awk.md). See my blogpost on [generating pdf/epub from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
 
 For the web version of the book, visit https://learnbyexample.github.io/learn_gnuawk/
 
@@ -95,11 +94,12 @@ You can reach me via:
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
 * [arifmahmudrana](https://github.com/arifmahmudrana) for spotting an ambiguous explanation
 * [Pound-Hash](https://github.com/Pound-Hash) for critical feedback
+* [FabijanC](https://github.com/FabijanC) and [alexwheezy](https://github.com/alexwheezy) for spotting ambiguous descriptions, typos and issues with commands
 * [mdBook](https://github.com/rust-lang/mdBook) — for web version of the book
     * [mdBook-pagetoc](https://github.com/JorelAli/mdBook-pagetoc) — for adding table of contents for each chapter
     * [minify-html](https://github.com/wilsonzlin/minify-html) — for minifying html files
 
-Special thanks to all my friends and online acquaintances for their help, support and encouragement, especially during these difficult times.
+Special thanks to all my friends and online acquaintances for their help, support and encouragement, especially during difficult times.
 
 <br>
 

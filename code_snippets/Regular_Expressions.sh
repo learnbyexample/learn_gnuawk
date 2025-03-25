@@ -82,7 +82,7 @@ printf 'a^2 + b^2 - C*3\nd = c^2' | awk '/b\^2/'
 
 echo '(a*b) + c' | awk '{gsub(/\(|)/, "")} 1'
 
-echo '\learn\by\example' | awk '{gsub(/\\/, "/")} 1'
+printf '%s\n' '\learn\by\example' | awk '{gsub(/\\/, "/")} 1'
 
 ## Using string literal as a regexp
 
@@ -102,9 +102,9 @@ awk 'gsub("\\<par\\>", "X")' anchors.txt
 
 awk 'gsub(/\<par\>/, "X")' anchors.txt
 
-echo '\learn\by\example' | awk '{gsub("\\\\", "/")} 1'
+printf '%s\n' '\learn\by\example' | awk '{gsub("\\\\", "/")} 1'
 
-echo '\learn\by\example' | awk '{gsub(/\\/, "/")} 1'
+printf '%s\n' '\learn\by\example' | awk '{gsub(/\\/, "/")} 1'
 
 ## The dot meta character
 
@@ -202,15 +202,15 @@ echo 'I like "mango" and "guava"' | awk '{gsub(/"[^"]+"/, "X")} 1'
 
 printf 'tryst\nfun\nglyph\npity\nwhy\n' | awk '!/[aeiou]/'
 
-echo 'load;err_msg--\/ant,r2..not' | awk '{gsub(/\W+/, "|")} 1'
+printf '%s\n' 'load;err_msg--\/ant,r2..not' | awk '{gsub(/\W+/, "|")} 1'
 
 printf 'hi  \v\f  there.\thave   \ra nice\t\tday\n' | awk '{gsub(/\s+/, " ")} 1'
 
-echo 'w=y\x+9*3' | awk '{gsub(/[\w=]/, "")} 1'
+printf '%s\n' 'w=y\x+9*3' | awk '{gsub(/[\w=]/, "")} 1'
 
-echo '42\d123' | awk '{gsub(/\d+/, "-")} 1'
+printf '%s\n' '42\d123' | awk '{gsub(/\d+/, "-")} 1'
 
-echo '42\d123' | perl -pe 's/\d+/-/g'
+printf '%s\n' '42\d123' | perl -pe 's/\d+/-/g'
 
 ## Named character sets
 
@@ -260,7 +260,11 @@ echo 'hello world' | awk '{sub(/.*/, "[\x26]")} 1'
 
 echo 'read' | awk '{sub(/\d/, "l")} 1'
 
-## Replace specific occurrence
+awk 'BEGIN{print "\u3b1\u3bb\u3b5\u3c0\u3bf\u3cd"}'
+
+awk 'BEGIN{print "cag\u308" "ed"}'
+
+## Replace a specific occurrence
 
 s='apple:banana:cherry:fig:mango'
 
@@ -286,7 +290,7 @@ echo "$s" | awk '{print gensub(/(.*),((.*,){2})/, "\\1[]\\2", 1)}'
 
 s='effort flee facade oddball rat tool'
 
-echo "$s" | awk '{gsub(/\w*(\w)\1\w*/, "X")} 1'
+echo "$s" | awk '{print gensub(/\w*(\w)\1\w*/, "X", "g")}'
 
 echo "$s" | sed -E 's/\w*(\w)\1\w*/X/g'
 

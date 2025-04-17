@@ -21,6 +21,7 @@ See [Version_changes.md](./Version_changes.md) to keep track of changes made to 
     * https://leanpub.com/gnu_awk
 * You can also get the book as part of these bundles:
     * **All books bundle** bundle from https://leanpub.com/b/learnbyexample-all-books or https://learnbyexample.gumroad.com/l/all-books
+    * **Linux CLI Text Processing** bundle from https://leanpub.com/b/linux-cli-text-processing or https://learnbyexample.gumroad.com/l/linux-cli-text-processing
     * **Magical one-liners** bundle from https://leanpub.com/b/oneliners or https://learnbyexample.gumroad.com/l/oneliners
     * **Awesome Regex** bundle from https://leanpub.com/b/regex or https://learnbyexample.gumroad.com/l/regex
 * See https://learnbyexample.github.io/books/ for a list of other books
